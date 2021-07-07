@@ -1,7 +1,7 @@
 # Yet other compiler and vm prototype
 ## Bytecode Standard
 VM 采用大端序、32位定长指令
-| Mnemonic | Opcode (in hex) | Other bytes ([count]: [operand labels]) | Description |
+| Mnemonic | Opcode (in hex, 1 byte) | Other bytes ([count]: [operand labels]) | Description |
 | ---- | ---- | ---- | ----|
 | NONE | 00 | 3 Byte Alignment | 空指令 |
 | PINT | 01 | 2 Byte Data, 1 Byte Alignment | 推送一个16位立即数到栈上 |
