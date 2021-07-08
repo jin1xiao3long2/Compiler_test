@@ -4,6 +4,7 @@ VM 采用大端序、32位定长指令
 | Mnemonic | Opcode (in hex, 1 byte) | Other bytes ([count]: [operand labels]) | Description |
 | ---- | ---- | ---- | ----|
 | BEGN | DE | ADFACE | 文件标识起点 |
+| SUBP | F0 | 1 Byte Alignment, 2 Byte Subprogram ID | 子程序标记 |
 | NONE | 00 | 3 Byte Alignment | 空指令 |
 | PLBI | 01 | 1 Byte Alignment, 2 Byte Data | 推送32位整数的低位到栈上 |
 | PHBI | 02 | 1 Byte Alignment, 2 Byte Data | 推送32位整数的高位到栈上 |
@@ -19,5 +20,6 @@ VM 采用大端序、32位定长指令
 | IDIV | 17 | 1 Byte Alignment, 2 Byte Data | 计算栈顶数与16位整数的商 |
 | NJMP | 20 | 1 Byte Alignment, 2 Byte Target PC | 无条件跳转 |
 | CJMP | 21 | 1 Byte Alignment, 2 Byte Target PC | 当栈顶数 > 0 时条件跳转 |
-| CALL | 22 | 1 Byte Argument Count, 2 Byte Subprogram ID | 长跳转 |
+| CALL | 22 | 1 Byte Argument Count, 2 Byte Subprogram ID | 长跳转，开始子程序调用 |
+| RETP | 23 | 3 Byte Alignment | 长跳转，返回子程序调用 |
 | FEOF | FF | 3 Byte Alignment | 文件结尾 |
