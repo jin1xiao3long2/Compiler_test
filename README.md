@@ -3,8 +3,8 @@
 VM 采用大端序、32位定长指令
 | Mnemonic | Opcode (in hex, 1 byte) | Other bytes ([count]: [operand labels]) | Description |
 | ---- | ---- | ---- | ----|
+| BEGN | DE | ADFACE | 文件标识起点 |
 | NONE | 00 | 3 Byte Alignment | 空指令 |
-| EROR | 0F | 3 Byte Alignment | 错误 |
 | PLBI | 01 | 1 Byte Alignment, 2 Byte Data | 推送32位整数的低位到栈上 |
 | PHBI | 02 | 1 Byte Alignment, 2 Byte Data | 推送32位整数的高位到栈上 |
 | PLBF | 03 | 1 Byte Alignment, 2 Byte Data | 推送单精度浮点的低位到栈上 |
