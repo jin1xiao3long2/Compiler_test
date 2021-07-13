@@ -38,7 +38,7 @@ var covscript_syntax = {
             {syntax.term(";")},
             {syntax.term("["), syntax.token("num"), syntax.term("]"), syntax.token(";")},
             {syntax.term("("), syntax.ref("params"), syntax.term(")"), syntax.ref("compound_stmt")}
-    }
+        )}
 }.to_hash_map()
 @end
 
@@ -69,5 +69,117 @@ var covscript_syntax = {
 是否具有拓展待考察,目前这些暂可支持完整测试集
 
 + parser,定义语法规则
+  + 特殊序列需要去除, 无法解析
+  + 非符号(_)解析
+  + token(正则表达式)分离出来进行解析 
 
-待补充
+
+```ebnf
+
+program ::= statement {statement} ;
+
+statement ::= non_terminal_symbol assign_op declaration end_op ;
+
+assign_op ::= '='
+            | '::='
+            ;
+
+end_op ::= ';'
+         | endline
+         | "."
+         ;
+
+endline ::= '\n'
+          | '\n\r'
+          ;
+
+declaration ::= term {[endline] '|' term};
+
+term ::= part {[','] part};
+
+part ::= repeat_part
+       | declaration_part
+       | alternative_part
+       | simple_part
+       ;
+
+repeat_part ::= '{' declaration '}' ;
+
+declaration_part ::= '(' declaration ')' ;
+
+alternative_part ::= '[' declaration ']' ;
+
+simple_part ::= non_terminal_symbol 
+              | terminal_symbol
+              ;
+
+terminal_symlol ::= '\'' characters '\''
+                  | '\"' characters '\"'
+                  | identifier
+                  ;
+
+
+non_terminal_symbol ::= identifier ;
+
+identifier ::= letter {letter} ;
+
+characters ::= ?all character that can be seen?
+
+(*find a way to describe it*)
+
+(* about token *)
+
+letter ::= [a-zA-Z0-9_] ;
+```
+
++ 翻译方案
+
+```python
+
+internal :  record the internal  
+# program ::= statement {statement}
+
+
+output("@begin")
+output("var test_syntax = {")
+if(!stmts.empty)
+    foreach iter in stmts
+        trans_statement(internal, iter)
+        if(iter.next)
+            output(",")
+        end
+    end
+end
+output("}.to_hash_map()")
+output("@end")
+
+
+# statement ::= non_terminal_symbol assign_op declaration end_op
+
+output("\"")
+trans_non_terminal_symbol(0, nt_symbol) #print literal
+output("\" : {\n")
+trans_declaration(internal, decl)
+output("},\n")
+
+#declaration ::= term {[endline] '|' term};
+
+if terms.size > 1
+    output("syntax.cond_or(\n")
+    foreach iter in terms
+        output("{")
+        trans_term(internal, iter)
+        output("}")
+        if(iter.next)
+            output(",")
+        end
+        output("\n")
+    end
+    output(")")
+else
+    trans_term(term[0])
+end
+
+
+```
+
