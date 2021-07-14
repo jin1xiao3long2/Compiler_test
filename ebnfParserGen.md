@@ -72,6 +72,7 @@ var covscript_syntax = {
   + 特殊序列需要去除, 无法解析
   + 非符号(_)解析
   + token(正则表达式)分离出来进行解析 
+  + 分组(小括号)需要删去或添加语义
 
 
 ```ebnf
@@ -115,13 +116,15 @@ simple_part ::= non_terminal_symbol
 
 terminal_symlol ::= '\'' characters '\''
                   | '\"' characters '\"'
-                  | identifier
+                  | token
                   ;
 
 
 non_terminal_symbol ::= identifier ;
 
-identifier ::= letter {letter} ;
+identifier ::= downLetter {downLetter}
+
+token ::=  upLetter {upLetter};
 
 characters ::= ?all character that can be seen?
 
@@ -129,7 +132,7 @@ characters ::= ?all character that can be seen?
 
 (* about token *)
 
-letter ::= [a-zA-Z0-9_] ;
+
 ```
 
 + 翻译方案
@@ -179,6 +182,67 @@ if terms.size > 1
 else
     trans_term(term[0])
 end
+
+#part ::= repeat_part
+#       | declaration_part
+#       | alternative_part
+#       | simple_part
+#       ;
+
+switch(peek())
+    case '{'
+        parse_repeat_part(internal, part)
+    end
+    case '['
+        parse_alternative_part(internal, part)
+    end
+    case '('
+        parse_declaration_part(internal, part)
+    end
+    default
+        parse_simple_part(internal, part)
+    end
+end
+
+# repeat_part ::= '{' declaration '}' ;
+output("syntax.repeat(")
+parse_declaration(internal, declaration)
+output(")")
+
+# declaration_part ::= '(' declaration ')' ;
+output("syntax.ref(")
+parse_declaration(internal, declaration)
+output(")")
+
+# alternative_part ::= '[' declaration ']' ;
+output("syntax.optional(")
+parse_declaration(internal, declaration)
+output(")")
+
+# simple_part ::= non_terminal_symbol 
+#              | terminal_symbol
+#              ;
+
+if(peek() == '\'' || peek() == '"' || !is_upper(peek()))
+parse_terminal_symbol()
+else if(is_upper(peek()))
+parse_non_terminal()
+end
+
+#terminal_symlol ::= '\'' characters '\''
+#                  | '\"' characters '\"'
+#                  | token
+#                  ;
+
+if(token)
+output("syntax.token(" + token.data.down() +")")
+else
+output("syntax.term(" + characters + ")")
+end
+
+#non_terminal_symbol ::= identifier ;
+
+output("syntax.ref(" + identifier + ")")
 
 
 ```
