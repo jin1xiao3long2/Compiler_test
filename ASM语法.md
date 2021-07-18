@@ -27,9 +27,12 @@
 
 | 指令 | 描述 | 示例 |
 |---|---|---|
+| VAR | 申明域下变量 | VAR var1 0:i |
 | MOV | 数据拷贝，仅适用于目标长度大于等于源长度 | MOV var1 20:i |
 | PI | 向当前域下数据栈 push 32 位 integer 数据 | PI 1024:f |
 | PF | 向当前域下数据栈 push 32 位 float 数据 | PF 1.024:f |
+| POP | 当前域下栈弹出一个 32 位数据 | POP |
+| TOP | （关键字，和数据视为同类）访问当前栈顶数据 | PI TOP:i |
 | PDAT | *不晓得 | ?? |
 | SADD/SSUB/SMUL/SDIV | 将当前域下数据栈顶两个数据做 integer 四则运算 | SADD |
 | IADD/ISUB/IMUL/IDIV | 将当前域下数据栈顶和一个立即数数做 integer 四则运算 | IADD 12 |
