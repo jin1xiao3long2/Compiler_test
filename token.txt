@@ -1,0 +1,35 @@
+tokens list:
+
+#line1: program ::= statement {statement} ;
+
+identifier: 'program' 
+signal: assign(::=)
+identifier: 'statement'
+signal: llb({)
+identifier: 'statement'
+signal: lrb(})
+siganl: end_op(;)
+
+
+#line2: statement ::= non_terminal_symbol assign_op declaration end_op ;
+
+identifier: 'statement'
+signal: assign(::=)
+identifier: 'non_terminal_symbol'
+identifier: 'assign_op'
+identifier: 'declaration'
+identifier: 'end_op'
+signal: end_op(;);
+
+#assign_op ::= '='
+#           | '::='
+#           ;
+
+identifier: 'assign_op'
+signal: assign_op(::=)
+literal: '='
+signal: separator('|')
+literal: '::='
+end_op: end_op
+
+

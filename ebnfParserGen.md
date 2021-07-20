@@ -86,15 +86,10 @@ assign_op ::= '='
             ;
 
 end_op ::= ';'
-         | endline
          | "."
          ;
 
-endline ::= '\n'
-          | '\n\r'
-          ;
-
-declaration ::= term {[endline] '|' term};
+declaration ::= term {'|' term};
 
 term ::= part {[','] part};
 
@@ -114,24 +109,18 @@ simple_part ::= non_terminal_symbol
               | terminal_symbol
               ;
 
-terminal_symlol ::= '\'' characters '\''
-                  | '\"' characters '\"'
-                  | token
+terminal_symlol ::= LIT
+                  | TOKEN
                   ;
 
 
-non_terminal_symbol ::= identifier ;
-
-identifier ::= downLetter {downLetter}
-
-token ::=  upLetter {upLetter};
+non_terminal_symbol ::= ID ;
 
 characters ::= ?all character that can be seen?
 
 (*find a way to describe it*)
 
 (* about token *)
-
 
 ```
 
