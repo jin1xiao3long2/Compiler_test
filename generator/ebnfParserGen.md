@@ -105,9 +105,11 @@ declaration_part ::= '(' declaration ')' ;
 
 alternative_part ::= '[' declaration ']' ;
 
-simple_part ::= non_terminal_symbol 
+simple_part ::= right_non_terminal_symbol 
               | terminal_symbol
               ;
+
+right_non_terminal_symbol ::= non_terminal_symbol ;
 
 terminal_symlol ::= LIT
                   | TOKEN
@@ -129,7 +131,7 @@ characters ::= ?all character that can be seen?
 ```python
 
 internal :  record the internal  
-# program ::= statement {statement}
+# begin ::= statement {statement}
 
 
 output("@begin")
@@ -152,7 +154,7 @@ output("\"")
 trans_non_terminal_symbol(0, nt_symbol) #print literal
 output("\" : {\n")
 trans_declaration(internal, decl)
-output("},\n")
+output("}")
 
 #declaration ::= term {[endline] '|' term};
 

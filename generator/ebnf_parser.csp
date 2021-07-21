@@ -67,9 +67,12 @@ var ebnf_syntax = {
     },
     "simple_part" : {
         syntax.cond_or(
-            {syntax.ref("non_terminal_symbol")},
+            {syntax.ref("right_non_terminal_symbol")},
             {syntax.ref("terminal_symbol")}
         )
+    },
+    "right_non_terminal_symbol" : {
+        syntax.ref("non_terminal_symbol")
     },
     "terminal_symbol" : {
         syntax.cond_or(
