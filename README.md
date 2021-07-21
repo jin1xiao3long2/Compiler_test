@@ -27,8 +27,8 @@ VM 采用32位定长指令
 | PLBF | 03 | 1 Byte Alignment, 2 Byte Data | 推送单精度浮点的低位到栈上 |
 | PHBF | 04 | 1 Byte Alignment, 2 Byte Data | 推送单精度浮点的高位到栈上 |
 | PDAT | 05 | 1 Byte Alignment, 2 Byte Addr | 推送数据段数据到栈上 |
-| PUSH | 06 | 1 Byte Alignment, 2 Byte Addr | 推送栈内数据至栈顶，地址为 0xFF 时为栈顶 |
-| COPY | 07 | 1 Byte Method, 2 Byte Addr | 复制栈顶至栈内地址并弹栈，方法为 0x00 不弹栈，地址为 0xFF 时不复制 |
+| PUSH | 06 | 1 Byte Method, 2 Byte Addr | 复制栈内数据至栈顶，Method: 0x00 正序(SS + Addr)、0xFF 逆序(SP - Addr) |
+| COPY | 07 | 1 Byte Method, 2 Byte Addr | 复制栈顶至栈内数据，Method: 0x0- 弹栈、0xF- 复制、0x-0 正序(SS + Addr)、0x-F 逆序(SP - Addr) |
 | SADD | 10 | 3 Byte Alignment | 计算栈顶两个数的和 |
 | IADD | 11 | 1 Byte Alignment, 2 Byte Data | 计算栈顶数与16位整数的和 |
 | DADD | 12 | 1 Byte Alignment, 2 Byte Addr | 计算栈顶数与数据段数据的和 |
