@@ -751,8 +751,8 @@ class generator
     var lexer = null
     var parser = null
     # Options
-    var stop_on_error = true
-    var enable_log = false
+    var stop_on_error = false
+    var enable_log = true
     # Private Methods
     var file_path = "<FILE>"
     function priv_run(lang)

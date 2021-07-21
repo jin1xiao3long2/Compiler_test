@@ -1,0 +1,250 @@
+#########################
+Begin Lexical Analysis...
+#########################
+############
+Lexer Output
+############
+CP = 0   Type = id	Data = begin	Pos = (0, 0)
+CP = 1   Type = sig	Data = ::=	Pos = (5, 0)
+CP = 2   Type = token	Data = A	Pos = (9, 0)
+CP = 3   Type = brac	Data = {	Pos = (11, 0)
+CP = 4   Type = token	Data = B	Pos = (12, 0)
+CP = 5   Type = sig	Data = |	Pos = (14, 0)
+CP = 6   Type = token	Data = E	Pos = (16, 0)
+CP = 7   Type = brac	Data = }	Pos = (17, 0)
+CP = 8   Type = brac	Data = [	Pos = (19, 0)
+CP = 9   Type = token	Data = C	Pos = (20, 0)
+CP = 10  Type = sig	Data = |	Pos = (22, 0)
+CP = 11  Type = token	Data = D	Pos = (24, 0)
+CP = 12  Type = brac	Data = ]	Pos = (25, 0)
+###########################
+Begin Syntactic Analysis...
+###########################
+SS = 3	CP = 0	Deduce statement
+SS = 4	CP = 0	  Deduce non_terminal_symbol
+SS = 4	CP = 0	    Match  id
+SS = 4	CP = 0	    Accept id
+SS = 4	CP = 1	  Accept non_terminal_symbol
+SS = 4	CP = 1	  Deduce assign_op
+SS = 5	CP = 1	    Match  ::=
+SS = 5	CP = 1	    Accept ::=
+SS = 4	CP = 2	  Accept assign_op
+SS = 4	CP = 2	  Deduce declaration
+SS = 5	CP = 2	    Deduce term
+SS = 6	CP = 2	      Deduce part
+SS = 6	CP = 2	        Predict Failed in CONDITION
+SS = 6	CP = 2	        Predict Failed in CONDITION
+SS = 6	CP = 2	        Predict Failed in CONDITION
+SS = 8	CP = 2	        Deduce simple_part
+SS = 8	CP = 2	          Predict Failed in CONDITION
+SS = 10	CP = 2	          Deduce terminal_symbol
+SS = 10	CP = 2	            Predict Failed in CONDITION
+SS = 10	CP = 2	            Predict Failed in CONDITION
+SS = 11	CP = 2	            Match  token
+SS = 11	CP = 2	            Accept token
+SS = 10	CP = 3	          Accept terminal_symbol
+SS = 8	CP = 3	        Accept simple_part
+SS = 6	CP = 3	      Accept part
+SS = 7	CP = 3	      Match  ,
+SS = 7	CP = 3	      Reject ,
+SS = 7	CP = 3	      Deduce part
+SS = 9	CP = 3	        Deduce repeat_part
+SS = 9	CP = 3	          Match  {
+SS = 9	CP = 3	          Accept {
+SS = 10	CP = 4	          Deduce declaration
+SS = 11	CP = 4	            Deduce term
+SS = 12	CP = 4	              Deduce part
+SS = 12	CP = 4	                Predict Failed in CONDITION
+SS = 12	CP = 4	                Predict Failed in CONDITION
+SS = 12	CP = 4	                Predict Failed in CONDITION
+SS = 14	CP = 4	                Deduce simple_part
+SS = 14	CP = 4	                  Predict Failed in CONDITION
+SS = 16	CP = 4	                  Deduce terminal_symbol
+SS = 16	CP = 4	                    Predict Failed in CONDITION
+SS = 16	CP = 4	                    Predict Failed in CONDITION
+SS = 17	CP = 4	                    Match  token
+SS = 17	CP = 4	                    Accept token
+SS = 16	CP = 5	                  Accept terminal_symbol
+SS = 14	CP = 5	                Accept simple_part
+SS = 12	CP = 5	              Accept part
+SS = 13	CP = 5	              Match  ,
+SS = 13	CP = 5	              Reject ,
+SS = 12	CP = 5	              Predict Failed: part
+SS = 11	CP = 5	            Accept term
+SS = 11	CP = 5	            Match  |
+SS = 11	CP = 5	            Accept |
+SS = 12	CP = 6	            Deduce term
+SS = 13	CP = 6	              Deduce part
+SS = 13	CP = 6	                Predict Failed in CONDITION
+SS = 13	CP = 6	                Predict Failed in CONDITION
+SS = 13	CP = 6	                Predict Failed in CONDITION
+SS = 15	CP = 6	                Deduce simple_part
+SS = 15	CP = 6	                  Predict Failed in CONDITION
+SS = 17	CP = 6	                  Deduce terminal_symbol
+SS = 17	CP = 6	                    Predict Failed in CONDITION
+SS = 17	CP = 6	                    Predict Failed in CONDITION
+SS = 18	CP = 6	                    Match  token
+SS = 18	CP = 6	                    Accept token
+SS = 17	CP = 7	                  Accept terminal_symbol
+SS = 15	CP = 7	                Accept simple_part
+SS = 13	CP = 7	              Accept part
+SS = 14	CP = 7	              Match  ,
+SS = 14	CP = 7	              Reject ,
+SS = 13	CP = 7	              Predict Failed: part
+SS = 12	CP = 7	            Accept term
+SS = 11	CP = 7	            Match  |
+SS = 11	CP = 7	            Reject |
+SS = 10	CP = 7	          Accept declaration
+SS = 9	CP = 7	          Match  }
+SS = 9	CP = 7	          Accept }
+SS = 9	CP = 8	        Accept repeat_part
+SS = 7	CP = 8	      Accept part
+SS = 7	CP = 8	      Match  ,
+SS = 7	CP = 8	      Reject ,
+SS = 7	CP = 8	      Deduce part
+SS = 7	CP = 8	        Predict Failed in CONDITION
+SS = 7	CP = 8	        Predict Failed in CONDITION
+SS = 9	CP = 8	        Deduce alternative_part
+SS = 9	CP = 8	          Match  [
+SS = 9	CP = 8	          Accept [
+SS = 10	CP = 9	          Deduce declaration
+SS = 11	CP = 9	            Deduce term
+SS = 12	CP = 9	              Deduce part
+SS = 12	CP = 9	                Predict Failed in CONDITION
+SS = 12	CP = 9	                Predict Failed in CONDITION
+SS = 12	CP = 9	                Predict Failed in CONDITION
+SS = 14	CP = 9	                Deduce simple_part
+SS = 14	CP = 9	                  Predict Failed in CONDITION
+SS = 16	CP = 9	                  Deduce terminal_symbol
+SS = 16	CP = 9	                    Predict Failed in CONDITION
+SS = 16	CP = 9	                    Predict Failed in CONDITION
+SS = 17	CP = 9	                    Match  token
+SS = 17	CP = 9	                    Accept token
+SS = 16	CP = 10	                  Accept terminal_symbol
+SS = 14	CP = 10	                Accept simple_part
+SS = 12	CP = 10	              Accept part
+SS = 13	CP = 10	              Match  ,
+SS = 13	CP = 10	              Reject ,
+SS = 12	CP = 10	              Predict Failed: part
+SS = 11	CP = 10	            Accept term
+SS = 11	CP = 10	            Match  |
+SS = 11	CP = 10	            Accept |
+SS = 12	CP = 11	            Deduce term
+SS = 13	CP = 11	              Deduce part
+SS = 13	CP = 11	                Predict Failed in CONDITION
+SS = 13	CP = 11	                Predict Failed in CONDITION
+SS = 13	CP = 11	                Predict Failed in CONDITION
+SS = 15	CP = 11	                Deduce simple_part
+SS = 15	CP = 11	                  Predict Failed in CONDITION
+SS = 17	CP = 11	                  Deduce terminal_symbol
+SS = 17	CP = 11	                    Predict Failed in CONDITION
+SS = 17	CP = 11	                    Predict Failed in CONDITION
+SS = 18	CP = 11	                    Match  token
+SS = 18	CP = 11	                    Accept token
+SS = 17	CP = 12	                  Accept terminal_symbol
+SS = 15	CP = 12	                Accept simple_part
+SS = 13	CP = 12	              Accept part
+SS = 14	CP = 12	              Match  ,
+SS = 14	CP = 12	              Reject ,
+SS = 13	CP = 12	              Predict Failed: part
+SS = 12	CP = 12	            Accept term
+SS = 11	CP = 12	            Match  |
+SS = 11	CP = 12	            Reject |
+SS = 10	CP = 12	          Accept declaration
+SS = 9	CP = 12	          Match  ]
+SS = 9	CP = 12	          Accept ]
+SS = 9	CP = 13	        Accept alternative_part
+SS = 7	CP = 13	      Accept part
+SS = 6	CP = 13	      End Of File
+SS = 5	CP = 13	    Accept term
+SS = 4	CP = 13	  Accept declaration
+SS = 3	CP = 13	Accept statement
+Compile Time: 0.021s
+begin
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "begin"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "A"
+        term -> part
+          part -> repeat_part
+            repeat_part -> "{"
+            repeat_part -> declaration
+              declaration -> term
+                term -> part
+                  part -> simple_part
+                    simple_part -> terminal_symbol
+                      terminal_symbol -> "B"
+              declaration -> "|"
+              declaration -> term
+                term -> part
+                  part -> simple_part
+                    simple_part -> terminal_symbol
+                      terminal_symbol -> "E"
+            repeat_part -> "}"
+        term -> part
+          part -> alternative_part
+            alternative_part -> "["
+            alternative_part -> declaration
+              declaration -> term
+                term -> part
+                  part -> simple_part
+                    simple_part -> terminal_symbol
+                      terminal_symbol -> "C"
+              declaration -> "|"
+              declaration -> term
+                term -> part
+                  part -> simple_part
+                    simple_part -> terminal_symbol
+                      terminal_symbol -> "D"
+            alternative_part -> "]"
+#############
+New Statement
+#############
+Left Non-terminal-symbol: begin
+Now_name: begin
+create now_tree : begin
+Start analyze Declaration: 
+simple part: terminal_symbol: A
+add new node: begin_repeat_2
+record old tree: begin
+change now tree: begin_repeat_2
+simple part: terminal_symbol: B
+simple part: non_terminal_symbol: begin_repeat_2
+simple part: terminal_symbol: E
+simple part: non_terminal_symbol: begin_repeat_2
+simple part: non_terminal_symbol: NULL
+recover from fun, now_tree: begin
+add new node: begin_optional_3
+record old tree: begin
+change now tree: begin_optional_3
+simple part: terminal_symbol: C
+simple part: terminal_symbol: D
+simple part: non_terminal_symbol: NULL
+recover from fun, now_tree: begin
+End analyze Decalration 
+
+	begin_repeat_2
+		B
+		begin_repeat_2
+	begin_repeat_2
+		E
+		begin_repeat_2
+	begin_repeat_2
+		NULL
+	begin_optional_3
+		C
+	begin_optional_3
+		D
+	begin_optional_3
+		NULL
+	begin
+		A
+		begin_repeat_2
+		begin_optional_3
