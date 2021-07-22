@@ -5,56 +5,44 @@ package grammar_transfer
 
 import parsergen
 
-
-class transfer_rule
-
-    #{declaration}
-    function trans_repeat_part(node)
-        return
-    end
-
-    #[declaration]
-    function trans_alternative_part(node)
-        return
-    end
-
-    #term | term
-    function trans_declaration(node) 
-        return
-    end
-
-    #(declaration)
-    function trans_declaration_part(node)
-        return
-    end
-
+class tree_type 
+    var nodes = new array
+    var root = ""
+    var seq = ""
 end
-
 
 class traversal_old_tree
     var now_name = ""
-    var now_tree = new parsergen.syntax_tree
-    var root = new parsergen.syntax_tree
+    var now_tree = new tree_type
+    var root = new tree_type
+    var store_tree = new array
 
     function add_suffix_part(nodes)
-
         #here nodes should be delcaration nodes
 
+        #token_type:data
         var data = new parsergen.token_type
         data.data = now_name
+        
+        #syntax_tree:non_terminal_symbol->data
         var non_terminal_symbol = new parsergen.syntax_tree
         non_terminal_symbol.root = "non_terminal_symbol"
         non_terminal_symbol.nodes.push_back(data)
+        
+        #syntax_tree:right_non_terminal_symbol->non_terminal_symbol->data
         var right_non_terminal_symbol = new parsergen.syntax_tree
         right_non_terminal_symbol.root = "right_non_terminal_symbol"
         right_non_terminal_symbol.nodes.push_back(non_terminal_symbol)
+
+        #syntax_tree:simple_part->right_non_terminal_symbol->non_terminal_symbol->data
         var simple_part  = new parsergen.syntax_tree
         simple_part.root = "simple_part"
         simple_part.nodes.push_back(right_non_terminal_symbol)
+
+        #syntax_tree:part->simple_part->right_non_terminal_symbol->non_terminal_symbol->data
         var part = new parsergen.syntax_tree
         part.root = "part"
         part.nodes.push_back(simple_part)
-        
 
         #Declaration[0]: Term0.nodes.push_back(part)
         var idx = 0
@@ -79,19 +67,24 @@ class traversal_old_tree
         
         var data = new parsergen.token_type
         data.data = "NULL"
+
         var non_terminal_symbol = new parsergen.syntax_tree
         non_terminal_symbol.root = "non_terminal_symbol"
         non_terminal_symbol.nodes.push_back(data)
+
         var right_non_terminal_symbol = new parsergen.syntax_tree
         right_non_terminal_symbol.root = "right_non_terminal_symbol"
         right_non_terminal_symbol.nodes.push_back(non_terminal_symbol)
+
         var simple_part  = new parsergen.syntax_tree
         simple_part.root = "simple_part"
         simple_part.nodes.push_back(right_non_terminal_symbol)
+
         var part = new parsergen.syntax_tree
         part.root = "part"
         part.nodes.push_back(simple_part)
-        var term = new parsergen.syntax_tree
+
+        var term = new tree_type
         term.root = "term"
         term.nodes.push_back(part)
 
@@ -100,7 +93,6 @@ class traversal_old_tree
 
         return nodes
     end
-
     
     function visit_begin(nodes)
         var idx = 0
@@ -130,7 +122,7 @@ class traversal_old_tree
         # Recursive Visit assign_op
         #this.visit_assign_op(nodes[idx++].nodes)
         
-        var tree = new parsergen.syntax_tree
+        var tree = new tree_type
         tree.root = now_name
         now_tree = tree
         print_info("create now_tree : " + now_name)
@@ -142,6 +134,8 @@ class traversal_old_tree
         #consume end_op
         idx++
 
+        foreach it in store_tree do root.nodes.push_back(it)
+        store_tree.clear()
         # Recursive Visit end_op
         #this.visit_end_op(nodes[idx++].nodes)
 
@@ -154,36 +148,16 @@ class traversal_old_tree
         return nodes[idx++].data
     end
 
-    #record history
-    # function visit_assign_op(nodes)
-    #     var idx = 0
-    #     # Condition
-    #     block
-    #         var matched = false
-    #         if !matched && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == "::=")
-    #             matched = true
-    #             # Visit term "::="
-    #             ++idx; target.print("::=")
-    #         end
-    #         if !matched && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == "=")
-    #             matched = true
-    #             # Visit term "="
-    #             ++idx; target.print("=")
-    #         end
-    #         if !matched
-    #         	# Error
-    #         	return
-    #         end
-    #     end
-    # end
-
     function visit_declaration(nodes)
         var idx = 0
         
         # Recursive Visit term
-        
+        var s_tree = new array
         this.visit_term(nodes[idx++].nodes)
-        root.nodes.push_back(now_tree)
+        # root.nodes.push_back(now_tree)
+        # foreach iter in now_tree.nodes do now_tree.seq = now_tree.seq + "_" + iter.seq
+        s_tree.push_back(now_tree)
+        
         
         # Repeat
         while idx < nodes.size && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == "|")
@@ -191,43 +165,25 @@ class traversal_old_tree
             ++idx; 
 
             # Recursive Visit term
-            var tree = new parsergen.syntax_tree
+            var tree = new tree_type
             tree.root = now_name
             now_tree = tree
 
             this.visit_term(nodes[idx++].nodes)
-            root.nodes.push_back(now_tree)
+            # root.nodes.push_back(now_tree)
+            # foreach iter in now_tree.nodes do now_tree.seq = now_tree.seq + "_" + iter.seq
+            s_tree.push_back(now_tree)
         end
+
+        foreach it in s_tree do store_tree.push_front(it)
     end
 
-    #record history
-    # function visit_end_op(nodes)
-    #     var idx = 0
-    #     # Condition
-    #     block
-    #         var matched = false
-    #         if !matched && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == ";")
-    #             matched = true
-    #             # Visit term ";"
-    #             ++idx; target.print(";")
-    #         end
-    #         if !matched && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == ".")
-    #             matched = true
-    #             # Visit term "."
-    #             ++idx; target.print(".")
-    #         end
-    #         if !matched
-    #         	# Error
-    #         	return
-    #         end
-    #     end
-    # end
-    
     # 正常遍历
     function visit_term(nodes)
         var idx = 0
         # Recursive Visit part
         this.visit_part(nodes[idx++].nodes)
+
         # Repeat
         while idx < nodes.size && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == "," || typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "part")
             # Optional
@@ -238,13 +194,15 @@ class traversal_old_tree
             # Recursive Visit part
             this.visit_part(nodes[idx++].nodes)
         end
+
     end
 
     function visit_part(nodes)
         var idx = 0
         # Condition
-        var prev_tree = new parsergen.syntax_tree
+        var prev_tree = new tree_type
         var prev_name = ""
+
         block
             var matched = false
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "repeat_part")
@@ -252,12 +210,12 @@ class traversal_old_tree
                 # Recursive Visit repeat_part
 
                 # new parsergen.syntax_tree
-                var tree = new parsergen.syntax_tree
-                var name = now_name + "_repeat_" + (now_tree.nodes.size + 1)
+                var tree = new tree_type
+                var name = now_name + "_rep_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
-                var node = new parsergen.syntax_tree
+                var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
                 print_info("add new node: " + node.root)
@@ -274,6 +232,9 @@ class traversal_old_tree
 
                 this.visit_repeat_part(nodes[idx++].nodes)
                 
+                # old_tree -> now_tree
+                prev_tree.seq = prev_tree.seq + "_" + now_tree.seq
+
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
@@ -286,12 +247,12 @@ class traversal_old_tree
                
 
                 # new parsergen.syntax_tree
-                var tree = new parsergen.syntax_tree
-                var name = now_name + "_declaration_" + (now_tree.nodes.size + 1)
+                var tree = new tree_type
+                var name = now_name + "_decl_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
-                var node = new parsergen.syntax_tree
+                var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
                 print_info("add new node: " + node.root)
@@ -307,7 +268,10 @@ class traversal_old_tree
                 print_info("change now tree: " + now_name)
 
                 this.visit_declaration_part(nodes[idx++].nodes)
-                
+
+                # old_tree -> now_tree
+                prev_tree.seq = prev_tree.seq + "_" + now_tree.seq
+
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
@@ -318,12 +282,12 @@ class traversal_old_tree
                 # Recursive Visit alternative_part
                 
                 # new parsergen.syntax_tree
-                var tree = new parsergen.syntax_tree
-                var name = now_name + "_optional_" + (now_tree.nodes.size + 1)
+                var tree = new tree_type
+                var name = now_name + "_opt_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
-                var node = new parsergen.syntax_tree
+                var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
                 print_info("add new node: " + node.root)
@@ -340,6 +304,9 @@ class traversal_old_tree
 
                 this.visit_alternative_part(nodes[idx++].nodes)
                 
+                # old_tree -> now_tree
+                prev_tree.seq = prev_tree.seq + "_" + now_tree.seq
+
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
@@ -406,21 +373,25 @@ class traversal_old_tree
                 # Recursive Visit right_non_terminal_symbol
                 var name = this.visit_right_non_terminal_symbol(nodes[idx++].nodes)
 
-                var tree = new parsergen.syntax_tree
+                var tree = new tree_type
                 tree.root = name
+                tree.seq = name
                 print_info("simple part: non_terminal_symbol: " + tree.root)
                 
                 now_tree.nodes.push_back(tree)
+                now_tree.seq = now_tree.seq + "_" + name
             end
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "terminal_symbol")
                 matched = true
                 # Recursive Visit terminal_symbol
                 var name = this.visit_terminal_symbol(nodes[idx++].nodes)
-                var tree = new parsergen.syntax_tree
+                var tree = new tree_type
                 tree.root = name
+                tree.seq = name
                 print_info("simple part: terminal_symbol: " + tree.root)
 
                 now_tree.nodes.push_back(tree)
+                now_tree.seq = now_tree.seq + "_" + name
             end
             if !matched
             	# Error
@@ -462,12 +433,53 @@ class traversal_old_tree
         end
     end
     
+    # function compute_now_tree(tree_name)
+    #     var match = false
+    #     var seq = ""
+    #     var tree = new tree_type
+    #     foreach iter in root.nodes
+    #         if tree_name == iter.root
+    #             tree = iter
+    #         end
+    #     end
+    #     var idx = 0
+    #     foreach iter in tree.nodes
+    #         if iter.root.find("_rep_", 0) >= 0
+    #             match = true
+    #         end
+    #         if iter.root.find("_opt_", 0) >= 0
+    #             match = true
+    #         end
+    #         if iter.root.find("_decl_", 0) >= 0
+    #             match = true
+    #         end
+    #         if match
+                
+    #             seq = seq  + compute_now_tree(iter.root)
+    #         else
+    #             seq = seq  + iter.root
+    #         end
+    #         idx++
+    #     end
+    #     foreach iter in root.nodes
+    #         if iter.root == tree.root
+    #             iter.seq = seq
+    #         end
+    #     end
+    #     system.out.println(iter.root + " seq is : " + seq)
+    #     return seq
+    # end
 
 
     function run(ast)
+        root.root = "%root%"
         this.visit_begin(ast.nodes)
+        print_header("show all names")
+        #foreach iter in root.nodes do compute_now_tree(iter.root)
+        foreach iter in root.nodes do system.out.println(iter.seq)
     end
 end
+
 
 
 
@@ -487,27 +499,28 @@ end
 
 class traversal_new_tree 
     var target = system.out
-    var indent = -1
-    function print_indent()
-        foreach i in range(indent) do target.print('\t')
-    end
-
+    var depth = 0
     function visit_tree(node)
         var idx = 0
-        print_indent()
-        target.print(node.root + "\n")
+        if depth != 0 
+            target.print(node.root + " ")
+        end
+        if depth == 1
+            target.print(" : ")
+        end
         if !node.nodes.empty()
-            indent++
+            depth++
             while idx < node.nodes.size
                 visit_tree(node.nodes[idx++])
             end
-            indent--
+            depth--
+            system.out.println("")
         end
     end
     #do be deleted
     function run(os, node)
         this.target = os
-        indent++
+        target.print("\n")
         visit_tree(node)
     end
 end

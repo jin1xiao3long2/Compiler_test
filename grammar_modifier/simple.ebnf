@@ -1,1 +1,37 @@
-begin ::= A {B | E} [C | D]
+begin ::= {statement};
+
+statement ::= non_terminal_symbol assign_op declaration end_op ;
+
+assign_op ::= '='
+            | '::='
+            ;
+
+end_op ::= ';'
+         | "."
+         ;
+
+declaration ::= term {'|' term};
+
+term ::= part {[','] part};
+
+part ::= repeat_part
+       | declaration_part
+       | alternative_part
+       | simple_part
+       ;
+
+repeat_part ::= '{' declaration '}' ;
+
+declaration_part ::= '(' declaration ')' ;
+
+alternative_part ::= '[' declaration ']' ;
+
+simple_part ::= non_terminal_symbol 
+              | terminal_symbol
+              ;
+
+terminal_symlol ::= LIT
+                  | TOKEN
+                  ;
+
+non_terminal_symbol ::= ID ;

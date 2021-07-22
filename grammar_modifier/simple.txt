@@ -6,17 +6,91 @@ Lexer Output
 ############
 CP = 0   Type = id	Data = begin	Pos = (0, 0)
 CP = 1   Type = sig	Data = ::=	Pos = (5, 0)
-CP = 2   Type = token	Data = A	Pos = (9, 0)
-CP = 3   Type = brac	Data = {	Pos = (11, 0)
-CP = 4   Type = token	Data = B	Pos = (12, 0)
-CP = 5   Type = sig	Data = |	Pos = (14, 0)
-CP = 6   Type = token	Data = E	Pos = (16, 0)
-CP = 7   Type = brac	Data = }	Pos = (17, 0)
-CP = 8   Type = brac	Data = [	Pos = (19, 0)
-CP = 9   Type = token	Data = C	Pos = (20, 0)
-CP = 10  Type = sig	Data = |	Pos = (22, 0)
-CP = 11  Type = token	Data = D	Pos = (24, 0)
-CP = 12  Type = brac	Data = ]	Pos = (25, 0)
+CP = 2   Type = brac	Data = {	Pos = (9, 0)
+CP = 3   Type = id	Data = statement	Pos = (10, 0)
+CP = 4   Type = brac	Data = }	Pos = (19, 0)
+CP = 5   Type = sig	Data = ;	Pos = (20, 0)
+CP = 6   Type = id	Data = statement	Pos = (0, 2)
+CP = 7   Type = sig	Data = ::=	Pos = (10, 2)
+CP = 8   Type = id	Data = non_terminal_symbol	Pos = (14, 2)
+CP = 9   Type = id	Data = assign_op	Pos = (34, 2)
+CP = 10  Type = id	Data = declaration	Pos = (44, 2)
+CP = 11  Type = id	Data = end_op	Pos = (56, 2)
+CP = 12  Type = sig	Data = ;	Pos = (63, 2)
+CP = 13  Type = id	Data = assign_op	Pos = (0, 4)
+CP = 14  Type = sig	Data = ::=	Pos = (10, 4)
+CP = 15  Type = slit	Data = '='	Pos = (14, 4)
+CP = 16  Type = sig	Data = |	Pos = (12, 5)
+CP = 17  Type = slit	Data = '::='	Pos = (14, 5)
+CP = 18  Type = sig	Data = ;	Pos = (12, 6)
+CP = 19  Type = id	Data = end_op	Pos = (0, 8)
+CP = 20  Type = sig	Data = ::=	Pos = (7, 8)
+CP = 21  Type = slit	Data = ';'	Pos = (11, 8)
+CP = 22  Type = sig	Data = |	Pos = (9, 9)
+CP = 23  Type = dlit	Data = "."	Pos = (11, 9)
+CP = 24  Type = sig	Data = ;	Pos = (9, 10)
+CP = 25  Type = id	Data = declaration	Pos = (0, 12)
+CP = 26  Type = sig	Data = ::=	Pos = (12, 12)
+CP = 27  Type = id	Data = term	Pos = (16, 12)
+CP = 28  Type = brac	Data = {	Pos = (21, 12)
+CP = 29  Type = slit	Data = '|'	Pos = (22, 12)
+CP = 30  Type = id	Data = term	Pos = (26, 12)
+CP = 31  Type = brac	Data = }	Pos = (30, 12)
+CP = 32  Type = sig	Data = ;	Pos = (31, 12)
+CP = 33  Type = id	Data = term	Pos = (0, 14)
+CP = 34  Type = sig	Data = ::=	Pos = (5, 14)
+CP = 35  Type = id	Data = part	Pos = (9, 14)
+CP = 36  Type = brac	Data = {	Pos = (14, 14)
+CP = 37  Type = brac	Data = [	Pos = (15, 14)
+CP = 38  Type = slit	Data = ','	Pos = (16, 14)
+CP = 39  Type = brac	Data = ]	Pos = (19, 14)
+CP = 40  Type = id	Data = part	Pos = (21, 14)
+CP = 41  Type = brac	Data = }	Pos = (25, 14)
+CP = 42  Type = sig	Data = ;	Pos = (26, 14)
+CP = 43  Type = id	Data = part	Pos = (0, 16)
+CP = 44  Type = sig	Data = ::=	Pos = (5, 16)
+CP = 45  Type = id	Data = repeat_part	Pos = (9, 16)
+CP = 46  Type = sig	Data = |	Pos = (7, 17)
+CP = 47  Type = id	Data = declaration_part	Pos = (9, 17)
+CP = 48  Type = sig	Data = |	Pos = (7, 18)
+CP = 49  Type = id	Data = alternative_part	Pos = (9, 18)
+CP = 50  Type = sig	Data = |	Pos = (7, 19)
+CP = 51  Type = id	Data = simple_part	Pos = (9, 19)
+CP = 52  Type = sig	Data = ;	Pos = (7, 20)
+CP = 53  Type = id	Data = repeat_part	Pos = (0, 22)
+CP = 54  Type = sig	Data = ::=	Pos = (12, 22)
+CP = 55  Type = slit	Data = '{'	Pos = (16, 22)
+CP = 56  Type = id	Data = declaration	Pos = (20, 22)
+CP = 57  Type = slit	Data = '}'	Pos = (32, 22)
+CP = 58  Type = sig	Data = ;	Pos = (36, 22)
+CP = 59  Type = id	Data = declaration_part	Pos = (0, 24)
+CP = 60  Type = sig	Data = ::=	Pos = (17, 24)
+CP = 61  Type = slit	Data = '('	Pos = (21, 24)
+CP = 62  Type = id	Data = declaration	Pos = (25, 24)
+CP = 63  Type = slit	Data = ')'	Pos = (37, 24)
+CP = 64  Type = sig	Data = ;	Pos = (41, 24)
+CP = 65  Type = id	Data = alternative_part	Pos = (0, 26)
+CP = 66  Type = sig	Data = ::=	Pos = (17, 26)
+CP = 67  Type = slit	Data = '['	Pos = (21, 26)
+CP = 68  Type = id	Data = declaration	Pos = (25, 26)
+CP = 69  Type = slit	Data = ']'	Pos = (37, 26)
+CP = 70  Type = sig	Data = ;	Pos = (41, 26)
+CP = 71  Type = id	Data = simple_part	Pos = (0, 28)
+CP = 72  Type = sig	Data = ::=	Pos = (12, 28)
+CP = 73  Type = id	Data = non_terminal_symbol	Pos = (16, 28)
+CP = 74  Type = sig	Data = |	Pos = (14, 29)
+CP = 75  Type = id	Data = terminal_symbol	Pos = (16, 29)
+CP = 76  Type = sig	Data = ;	Pos = (14, 30)
+CP = 77  Type = id	Data = terminal_symlol	Pos = (0, 32)
+CP = 78  Type = sig	Data = ::=	Pos = (16, 32)
+CP = 79  Type = token	Data = LIT	Pos = (20, 32)
+CP = 80  Type = sig	Data = |	Pos = (18, 33)
+CP = 81  Type = token	Data = TOKEN	Pos = (20, 33)
+CP = 82  Type = sig	Data = ;	Pos = (18, 34)
+CP = 83  Type = id	Data = non_terminal_symbol	Pos = (0, 36)
+CP = 84  Type = sig	Data = ::=	Pos = (20, 36)
+CP = 85  Type = token	Data = ID	Pos = (24, 36)
+CP = 86  Type = sig	Data = ;	Pos = (27, 36)
 ###########################
 Begin Syntactic Analysis...
 ###########################
@@ -32,134 +106,861 @@ SS = 4	CP = 2	  Accept assign_op
 SS = 4	CP = 2	  Deduce declaration
 SS = 5	CP = 2	    Deduce term
 SS = 6	CP = 2	      Deduce part
-SS = 6	CP = 2	        Predict Failed in CONDITION
-SS = 6	CP = 2	        Predict Failed in CONDITION
-SS = 6	CP = 2	        Predict Failed in CONDITION
-SS = 8	CP = 2	        Deduce simple_part
-SS = 8	CP = 2	          Predict Failed in CONDITION
-SS = 10	CP = 2	          Deduce terminal_symbol
-SS = 10	CP = 2	            Predict Failed in CONDITION
-SS = 10	CP = 2	            Predict Failed in CONDITION
-SS = 11	CP = 2	            Match  token
-SS = 11	CP = 2	            Accept token
-SS = 10	CP = 3	          Accept terminal_symbol
-SS = 8	CP = 3	        Accept simple_part
-SS = 6	CP = 3	      Accept part
-SS = 7	CP = 3	      Match  ,
-SS = 7	CP = 3	      Reject ,
-SS = 7	CP = 3	      Deduce part
-SS = 9	CP = 3	        Deduce repeat_part
-SS = 9	CP = 3	          Match  {
-SS = 9	CP = 3	          Accept {
-SS = 10	CP = 4	          Deduce declaration
-SS = 11	CP = 4	            Deduce term
-SS = 12	CP = 4	              Deduce part
-SS = 12	CP = 4	                Predict Failed in CONDITION
-SS = 12	CP = 4	                Predict Failed in CONDITION
-SS = 12	CP = 4	                Predict Failed in CONDITION
-SS = 14	CP = 4	                Deduce simple_part
-SS = 14	CP = 4	                  Predict Failed in CONDITION
-SS = 16	CP = 4	                  Deduce terminal_symbol
-SS = 16	CP = 4	                    Predict Failed in CONDITION
-SS = 16	CP = 4	                    Predict Failed in CONDITION
-SS = 17	CP = 4	                    Match  token
-SS = 17	CP = 4	                    Accept token
-SS = 16	CP = 5	                  Accept terminal_symbol
-SS = 14	CP = 5	                Accept simple_part
-SS = 12	CP = 5	              Accept part
-SS = 13	CP = 5	              Match  ,
-SS = 13	CP = 5	              Reject ,
-SS = 12	CP = 5	              Predict Failed: part
-SS = 11	CP = 5	            Accept term
-SS = 11	CP = 5	            Match  |
-SS = 11	CP = 5	            Accept |
-SS = 12	CP = 6	            Deduce term
-SS = 13	CP = 6	              Deduce part
-SS = 13	CP = 6	                Predict Failed in CONDITION
-SS = 13	CP = 6	                Predict Failed in CONDITION
-SS = 13	CP = 6	                Predict Failed in CONDITION
-SS = 15	CP = 6	                Deduce simple_part
-SS = 15	CP = 6	                  Predict Failed in CONDITION
-SS = 17	CP = 6	                  Deduce terminal_symbol
-SS = 17	CP = 6	                    Predict Failed in CONDITION
-SS = 17	CP = 6	                    Predict Failed in CONDITION
-SS = 18	CP = 6	                    Match  token
-SS = 18	CP = 6	                    Accept token
-SS = 17	CP = 7	                  Accept terminal_symbol
-SS = 15	CP = 7	                Accept simple_part
-SS = 13	CP = 7	              Accept part
-SS = 14	CP = 7	              Match  ,
-SS = 14	CP = 7	              Reject ,
-SS = 13	CP = 7	              Predict Failed: part
-SS = 12	CP = 7	            Accept term
-SS = 11	CP = 7	            Match  |
-SS = 11	CP = 7	            Reject |
-SS = 10	CP = 7	          Accept declaration
-SS = 9	CP = 7	          Match  }
-SS = 9	CP = 7	          Accept }
-SS = 9	CP = 8	        Accept repeat_part
-SS = 7	CP = 8	      Accept part
-SS = 7	CP = 8	      Match  ,
-SS = 7	CP = 8	      Reject ,
-SS = 7	CP = 8	      Deduce part
-SS = 7	CP = 8	        Predict Failed in CONDITION
-SS = 7	CP = 8	        Predict Failed in CONDITION
-SS = 9	CP = 8	        Deduce alternative_part
-SS = 9	CP = 8	          Match  [
-SS = 9	CP = 8	          Accept [
-SS = 10	CP = 9	          Deduce declaration
-SS = 11	CP = 9	            Deduce term
-SS = 12	CP = 9	              Deduce part
-SS = 12	CP = 9	                Predict Failed in CONDITION
-SS = 12	CP = 9	                Predict Failed in CONDITION
-SS = 12	CP = 9	                Predict Failed in CONDITION
-SS = 14	CP = 9	                Deduce simple_part
-SS = 14	CP = 9	                  Predict Failed in CONDITION
-SS = 16	CP = 9	                  Deduce terminal_symbol
-SS = 16	CP = 9	                    Predict Failed in CONDITION
-SS = 16	CP = 9	                    Predict Failed in CONDITION
-SS = 17	CP = 9	                    Match  token
-SS = 17	CP = 9	                    Accept token
-SS = 16	CP = 10	                  Accept terminal_symbol
-SS = 14	CP = 10	                Accept simple_part
-SS = 12	CP = 10	              Accept part
-SS = 13	CP = 10	              Match  ,
-SS = 13	CP = 10	              Reject ,
-SS = 12	CP = 10	              Predict Failed: part
-SS = 11	CP = 10	            Accept term
-SS = 11	CP = 10	            Match  |
-SS = 11	CP = 10	            Accept |
-SS = 12	CP = 11	            Deduce term
-SS = 13	CP = 11	              Deduce part
-SS = 13	CP = 11	                Predict Failed in CONDITION
-SS = 13	CP = 11	                Predict Failed in CONDITION
-SS = 13	CP = 11	                Predict Failed in CONDITION
-SS = 15	CP = 11	                Deduce simple_part
-SS = 15	CP = 11	                  Predict Failed in CONDITION
-SS = 17	CP = 11	                  Deduce terminal_symbol
-SS = 17	CP = 11	                    Predict Failed in CONDITION
-SS = 17	CP = 11	                    Predict Failed in CONDITION
-SS = 18	CP = 11	                    Match  token
-SS = 18	CP = 11	                    Accept token
-SS = 17	CP = 12	                  Accept terminal_symbol
-SS = 15	CP = 12	                Accept simple_part
-SS = 13	CP = 12	              Accept part
-SS = 14	CP = 12	              Match  ,
-SS = 14	CP = 12	              Reject ,
-SS = 13	CP = 12	              Predict Failed: part
-SS = 12	CP = 12	            Accept term
-SS = 11	CP = 12	            Match  |
-SS = 11	CP = 12	            Reject |
-SS = 10	CP = 12	          Accept declaration
-SS = 9	CP = 12	          Match  ]
-SS = 9	CP = 12	          Accept ]
-SS = 9	CP = 13	        Accept alternative_part
-SS = 7	CP = 13	      Accept part
-SS = 6	CP = 13	      End Of File
-SS = 5	CP = 13	    Accept term
-SS = 4	CP = 13	  Accept declaration
+SS = 8	CP = 2	        Deduce repeat_part
+SS = 8	CP = 2	          Match  {
+SS = 8	CP = 2	          Accept {
+SS = 9	CP = 3	          Deduce declaration
+SS = 10	CP = 3	            Deduce term
+SS = 11	CP = 3	              Deduce part
+SS = 11	CP = 3	                Predict Failed in CONDITION
+SS = 11	CP = 3	                Predict Failed in CONDITION
+SS = 11	CP = 3	                Predict Failed in CONDITION
+SS = 13	CP = 3	                Deduce simple_part
+SS = 15	CP = 3	                  Deduce right_non_terminal_symbol
+SS = 16	CP = 3	                    Deduce non_terminal_symbol
+SS = 16	CP = 3	                      Match  id
+SS = 16	CP = 3	                      Accept id
+SS = 16	CP = 4	                    Accept non_terminal_symbol
+SS = 15	CP = 4	                  Accept right_non_terminal_symbol
+SS = 13	CP = 4	                Accept simple_part
+SS = 11	CP = 4	              Accept part
+SS = 12	CP = 4	              Match  ,
+SS = 12	CP = 4	              Reject ,
+SS = 11	CP = 4	              Predict Failed: part
+SS = 10	CP = 4	            Accept term
+SS = 10	CP = 4	            Match  |
+SS = 10	CP = 4	            Reject |
+SS = 9	CP = 4	          Accept declaration
+SS = 8	CP = 4	          Match  }
+SS = 8	CP = 4	          Accept }
+SS = 8	CP = 5	        Accept repeat_part
+SS = 6	CP = 5	      Accept part
+SS = 7	CP = 5	      Match  ,
+SS = 7	CP = 5	      Reject ,
+SS = 6	CP = 5	      Predict Failed: part
+SS = 5	CP = 5	    Accept term
+SS = 5	CP = 5	    Match  |
+SS = 5	CP = 5	    Reject |
+SS = 4	CP = 5	  Accept declaration
+SS = 4	CP = 5	  Deduce end_op
+SS = 5	CP = 5	    Match  ;
+SS = 5	CP = 5	    Accept ;
+SS = 4	CP = 6	  Accept end_op
+SS = 3	CP = 6	Accept statement
+SS = 3	CP = 6	Deduce statement
+SS = 4	CP = 6	  Deduce non_terminal_symbol
+SS = 4	CP = 6	    Match  id
+SS = 4	CP = 6	    Accept id
+SS = 4	CP = 7	  Accept non_terminal_symbol
+SS = 4	CP = 7	  Deduce assign_op
+SS = 5	CP = 7	    Match  ::=
+SS = 5	CP = 7	    Accept ::=
+SS = 4	CP = 8	  Accept assign_op
+SS = 4	CP = 8	  Deduce declaration
+SS = 5	CP = 8	    Deduce term
+SS = 6	CP = 8	      Deduce part
+SS = 6	CP = 8	        Predict Failed in CONDITION
+SS = 6	CP = 8	        Predict Failed in CONDITION
+SS = 6	CP = 8	        Predict Failed in CONDITION
+SS = 8	CP = 8	        Deduce simple_part
+SS = 10	CP = 8	          Deduce right_non_terminal_symbol
+SS = 11	CP = 8	            Deduce non_terminal_symbol
+SS = 11	CP = 8	              Match  id
+SS = 11	CP = 8	              Accept id
+SS = 11	CP = 9	            Accept non_terminal_symbol
+SS = 10	CP = 9	          Accept right_non_terminal_symbol
+SS = 8	CP = 9	        Accept simple_part
+SS = 6	CP = 9	      Accept part
+SS = 7	CP = 9	      Match  ,
+SS = 7	CP = 9	      Reject ,
+SS = 7	CP = 9	      Deduce part
+SS = 7	CP = 9	        Predict Failed in CONDITION
+SS = 7	CP = 9	        Predict Failed in CONDITION
+SS = 7	CP = 9	        Predict Failed in CONDITION
+SS = 9	CP = 9	        Deduce simple_part
+SS = 11	CP = 9	          Deduce right_non_terminal_symbol
+SS = 12	CP = 9	            Deduce non_terminal_symbol
+SS = 12	CP = 9	              Match  id
+SS = 12	CP = 9	              Accept id
+SS = 12	CP = 10	            Accept non_terminal_symbol
+SS = 11	CP = 10	          Accept right_non_terminal_symbol
+SS = 9	CP = 10	        Accept simple_part
+SS = 7	CP = 10	      Accept part
+SS = 7	CP = 10	      Match  ,
+SS = 7	CP = 10	      Reject ,
+SS = 7	CP = 10	      Deduce part
+SS = 7	CP = 10	        Predict Failed in CONDITION
+SS = 7	CP = 10	        Predict Failed in CONDITION
+SS = 7	CP = 10	        Predict Failed in CONDITION
+SS = 9	CP = 10	        Deduce simple_part
+SS = 11	CP = 10	          Deduce right_non_terminal_symbol
+SS = 12	CP = 10	            Deduce non_terminal_symbol
+SS = 12	CP = 10	              Match  id
+SS = 12	CP = 10	              Accept id
+SS = 12	CP = 11	            Accept non_terminal_symbol
+SS = 11	CP = 11	          Accept right_non_terminal_symbol
+SS = 9	CP = 11	        Accept simple_part
+SS = 7	CP = 11	      Accept part
+SS = 7	CP = 11	      Match  ,
+SS = 7	CP = 11	      Reject ,
+SS = 7	CP = 11	      Deduce part
+SS = 7	CP = 11	        Predict Failed in CONDITION
+SS = 7	CP = 11	        Predict Failed in CONDITION
+SS = 7	CP = 11	        Predict Failed in CONDITION
+SS = 9	CP = 11	        Deduce simple_part
+SS = 11	CP = 11	          Deduce right_non_terminal_symbol
+SS = 12	CP = 11	            Deduce non_terminal_symbol
+SS = 12	CP = 11	              Match  id
+SS = 12	CP = 11	              Accept id
+SS = 12	CP = 12	            Accept non_terminal_symbol
+SS = 11	CP = 12	          Accept right_non_terminal_symbol
+SS = 9	CP = 12	        Accept simple_part
+SS = 7	CP = 12	      Accept part
+SS = 7	CP = 12	      Match  ,
+SS = 7	CP = 12	      Reject ,
+SS = 6	CP = 12	      Predict Failed: part
+SS = 5	CP = 12	    Accept term
+SS = 5	CP = 12	    Match  |
+SS = 5	CP = 12	    Reject |
+SS = 4	CP = 12	  Accept declaration
+SS = 4	CP = 12	  Deduce end_op
+SS = 5	CP = 12	    Match  ;
+SS = 5	CP = 12	    Accept ;
+SS = 4	CP = 13	  Accept end_op
 SS = 3	CP = 13	Accept statement
-Compile Time: 0.021s
+SS = 3	CP = 13	Deduce statement
+SS = 4	CP = 13	  Deduce non_terminal_symbol
+SS = 4	CP = 13	    Match  id
+SS = 4	CP = 13	    Accept id
+SS = 4	CP = 14	  Accept non_terminal_symbol
+SS = 4	CP = 14	  Deduce assign_op
+SS = 5	CP = 14	    Match  ::=
+SS = 5	CP = 14	    Accept ::=
+SS = 4	CP = 15	  Accept assign_op
+SS = 4	CP = 15	  Deduce declaration
+SS = 5	CP = 15	    Deduce term
+SS = 6	CP = 15	      Deduce part
+SS = 6	CP = 15	        Predict Failed in CONDITION
+SS = 6	CP = 15	        Predict Failed in CONDITION
+SS = 6	CP = 15	        Predict Failed in CONDITION
+SS = 8	CP = 15	        Deduce simple_part
+SS = 8	CP = 15	          Predict Failed in CONDITION
+SS = 10	CP = 15	          Deduce terminal_symbol
+SS = 11	CP = 15	            Match  slit
+SS = 11	CP = 15	            Accept slit
+SS = 10	CP = 16	          Accept terminal_symbol
+SS = 8	CP = 16	        Accept simple_part
+SS = 6	CP = 16	      Accept part
+SS = 7	CP = 16	      Match  ,
+SS = 7	CP = 16	      Reject ,
+SS = 6	CP = 16	      Predict Failed: part
+SS = 5	CP = 16	    Accept term
+SS = 5	CP = 16	    Match  |
+SS = 5	CP = 16	    Accept |
+SS = 6	CP = 17	    Deduce term
+SS = 7	CP = 17	      Deduce part
+SS = 7	CP = 17	        Predict Failed in CONDITION
+SS = 7	CP = 17	        Predict Failed in CONDITION
+SS = 7	CP = 17	        Predict Failed in CONDITION
+SS = 9	CP = 17	        Deduce simple_part
+SS = 9	CP = 17	          Predict Failed in CONDITION
+SS = 11	CP = 17	          Deduce terminal_symbol
+SS = 12	CP = 17	            Match  slit
+SS = 12	CP = 17	            Accept slit
+SS = 11	CP = 18	          Accept terminal_symbol
+SS = 9	CP = 18	        Accept simple_part
+SS = 7	CP = 18	      Accept part
+SS = 8	CP = 18	      Match  ,
+SS = 8	CP = 18	      Reject ,
+SS = 7	CP = 18	      Predict Failed: part
+SS = 6	CP = 18	    Accept term
+SS = 5	CP = 18	    Match  |
+SS = 5	CP = 18	    Reject |
+SS = 4	CP = 18	  Accept declaration
+SS = 4	CP = 18	  Deduce end_op
+SS = 5	CP = 18	    Match  ;
+SS = 5	CP = 18	    Accept ;
+SS = 4	CP = 19	  Accept end_op
+SS = 3	CP = 19	Accept statement
+SS = 3	CP = 19	Deduce statement
+SS = 4	CP = 19	  Deduce non_terminal_symbol
+SS = 4	CP = 19	    Match  id
+SS = 4	CP = 19	    Accept id
+SS = 4	CP = 20	  Accept non_terminal_symbol
+SS = 4	CP = 20	  Deduce assign_op
+SS = 5	CP = 20	    Match  ::=
+SS = 5	CP = 20	    Accept ::=
+SS = 4	CP = 21	  Accept assign_op
+SS = 4	CP = 21	  Deduce declaration
+SS = 5	CP = 21	    Deduce term
+SS = 6	CP = 21	      Deduce part
+SS = 6	CP = 21	        Predict Failed in CONDITION
+SS = 6	CP = 21	        Predict Failed in CONDITION
+SS = 6	CP = 21	        Predict Failed in CONDITION
+SS = 8	CP = 21	        Deduce simple_part
+SS = 8	CP = 21	          Predict Failed in CONDITION
+SS = 10	CP = 21	          Deduce terminal_symbol
+SS = 11	CP = 21	            Match  slit
+SS = 11	CP = 21	            Accept slit
+SS = 10	CP = 22	          Accept terminal_symbol
+SS = 8	CP = 22	        Accept simple_part
+SS = 6	CP = 22	      Accept part
+SS = 7	CP = 22	      Match  ,
+SS = 7	CP = 22	      Reject ,
+SS = 6	CP = 22	      Predict Failed: part
+SS = 5	CP = 22	    Accept term
+SS = 5	CP = 22	    Match  |
+SS = 5	CP = 22	    Accept |
+SS = 6	CP = 23	    Deduce term
+SS = 7	CP = 23	      Deduce part
+SS = 7	CP = 23	        Predict Failed in CONDITION
+SS = 7	CP = 23	        Predict Failed in CONDITION
+SS = 7	CP = 23	        Predict Failed in CONDITION
+SS = 9	CP = 23	        Deduce simple_part
+SS = 9	CP = 23	          Predict Failed in CONDITION
+SS = 11	CP = 23	          Deduce terminal_symbol
+SS = 11	CP = 23	            Predict Failed in CONDITION
+SS = 12	CP = 23	            Match  dlit
+SS = 12	CP = 23	            Accept dlit
+SS = 11	CP = 24	          Accept terminal_symbol
+SS = 9	CP = 24	        Accept simple_part
+SS = 7	CP = 24	      Accept part
+SS = 8	CP = 24	      Match  ,
+SS = 8	CP = 24	      Reject ,
+SS = 7	CP = 24	      Predict Failed: part
+SS = 6	CP = 24	    Accept term
+SS = 5	CP = 24	    Match  |
+SS = 5	CP = 24	    Reject |
+SS = 4	CP = 24	  Accept declaration
+SS = 4	CP = 24	  Deduce end_op
+SS = 5	CP = 24	    Match  ;
+SS = 5	CP = 24	    Accept ;
+SS = 4	CP = 25	  Accept end_op
+SS = 3	CP = 25	Accept statement
+SS = 3	CP = 25	Deduce statement
+SS = 4	CP = 25	  Deduce non_terminal_symbol
+SS = 4	CP = 25	    Match  id
+SS = 4	CP = 25	    Accept id
+SS = 4	CP = 26	  Accept non_terminal_symbol
+SS = 4	CP = 26	  Deduce assign_op
+SS = 5	CP = 26	    Match  ::=
+SS = 5	CP = 26	    Accept ::=
+SS = 4	CP = 27	  Accept assign_op
+SS = 4	CP = 27	  Deduce declaration
+SS = 5	CP = 27	    Deduce term
+SS = 6	CP = 27	      Deduce part
+SS = 6	CP = 27	        Predict Failed in CONDITION
+SS = 6	CP = 27	        Predict Failed in CONDITION
+SS = 6	CP = 27	        Predict Failed in CONDITION
+SS = 8	CP = 27	        Deduce simple_part
+SS = 10	CP = 27	          Deduce right_non_terminal_symbol
+SS = 11	CP = 27	            Deduce non_terminal_symbol
+SS = 11	CP = 27	              Match  id
+SS = 11	CP = 27	              Accept id
+SS = 11	CP = 28	            Accept non_terminal_symbol
+SS = 10	CP = 28	          Accept right_non_terminal_symbol
+SS = 8	CP = 28	        Accept simple_part
+SS = 6	CP = 28	      Accept part
+SS = 7	CP = 28	      Match  ,
+SS = 7	CP = 28	      Reject ,
+SS = 7	CP = 28	      Deduce part
+SS = 9	CP = 28	        Deduce repeat_part
+SS = 9	CP = 28	          Match  {
+SS = 9	CP = 28	          Accept {
+SS = 10	CP = 29	          Deduce declaration
+SS = 11	CP = 29	            Deduce term
+SS = 12	CP = 29	              Deduce part
+SS = 12	CP = 29	                Predict Failed in CONDITION
+SS = 12	CP = 29	                Predict Failed in CONDITION
+SS = 12	CP = 29	                Predict Failed in CONDITION
+SS = 14	CP = 29	                Deduce simple_part
+SS = 14	CP = 29	                  Predict Failed in CONDITION
+SS = 16	CP = 29	                  Deduce terminal_symbol
+SS = 17	CP = 29	                    Match  slit
+SS = 17	CP = 29	                    Accept slit
+SS = 16	CP = 30	                  Accept terminal_symbol
+SS = 14	CP = 30	                Accept simple_part
+SS = 12	CP = 30	              Accept part
+SS = 13	CP = 30	              Match  ,
+SS = 13	CP = 30	              Reject ,
+SS = 13	CP = 30	              Deduce part
+SS = 13	CP = 30	                Predict Failed in CONDITION
+SS = 13	CP = 30	                Predict Failed in CONDITION
+SS = 13	CP = 30	                Predict Failed in CONDITION
+SS = 15	CP = 30	                Deduce simple_part
+SS = 17	CP = 30	                  Deduce right_non_terminal_symbol
+SS = 18	CP = 30	                    Deduce non_terminal_symbol
+SS = 18	CP = 30	                      Match  id
+SS = 18	CP = 30	                      Accept id
+SS = 18	CP = 31	                    Accept non_terminal_symbol
+SS = 17	CP = 31	                  Accept right_non_terminal_symbol
+SS = 15	CP = 31	                Accept simple_part
+SS = 13	CP = 31	              Accept part
+SS = 13	CP = 31	              Match  ,
+SS = 13	CP = 31	              Reject ,
+SS = 12	CP = 31	              Predict Failed: part
+SS = 11	CP = 31	            Accept term
+SS = 11	CP = 31	            Match  |
+SS = 11	CP = 31	            Reject |
+SS = 10	CP = 31	          Accept declaration
+SS = 9	CP = 31	          Match  }
+SS = 9	CP = 31	          Accept }
+SS = 9	CP = 32	        Accept repeat_part
+SS = 7	CP = 32	      Accept part
+SS = 7	CP = 32	      Match  ,
+SS = 7	CP = 32	      Reject ,
+SS = 6	CP = 32	      Predict Failed: part
+SS = 5	CP = 32	    Accept term
+SS = 5	CP = 32	    Match  |
+SS = 5	CP = 32	    Reject |
+SS = 4	CP = 32	  Accept declaration
+SS = 4	CP = 32	  Deduce end_op
+SS = 5	CP = 32	    Match  ;
+SS = 5	CP = 32	    Accept ;
+SS = 4	CP = 33	  Accept end_op
+SS = 3	CP = 33	Accept statement
+SS = 3	CP = 33	Deduce statement
+SS = 4	CP = 33	  Deduce non_terminal_symbol
+SS = 4	CP = 33	    Match  id
+SS = 4	CP = 33	    Accept id
+SS = 4	CP = 34	  Accept non_terminal_symbol
+SS = 4	CP = 34	  Deduce assign_op
+SS = 5	CP = 34	    Match  ::=
+SS = 5	CP = 34	    Accept ::=
+SS = 4	CP = 35	  Accept assign_op
+SS = 4	CP = 35	  Deduce declaration
+SS = 5	CP = 35	    Deduce term
+SS = 6	CP = 35	      Deduce part
+SS = 6	CP = 35	        Predict Failed in CONDITION
+SS = 6	CP = 35	        Predict Failed in CONDITION
+SS = 6	CP = 35	        Predict Failed in CONDITION
+SS = 8	CP = 35	        Deduce simple_part
+SS = 10	CP = 35	          Deduce right_non_terminal_symbol
+SS = 11	CP = 35	            Deduce non_terminal_symbol
+SS = 11	CP = 35	              Match  id
+SS = 11	CP = 35	              Accept id
+SS = 11	CP = 36	            Accept non_terminal_symbol
+SS = 10	CP = 36	          Accept right_non_terminal_symbol
+SS = 8	CP = 36	        Accept simple_part
+SS = 6	CP = 36	      Accept part
+SS = 7	CP = 36	      Match  ,
+SS = 7	CP = 36	      Reject ,
+SS = 7	CP = 36	      Deduce part
+SS = 9	CP = 36	        Deduce repeat_part
+SS = 9	CP = 36	          Match  {
+SS = 9	CP = 36	          Accept {
+SS = 10	CP = 37	          Deduce declaration
+SS = 11	CP = 37	            Deduce term
+SS = 12	CP = 37	              Deduce part
+SS = 12	CP = 37	                Predict Failed in CONDITION
+SS = 12	CP = 37	                Predict Failed in CONDITION
+SS = 14	CP = 37	                Deduce alternative_part
+SS = 14	CP = 37	                  Match  [
+SS = 14	CP = 37	                  Accept [
+SS = 15	CP = 38	                  Deduce declaration
+SS = 16	CP = 38	                    Deduce term
+SS = 17	CP = 38	                      Deduce part
+SS = 17	CP = 38	                        Predict Failed in CONDITION
+SS = 17	CP = 38	                        Predict Failed in CONDITION
+SS = 17	CP = 38	                        Predict Failed in CONDITION
+SS = 19	CP = 38	                        Deduce simple_part
+SS = 19	CP = 38	                          Predict Failed in CONDITION
+SS = 21	CP = 38	                          Deduce terminal_symbol
+SS = 22	CP = 38	                            Match  slit
+SS = 22	CP = 38	                            Accept slit
+SS = 21	CP = 39	                          Accept terminal_symbol
+SS = 19	CP = 39	                        Accept simple_part
+SS = 17	CP = 39	                      Accept part
+SS = 18	CP = 39	                      Match  ,
+SS = 18	CP = 39	                      Reject ,
+SS = 17	CP = 39	                      Predict Failed: part
+SS = 16	CP = 39	                    Accept term
+SS = 16	CP = 39	                    Match  |
+SS = 16	CP = 39	                    Reject |
+SS = 15	CP = 39	                  Accept declaration
+SS = 14	CP = 39	                  Match  ]
+SS = 14	CP = 39	                  Accept ]
+SS = 14	CP = 40	                Accept alternative_part
+SS = 12	CP = 40	              Accept part
+SS = 13	CP = 40	              Match  ,
+SS = 13	CP = 40	              Reject ,
+SS = 13	CP = 40	              Deduce part
+SS = 13	CP = 40	                Predict Failed in CONDITION
+SS = 13	CP = 40	                Predict Failed in CONDITION
+SS = 13	CP = 40	                Predict Failed in CONDITION
+SS = 15	CP = 40	                Deduce simple_part
+SS = 17	CP = 40	                  Deduce right_non_terminal_symbol
+SS = 18	CP = 40	                    Deduce non_terminal_symbol
+SS = 18	CP = 40	                      Match  id
+SS = 18	CP = 40	                      Accept id
+SS = 18	CP = 41	                    Accept non_terminal_symbol
+SS = 17	CP = 41	                  Accept right_non_terminal_symbol
+SS = 15	CP = 41	                Accept simple_part
+SS = 13	CP = 41	              Accept part
+SS = 13	CP = 41	              Match  ,
+SS = 13	CP = 41	              Reject ,
+SS = 12	CP = 41	              Predict Failed: part
+SS = 11	CP = 41	            Accept term
+SS = 11	CP = 41	            Match  |
+SS = 11	CP = 41	            Reject |
+SS = 10	CP = 41	          Accept declaration
+SS = 9	CP = 41	          Match  }
+SS = 9	CP = 41	          Accept }
+SS = 9	CP = 42	        Accept repeat_part
+SS = 7	CP = 42	      Accept part
+SS = 7	CP = 42	      Match  ,
+SS = 7	CP = 42	      Reject ,
+SS = 6	CP = 42	      Predict Failed: part
+SS = 5	CP = 42	    Accept term
+SS = 5	CP = 42	    Match  |
+SS = 5	CP = 42	    Reject |
+SS = 4	CP = 42	  Accept declaration
+SS = 4	CP = 42	  Deduce end_op
+SS = 5	CP = 42	    Match  ;
+SS = 5	CP = 42	    Accept ;
+SS = 4	CP = 43	  Accept end_op
+SS = 3	CP = 43	Accept statement
+SS = 3	CP = 43	Deduce statement
+SS = 4	CP = 43	  Deduce non_terminal_symbol
+SS = 4	CP = 43	    Match  id
+SS = 4	CP = 43	    Accept id
+SS = 4	CP = 44	  Accept non_terminal_symbol
+SS = 4	CP = 44	  Deduce assign_op
+SS = 5	CP = 44	    Match  ::=
+SS = 5	CP = 44	    Accept ::=
+SS = 4	CP = 45	  Accept assign_op
+SS = 4	CP = 45	  Deduce declaration
+SS = 5	CP = 45	    Deduce term
+SS = 6	CP = 45	      Deduce part
+SS = 6	CP = 45	        Predict Failed in CONDITION
+SS = 6	CP = 45	        Predict Failed in CONDITION
+SS = 6	CP = 45	        Predict Failed in CONDITION
+SS = 8	CP = 45	        Deduce simple_part
+SS = 10	CP = 45	          Deduce right_non_terminal_symbol
+SS = 11	CP = 45	            Deduce non_terminal_symbol
+SS = 11	CP = 45	              Match  id
+SS = 11	CP = 45	              Accept id
+SS = 11	CP = 46	            Accept non_terminal_symbol
+SS = 10	CP = 46	          Accept right_non_terminal_symbol
+SS = 8	CP = 46	        Accept simple_part
+SS = 6	CP = 46	      Accept part
+SS = 7	CP = 46	      Match  ,
+SS = 7	CP = 46	      Reject ,
+SS = 6	CP = 46	      Predict Failed: part
+SS = 5	CP = 46	    Accept term
+SS = 5	CP = 46	    Match  |
+SS = 5	CP = 46	    Accept |
+SS = 6	CP = 47	    Deduce term
+SS = 7	CP = 47	      Deduce part
+SS = 7	CP = 47	        Predict Failed in CONDITION
+SS = 7	CP = 47	        Predict Failed in CONDITION
+SS = 7	CP = 47	        Predict Failed in CONDITION
+SS = 9	CP = 47	        Deduce simple_part
+SS = 11	CP = 47	          Deduce right_non_terminal_symbol
+SS = 12	CP = 47	            Deduce non_terminal_symbol
+SS = 12	CP = 47	              Match  id
+SS = 12	CP = 47	              Accept id
+SS = 12	CP = 48	            Accept non_terminal_symbol
+SS = 11	CP = 48	          Accept right_non_terminal_symbol
+SS = 9	CP = 48	        Accept simple_part
+SS = 7	CP = 48	      Accept part
+SS = 8	CP = 48	      Match  ,
+SS = 8	CP = 48	      Reject ,
+SS = 7	CP = 48	      Predict Failed: part
+SS = 6	CP = 48	    Accept term
+SS = 5	CP = 48	    Match  |
+SS = 5	CP = 48	    Accept |
+SS = 6	CP = 49	    Deduce term
+SS = 7	CP = 49	      Deduce part
+SS = 7	CP = 49	        Predict Failed in CONDITION
+SS = 7	CP = 49	        Predict Failed in CONDITION
+SS = 7	CP = 49	        Predict Failed in CONDITION
+SS = 9	CP = 49	        Deduce simple_part
+SS = 11	CP = 49	          Deduce right_non_terminal_symbol
+SS = 12	CP = 49	            Deduce non_terminal_symbol
+SS = 12	CP = 49	              Match  id
+SS = 12	CP = 49	              Accept id
+SS = 12	CP = 50	            Accept non_terminal_symbol
+SS = 11	CP = 50	          Accept right_non_terminal_symbol
+SS = 9	CP = 50	        Accept simple_part
+SS = 7	CP = 50	      Accept part
+SS = 8	CP = 50	      Match  ,
+SS = 8	CP = 50	      Reject ,
+SS = 7	CP = 50	      Predict Failed: part
+SS = 6	CP = 50	    Accept term
+SS = 5	CP = 50	    Match  |
+SS = 5	CP = 50	    Accept |
+SS = 6	CP = 51	    Deduce term
+SS = 7	CP = 51	      Deduce part
+SS = 7	CP = 51	        Predict Failed in CONDITION
+SS = 7	CP = 51	        Predict Failed in CONDITION
+SS = 7	CP = 51	        Predict Failed in CONDITION
+SS = 9	CP = 51	        Deduce simple_part
+SS = 11	CP = 51	          Deduce right_non_terminal_symbol
+SS = 12	CP = 51	            Deduce non_terminal_symbol
+SS = 12	CP = 51	              Match  id
+SS = 12	CP = 51	              Accept id
+SS = 12	CP = 52	            Accept non_terminal_symbol
+SS = 11	CP = 52	          Accept right_non_terminal_symbol
+SS = 9	CP = 52	        Accept simple_part
+SS = 7	CP = 52	      Accept part
+SS = 8	CP = 52	      Match  ,
+SS = 8	CP = 52	      Reject ,
+SS = 7	CP = 52	      Predict Failed: part
+SS = 6	CP = 52	    Accept term
+SS = 5	CP = 52	    Match  |
+SS = 5	CP = 52	    Reject |
+SS = 4	CP = 52	  Accept declaration
+SS = 4	CP = 52	  Deduce end_op
+SS = 5	CP = 52	    Match  ;
+SS = 5	CP = 52	    Accept ;
+SS = 4	CP = 53	  Accept end_op
+SS = 3	CP = 53	Accept statement
+SS = 3	CP = 53	Deduce statement
+SS = 4	CP = 53	  Deduce non_terminal_symbol
+SS = 4	CP = 53	    Match  id
+SS = 4	CP = 53	    Accept id
+SS = 4	CP = 54	  Accept non_terminal_symbol
+SS = 4	CP = 54	  Deduce assign_op
+SS = 5	CP = 54	    Match  ::=
+SS = 5	CP = 54	    Accept ::=
+SS = 4	CP = 55	  Accept assign_op
+SS = 4	CP = 55	  Deduce declaration
+SS = 5	CP = 55	    Deduce term
+SS = 6	CP = 55	      Deduce part
+SS = 6	CP = 55	        Predict Failed in CONDITION
+SS = 6	CP = 55	        Predict Failed in CONDITION
+SS = 6	CP = 55	        Predict Failed in CONDITION
+SS = 8	CP = 55	        Deduce simple_part
+SS = 8	CP = 55	          Predict Failed in CONDITION
+SS = 10	CP = 55	          Deduce terminal_symbol
+SS = 11	CP = 55	            Match  slit
+SS = 11	CP = 55	            Accept slit
+SS = 10	CP = 56	          Accept terminal_symbol
+SS = 8	CP = 56	        Accept simple_part
+SS = 6	CP = 56	      Accept part
+SS = 7	CP = 56	      Match  ,
+SS = 7	CP = 56	      Reject ,
+SS = 7	CP = 56	      Deduce part
+SS = 7	CP = 56	        Predict Failed in CONDITION
+SS = 7	CP = 56	        Predict Failed in CONDITION
+SS = 7	CP = 56	        Predict Failed in CONDITION
+SS = 9	CP = 56	        Deduce simple_part
+SS = 11	CP = 56	          Deduce right_non_terminal_symbol
+SS = 12	CP = 56	            Deduce non_terminal_symbol
+SS = 12	CP = 56	              Match  id
+SS = 12	CP = 56	              Accept id
+SS = 12	CP = 57	            Accept non_terminal_symbol
+SS = 11	CP = 57	          Accept right_non_terminal_symbol
+SS = 9	CP = 57	        Accept simple_part
+SS = 7	CP = 57	      Accept part
+SS = 7	CP = 57	      Match  ,
+SS = 7	CP = 57	      Reject ,
+SS = 7	CP = 57	      Deduce part
+SS = 7	CP = 57	        Predict Failed in CONDITION
+SS = 7	CP = 57	        Predict Failed in CONDITION
+SS = 7	CP = 57	        Predict Failed in CONDITION
+SS = 9	CP = 57	        Deduce simple_part
+SS = 9	CP = 57	          Predict Failed in CONDITION
+SS = 11	CP = 57	          Deduce terminal_symbol
+SS = 12	CP = 57	            Match  slit
+SS = 12	CP = 57	            Accept slit
+SS = 11	CP = 58	          Accept terminal_symbol
+SS = 9	CP = 58	        Accept simple_part
+SS = 7	CP = 58	      Accept part
+SS = 7	CP = 58	      Match  ,
+SS = 7	CP = 58	      Reject ,
+SS = 6	CP = 58	      Predict Failed: part
+SS = 5	CP = 58	    Accept term
+SS = 5	CP = 58	    Match  |
+SS = 5	CP = 58	    Reject |
+SS = 4	CP = 58	  Accept declaration
+SS = 4	CP = 58	  Deduce end_op
+SS = 5	CP = 58	    Match  ;
+SS = 5	CP = 58	    Accept ;
+SS = 4	CP = 59	  Accept end_op
+SS = 3	CP = 59	Accept statement
+SS = 3	CP = 59	Deduce statement
+SS = 4	CP = 59	  Deduce non_terminal_symbol
+SS = 4	CP = 59	    Match  id
+SS = 4	CP = 59	    Accept id
+SS = 4	CP = 60	  Accept non_terminal_symbol
+SS = 4	CP = 60	  Deduce assign_op
+SS = 5	CP = 60	    Match  ::=
+SS = 5	CP = 60	    Accept ::=
+SS = 4	CP = 61	  Accept assign_op
+SS = 4	CP = 61	  Deduce declaration
+SS = 5	CP = 61	    Deduce term
+SS = 6	CP = 61	      Deduce part
+SS = 6	CP = 61	        Predict Failed in CONDITION
+SS = 6	CP = 61	        Predict Failed in CONDITION
+SS = 6	CP = 61	        Predict Failed in CONDITION
+SS = 8	CP = 61	        Deduce simple_part
+SS = 8	CP = 61	          Predict Failed in CONDITION
+SS = 10	CP = 61	          Deduce terminal_symbol
+SS = 11	CP = 61	            Match  slit
+SS = 11	CP = 61	            Accept slit
+SS = 10	CP = 62	          Accept terminal_symbol
+SS = 8	CP = 62	        Accept simple_part
+SS = 6	CP = 62	      Accept part
+SS = 7	CP = 62	      Match  ,
+SS = 7	CP = 62	      Reject ,
+SS = 7	CP = 62	      Deduce part
+SS = 7	CP = 62	        Predict Failed in CONDITION
+SS = 7	CP = 62	        Predict Failed in CONDITION
+SS = 7	CP = 62	        Predict Failed in CONDITION
+SS = 9	CP = 62	        Deduce simple_part
+SS = 11	CP = 62	          Deduce right_non_terminal_symbol
+SS = 12	CP = 62	            Deduce non_terminal_symbol
+SS = 12	CP = 62	              Match  id
+SS = 12	CP = 62	              Accept id
+SS = 12	CP = 63	            Accept non_terminal_symbol
+SS = 11	CP = 63	          Accept right_non_terminal_symbol
+SS = 9	CP = 63	        Accept simple_part
+SS = 7	CP = 63	      Accept part
+SS = 7	CP = 63	      Match  ,
+SS = 7	CP = 63	      Reject ,
+SS = 7	CP = 63	      Deduce part
+SS = 7	CP = 63	        Predict Failed in CONDITION
+SS = 7	CP = 63	        Predict Failed in CONDITION
+SS = 7	CP = 63	        Predict Failed in CONDITION
+SS = 9	CP = 63	        Deduce simple_part
+SS = 9	CP = 63	          Predict Failed in CONDITION
+SS = 11	CP = 63	          Deduce terminal_symbol
+SS = 12	CP = 63	            Match  slit
+SS = 12	CP = 63	            Accept slit
+SS = 11	CP = 64	          Accept terminal_symbol
+SS = 9	CP = 64	        Accept simple_part
+SS = 7	CP = 64	      Accept part
+SS = 7	CP = 64	      Match  ,
+SS = 7	CP = 64	      Reject ,
+SS = 6	CP = 64	      Predict Failed: part
+SS = 5	CP = 64	    Accept term
+SS = 5	CP = 64	    Match  |
+SS = 5	CP = 64	    Reject |
+SS = 4	CP = 64	  Accept declaration
+SS = 4	CP = 64	  Deduce end_op
+SS = 5	CP = 64	    Match  ;
+SS = 5	CP = 64	    Accept ;
+SS = 4	CP = 65	  Accept end_op
+SS = 3	CP = 65	Accept statement
+SS = 3	CP = 65	Deduce statement
+SS = 4	CP = 65	  Deduce non_terminal_symbol
+SS = 4	CP = 65	    Match  id
+SS = 4	CP = 65	    Accept id
+SS = 4	CP = 66	  Accept non_terminal_symbol
+SS = 4	CP = 66	  Deduce assign_op
+SS = 5	CP = 66	    Match  ::=
+SS = 5	CP = 66	    Accept ::=
+SS = 4	CP = 67	  Accept assign_op
+SS = 4	CP = 67	  Deduce declaration
+SS = 5	CP = 67	    Deduce term
+SS = 6	CP = 67	      Deduce part
+SS = 6	CP = 67	        Predict Failed in CONDITION
+SS = 6	CP = 67	        Predict Failed in CONDITION
+SS = 6	CP = 67	        Predict Failed in CONDITION
+SS = 8	CP = 67	        Deduce simple_part
+SS = 8	CP = 67	          Predict Failed in CONDITION
+SS = 10	CP = 67	          Deduce terminal_symbol
+SS = 11	CP = 67	            Match  slit
+SS = 11	CP = 67	            Accept slit
+SS = 10	CP = 68	          Accept terminal_symbol
+SS = 8	CP = 68	        Accept simple_part
+SS = 6	CP = 68	      Accept part
+SS = 7	CP = 68	      Match  ,
+SS = 7	CP = 68	      Reject ,
+SS = 7	CP = 68	      Deduce part
+SS = 7	CP = 68	        Predict Failed in CONDITION
+SS = 7	CP = 68	        Predict Failed in CONDITION
+SS = 7	CP = 68	        Predict Failed in CONDITION
+SS = 9	CP = 68	        Deduce simple_part
+SS = 11	CP = 68	          Deduce right_non_terminal_symbol
+SS = 12	CP = 68	            Deduce non_terminal_symbol
+SS = 12	CP = 68	              Match  id
+SS = 12	CP = 68	              Accept id
+SS = 12	CP = 69	            Accept non_terminal_symbol
+SS = 11	CP = 69	          Accept right_non_terminal_symbol
+SS = 9	CP = 69	        Accept simple_part
+SS = 7	CP = 69	      Accept part
+SS = 7	CP = 69	      Match  ,
+SS = 7	CP = 69	      Reject ,
+SS = 7	CP = 69	      Deduce part
+SS = 7	CP = 69	        Predict Failed in CONDITION
+SS = 7	CP = 69	        Predict Failed in CONDITION
+SS = 7	CP = 69	        Predict Failed in CONDITION
+SS = 9	CP = 69	        Deduce simple_part
+SS = 9	CP = 69	          Predict Failed in CONDITION
+SS = 11	CP = 69	          Deduce terminal_symbol
+SS = 12	CP = 69	            Match  slit
+SS = 12	CP = 69	            Accept slit
+SS = 11	CP = 70	          Accept terminal_symbol
+SS = 9	CP = 70	        Accept simple_part
+SS = 7	CP = 70	      Accept part
+SS = 7	CP = 70	      Match  ,
+SS = 7	CP = 70	      Reject ,
+SS = 6	CP = 70	      Predict Failed: part
+SS = 5	CP = 70	    Accept term
+SS = 5	CP = 70	    Match  |
+SS = 5	CP = 70	    Reject |
+SS = 4	CP = 70	  Accept declaration
+SS = 4	CP = 70	  Deduce end_op
+SS = 5	CP = 70	    Match  ;
+SS = 5	CP = 70	    Accept ;
+SS = 4	CP = 71	  Accept end_op
+SS = 3	CP = 71	Accept statement
+SS = 3	CP = 71	Deduce statement
+SS = 4	CP = 71	  Deduce non_terminal_symbol
+SS = 4	CP = 71	    Match  id
+SS = 4	CP = 71	    Accept id
+SS = 4	CP = 72	  Accept non_terminal_symbol
+SS = 4	CP = 72	  Deduce assign_op
+SS = 5	CP = 72	    Match  ::=
+SS = 5	CP = 72	    Accept ::=
+SS = 4	CP = 73	  Accept assign_op
+SS = 4	CP = 73	  Deduce declaration
+SS = 5	CP = 73	    Deduce term
+SS = 6	CP = 73	      Deduce part
+SS = 6	CP = 73	        Predict Failed in CONDITION
+SS = 6	CP = 73	        Predict Failed in CONDITION
+SS = 6	CP = 73	        Predict Failed in CONDITION
+SS = 8	CP = 73	        Deduce simple_part
+SS = 10	CP = 73	          Deduce right_non_terminal_symbol
+SS = 11	CP = 73	            Deduce non_terminal_symbol
+SS = 11	CP = 73	              Match  id
+SS = 11	CP = 73	              Accept id
+SS = 11	CP = 74	            Accept non_terminal_symbol
+SS = 10	CP = 74	          Accept right_non_terminal_symbol
+SS = 8	CP = 74	        Accept simple_part
+SS = 6	CP = 74	      Accept part
+SS = 7	CP = 74	      Match  ,
+SS = 7	CP = 74	      Reject ,
+SS = 6	CP = 74	      Predict Failed: part
+SS = 5	CP = 74	    Accept term
+SS = 5	CP = 74	    Match  |
+SS = 5	CP = 74	    Accept |
+SS = 6	CP = 75	    Deduce term
+SS = 7	CP = 75	      Deduce part
+SS = 7	CP = 75	        Predict Failed in CONDITION
+SS = 7	CP = 75	        Predict Failed in CONDITION
+SS = 7	CP = 75	        Predict Failed in CONDITION
+SS = 9	CP = 75	        Deduce simple_part
+SS = 11	CP = 75	          Deduce right_non_terminal_symbol
+SS = 12	CP = 75	            Deduce non_terminal_symbol
+SS = 12	CP = 75	              Match  id
+SS = 12	CP = 75	              Accept id
+SS = 12	CP = 76	            Accept non_terminal_symbol
+SS = 11	CP = 76	          Accept right_non_terminal_symbol
+SS = 9	CP = 76	        Accept simple_part
+SS = 7	CP = 76	      Accept part
+SS = 8	CP = 76	      Match  ,
+SS = 8	CP = 76	      Reject ,
+SS = 7	CP = 76	      Predict Failed: part
+SS = 6	CP = 76	    Accept term
+SS = 5	CP = 76	    Match  |
+SS = 5	CP = 76	    Reject |
+SS = 4	CP = 76	  Accept declaration
+SS = 4	CP = 76	  Deduce end_op
+SS = 5	CP = 76	    Match  ;
+SS = 5	CP = 76	    Accept ;
+SS = 4	CP = 77	  Accept end_op
+SS = 3	CP = 77	Accept statement
+SS = 3	CP = 77	Deduce statement
+SS = 4	CP = 77	  Deduce non_terminal_symbol
+SS = 4	CP = 77	    Match  id
+SS = 4	CP = 77	    Accept id
+SS = 4	CP = 78	  Accept non_terminal_symbol
+SS = 4	CP = 78	  Deduce assign_op
+SS = 5	CP = 78	    Match  ::=
+SS = 5	CP = 78	    Accept ::=
+SS = 4	CP = 79	  Accept assign_op
+SS = 4	CP = 79	  Deduce declaration
+SS = 5	CP = 79	    Deduce term
+SS = 6	CP = 79	      Deduce part
+SS = 6	CP = 79	        Predict Failed in CONDITION
+SS = 6	CP = 79	        Predict Failed in CONDITION
+SS = 6	CP = 79	        Predict Failed in CONDITION
+SS = 8	CP = 79	        Deduce simple_part
+SS = 8	CP = 79	          Predict Failed in CONDITION
+SS = 10	CP = 79	          Deduce terminal_symbol
+SS = 10	CP = 79	            Predict Failed in CONDITION
+SS = 10	CP = 79	            Predict Failed in CONDITION
+SS = 11	CP = 79	            Match  token
+SS = 11	CP = 79	            Accept token
+SS = 10	CP = 80	          Accept terminal_symbol
+SS = 8	CP = 80	        Accept simple_part
+SS = 6	CP = 80	      Accept part
+SS = 7	CP = 80	      Match  ,
+SS = 7	CP = 80	      Reject ,
+SS = 6	CP = 80	      Predict Failed: part
+SS = 5	CP = 80	    Accept term
+SS = 5	CP = 80	    Match  |
+SS = 5	CP = 80	    Accept |
+SS = 6	CP = 81	    Deduce term
+SS = 7	CP = 81	      Deduce part
+SS = 7	CP = 81	        Predict Failed in CONDITION
+SS = 7	CP = 81	        Predict Failed in CONDITION
+SS = 7	CP = 81	        Predict Failed in CONDITION
+SS = 9	CP = 81	        Deduce simple_part
+SS = 9	CP = 81	          Predict Failed in CONDITION
+SS = 11	CP = 81	          Deduce terminal_symbol
+SS = 11	CP = 81	            Predict Failed in CONDITION
+SS = 11	CP = 81	            Predict Failed in CONDITION
+SS = 12	CP = 81	            Match  token
+SS = 12	CP = 81	            Accept token
+SS = 11	CP = 82	          Accept terminal_symbol
+SS = 9	CP = 82	        Accept simple_part
+SS = 7	CP = 82	      Accept part
+SS = 8	CP = 82	      Match  ,
+SS = 8	CP = 82	      Reject ,
+SS = 7	CP = 82	      Predict Failed: part
+SS = 6	CP = 82	    Accept term
+SS = 5	CP = 82	    Match  |
+SS = 5	CP = 82	    Reject |
+SS = 4	CP = 82	  Accept declaration
+SS = 4	CP = 82	  Deduce end_op
+SS = 5	CP = 82	    Match  ;
+SS = 5	CP = 82	    Accept ;
+SS = 4	CP = 83	  Accept end_op
+SS = 3	CP = 83	Accept statement
+SS = 3	CP = 83	Deduce statement
+SS = 4	CP = 83	  Deduce non_terminal_symbol
+SS = 4	CP = 83	    Match  id
+SS = 4	CP = 83	    Accept id
+SS = 4	CP = 84	  Accept non_terminal_symbol
+SS = 4	CP = 84	  Deduce assign_op
+SS = 5	CP = 84	    Match  ::=
+SS = 5	CP = 84	    Accept ::=
+SS = 4	CP = 85	  Accept assign_op
+SS = 4	CP = 85	  Deduce declaration
+SS = 5	CP = 85	    Deduce term
+SS = 6	CP = 85	      Deduce part
+SS = 6	CP = 85	        Predict Failed in CONDITION
+SS = 6	CP = 85	        Predict Failed in CONDITION
+SS = 6	CP = 85	        Predict Failed in CONDITION
+SS = 8	CP = 85	        Deduce simple_part
+SS = 8	CP = 85	          Predict Failed in CONDITION
+SS = 10	CP = 85	          Deduce terminal_symbol
+SS = 10	CP = 85	            Predict Failed in CONDITION
+SS = 10	CP = 85	            Predict Failed in CONDITION
+SS = 11	CP = 85	            Match  token
+SS = 11	CP = 85	            Accept token
+SS = 10	CP = 86	          Accept terminal_symbol
+SS = 8	CP = 86	        Accept simple_part
+SS = 6	CP = 86	      Accept part
+SS = 7	CP = 86	      Match  ,
+SS = 7	CP = 86	      Reject ,
+SS = 6	CP = 86	      Predict Failed: part
+SS = 5	CP = 86	    Accept term
+SS = 5	CP = 86	    Match  |
+SS = 5	CP = 86	    Reject |
+SS = 4	CP = 86	  Accept declaration
+SS = 4	CP = 86	  Deduce end_op
+SS = 5	CP = 86	    Match  ;
+SS = 5	CP = 86	    Accept ;
+SS = 4	CP = 87	  Accept end_op
+SS = 3	CP = 87	Accept statement
+SS = 2	CP = 87	End Of File
+Compile Time: 0.12s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -169,9 +970,97 @@ begin
     statement -> declaration
       declaration -> term
         term -> part
+          part -> repeat_part
+            repeat_part -> "{"
+            repeat_part -> declaration
+              declaration -> term
+                term -> part
+                  part -> simple_part
+                    simple_part -> right_non_terminal_symbol
+                      right_non_terminal_symbol -> non_terminal_symbol
+                        non_terminal_symbol -> "statement"
+            repeat_part -> "}"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "statement"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "non_terminal_symbol"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "assign_op"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "declaration"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "end_op"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "assign_op"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
           part -> simple_part
             simple_part -> terminal_symbol
-              terminal_symbol -> "A"
+              terminal_symbol -> "'='"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'::='"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "end_op"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "';'"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "".""
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "declaration"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "term"
         term -> part
           part -> repeat_part
             repeat_part -> "{"
@@ -180,30 +1069,204 @@ begin
                 term -> part
                   part -> simple_part
                     simple_part -> terminal_symbol
-                      terminal_symbol -> "B"
-              declaration -> "|"
-              declaration -> term
+                      terminal_symbol -> "'|'"
                 term -> part
                   part -> simple_part
-                    simple_part -> terminal_symbol
-                      terminal_symbol -> "E"
+                    simple_part -> right_non_terminal_symbol
+                      right_non_terminal_symbol -> non_terminal_symbol
+                        non_terminal_symbol -> "term"
             repeat_part -> "}"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "term"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
         term -> part
-          part -> alternative_part
-            alternative_part -> "["
-            alternative_part -> declaration
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "part"
+        term -> part
+          part -> repeat_part
+            repeat_part -> "{"
+            repeat_part -> declaration
               declaration -> term
                 term -> part
-                  part -> simple_part
-                    simple_part -> terminal_symbol
-                      terminal_symbol -> "C"
-              declaration -> "|"
-              declaration -> term
+                  part -> alternative_part
+                    alternative_part -> "["
+                    alternative_part -> declaration
+                      declaration -> term
+                        term -> part
+                          part -> simple_part
+                            simple_part -> terminal_symbol
+                              terminal_symbol -> "','"
+                    alternative_part -> "]"
                 term -> part
                   part -> simple_part
-                    simple_part -> terminal_symbol
-                      terminal_symbol -> "D"
-            alternative_part -> "]"
+                    simple_part -> right_non_terminal_symbol
+                      right_non_terminal_symbol -> non_terminal_symbol
+                        non_terminal_symbol -> "part"
+            repeat_part -> "}"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "part"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "repeat_part"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "declaration_part"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "alternative_part"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "simple_part"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "repeat_part"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'{'"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "declaration"
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'}'"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "declaration_part"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'('"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "declaration"
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "')'"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "alternative_part"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'['"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "declaration"
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "']'"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "simple_part"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "non_terminal_symbol"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "terminal_symbol"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "terminal_symlol"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "LIT"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "TOKEN"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "non_terminal_symbol"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "ID"
+    statement -> end_op
+      end_op -> ";"
 #############
 New Statement
 #############
@@ -211,40 +1274,217 @@ Left Non-terminal-symbol: begin
 Now_name: begin
 create now_tree : begin
 Start analyze Declaration: 
-simple part: terminal_symbol: A
-add new node: begin_repeat_2
+add new node: begin_rep_1
 record old tree: begin
-change now tree: begin_repeat_2
-simple part: terminal_symbol: B
-simple part: non_terminal_symbol: begin_repeat_2
-simple part: terminal_symbol: E
-simple part: non_terminal_symbol: begin_repeat_2
-simple part: non_terminal_symbol: NULL
-recover from fun, now_tree: begin
-add new node: begin_optional_3
-record old tree: begin
-change now tree: begin_optional_3
-simple part: terminal_symbol: C
-simple part: terminal_symbol: D
+change now tree: begin_rep_1
+simple part: non_terminal_symbol: statement
+simple part: non_terminal_symbol: begin_rep_1
 simple part: non_terminal_symbol: NULL
 recover from fun, now_tree: begin
 End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: statement
+Now_name: statement
+create now_tree : statement
+Start analyze Declaration: 
+simple part: non_terminal_symbol: non_terminal_symbol
+simple part: non_terminal_symbol: assign_op
+simple part: non_terminal_symbol: declaration
+simple part: non_terminal_symbol: end_op
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: assign_op
+Now_name: assign_op
+create now_tree : assign_op
+Start analyze Declaration: 
+simple part: terminal_symbol: '='
+simple part: terminal_symbol: '::='
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: end_op
+Now_name: end_op
+create now_tree : end_op
+Start analyze Declaration: 
+simple part: terminal_symbol: ';'
+simple part: terminal_symbol: "."
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: declaration
+Now_name: declaration
+create now_tree : declaration
+Start analyze Declaration: 
+simple part: non_terminal_symbol: term
+add new node: declaration_rep_2
+record old tree: declaration
+change now tree: declaration_rep_2
+simple part: terminal_symbol: '|'
+simple part: non_terminal_symbol: term
+simple part: non_terminal_symbol: declaration_rep_2
+simple part: non_terminal_symbol: NULL
+recover from fun, now_tree: declaration
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: term
+Now_name: term
+create now_tree : term
+Start analyze Declaration: 
+simple part: non_terminal_symbol: part
+add new node: term_rep_2
+record old tree: term
+change now tree: term_rep_2
+add new node: term_rep_2_opt_1
+record old tree: term_rep_2
+change now tree: term_rep_2_opt_1
+simple part: terminal_symbol: ','
+simple part: non_terminal_symbol: NULL
+recover from fun, now_tree: term_rep_2
+simple part: non_terminal_symbol: part
+simple part: non_terminal_symbol: term_rep_2
+simple part: non_terminal_symbol: NULL
+recover from fun, now_tree: term
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: part
+Now_name: part
+create now_tree : part
+Start analyze Declaration: 
+simple part: non_terminal_symbol: repeat_part
+simple part: non_terminal_symbol: declaration_part
+simple part: non_terminal_symbol: alternative_part
+simple part: non_terminal_symbol: simple_part
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: repeat_part
+Now_name: repeat_part
+create now_tree : repeat_part
+Start analyze Declaration: 
+simple part: terminal_symbol: '{'
+simple part: non_terminal_symbol: declaration
+simple part: terminal_symbol: '}'
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: declaration_part
+Now_name: declaration_part
+create now_tree : declaration_part
+Start analyze Declaration: 
+simple part: terminal_symbol: '('
+simple part: non_terminal_symbol: declaration
+simple part: terminal_symbol: ')'
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: alternative_part
+Now_name: alternative_part
+create now_tree : alternative_part
+Start analyze Declaration: 
+simple part: terminal_symbol: '['
+simple part: non_terminal_symbol: declaration
+simple part: terminal_symbol: ']'
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: simple_part
+Now_name: simple_part
+create now_tree : simple_part
+Start analyze Declaration: 
+simple part: non_terminal_symbol: non_terminal_symbol
+simple part: non_terminal_symbol: terminal_symbol
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: terminal_symlol
+Now_name: terminal_symlol
+create now_tree : terminal_symlol
+Start analyze Declaration: 
+simple part: terminal_symbol: LIT
+simple part: terminal_symbol: TOKEN
+End analyze Decalration 
+#############
+New Statement
+#############
+Left Non-terminal-symbol: non_terminal_symbol
+Now_name: non_terminal_symbol
+create now_tree : non_terminal_symbol
+Start analyze Declaration: 
+simple part: terminal_symbol: ID
+End analyze Decalration 
+##############
+show all names
+##############
+__NULL
+_NULL
+_statement_begin_rep_1
+_non_terminal_symbol_assign_op_declaration_end_op
+_'::='
+_'='
+_"."
+_';'
+_term__NULL
+_NULL
+_'|'_term_declaration_rep_2
+_part__NULL
+_NULL
+__NULL_part_term_rep_2
+_NULL
+_','
+_simple_part
+_alternative_part
+_declaration_part
+_repeat_part
+_'{'_declaration_'}'
+_'('_declaration_')'
+_'['_declaration_']'
+_terminal_symbol
+_non_terminal_symbol
+_TOKEN
+_LIT
+_ID
 
-	begin_repeat_2
-		B
-		begin_repeat_2
-	begin_repeat_2
-		E
-		begin_repeat_2
-	begin_repeat_2
-		NULL
-	begin_optional_3
-		C
-	begin_optional_3
-		D
-	begin_optional_3
-		NULL
-	begin
-		A
-		begin_repeat_2
-		begin_optional_3
+begin  : begin_rep_1 
+begin_rep_1  : NULL 
+begin_rep_1  : statement begin_rep_1 
+statement  : non_terminal_symbol assign_op declaration end_op 
+assign_op  : '::=' 
+assign_op  : '=' 
+end_op  : "." 
+end_op  : ';' 
+declaration  : term declaration_rep_2 
+declaration_rep_2  : NULL 
+declaration_rep_2  : '|' term declaration_rep_2 
+term  : part term_rep_2 
+term_rep_2  : NULL 
+term_rep_2  : term_rep_2_opt_1 part term_rep_2 
+term_rep_2_opt_1  : NULL 
+term_rep_2_opt_1  : ',' 
+part  : simple_part 
+part  : alternative_part 
+part  : declaration_part 
+part  : repeat_part 
+repeat_part  : '{' declaration '}' 
+declaration_part  : '(' declaration ')' 
+alternative_part  : '[' declaration ']' 
+simple_part  : terminal_symbol 
+simple_part  : non_terminal_symbol 
+terminal_symlol  : TOKEN 
+terminal_symlol  : LIT 
+non_terminal_symbol  : ID 
+

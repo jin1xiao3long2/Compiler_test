@@ -15,5 +15,6 @@ system.out.println("Compile Time: " + (runtime.time() - time_start)/1000 + "s")
 if !parser.ast == null
     parsergen.print_ast(parser.ast)
     new_tree.run(parser.ast)
+    #foreach it in new_tree.store_name do system.out.println(it)
     res.run(system.out, new_tree.root)
 end
