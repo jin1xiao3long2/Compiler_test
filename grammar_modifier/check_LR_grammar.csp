@@ -15,6 +15,7 @@ class LR_type
     var targets = new array
 end
 
+
 class LR_term
     var input_res = new array
     var result = new array
@@ -107,6 +108,7 @@ class target_type
     var target_idx = -1
     var change_value = ""
 end
+
 
 class NFA_type
     var input_list = new array
@@ -212,30 +214,139 @@ class NFA_type
         create_NFA()
 
         print_header("ADD TARGETS")
-        foreach iter in flat_list
-            system.out.print(iter.root + "  :  ")
-            foreach it in iter.nodes
-                system.out.print(it + "  ")
-            end
-            system.out.println("\n index is: " + iter.idx + ", before: " + iter.mark_before + ", after: " + iter.mark_after)
-            system.out.println("TARGET LIST: ")
-            foreach iter in iter.targets do system.out.println("target index: " + iter.target_idx + "  , change_source: " + iter.change_value)
-            system.out.println("")
-        end
-
+        foreach iter in flat_list do print_LR_type(iter)
+        
         result_list = flat_list
     end
 end
 
+function print_LR_type(term)
+    system.out.print(term.root + "  :  ")
+    foreach it in term.nodes
+        system.out.print(it + "  ")
+    end
+    system.out.println("\n index is: " + term.idx + ", before: " + term.mark_before + ", after: " + term.mark_after)
+    system.out.println("TARGET LIST: ")
+    foreach iter in term.targets do system.out.println("target index: " + iter.target_idx + "  , change_value: " + iter.change_value)
+    system.out.println("")
+end
+
+struct subset_type
+    var idx = -1
+
+    var from_ele = new array
+
+    var subset = new array
+
+    var to_ele = new array
+end
 
 class DFA_type
     var input_list = new array
+ 
+    var subset_list = new array
 
-    function run(input)
+    function minimal_subset(terms)
+        var subset = new subset_type
+        var set = new array
+        var to_set = new array
+        #M值
+        subset.from_ele = terms
+        foreach iter in terms do set.push_back(iter)
+
+        foreach iter in terms
+            
+            #统计S值
+            foreach target in iter.targets
+                if target.change_value == "%NULL%"
+                    var new_val = true
+                    foreach set_iter in set
+                        if target.target_idx == set_iter.idx
+                            new_val = false
+                        end
+                    end
+                    if new_val
+                        set.push_back(input_list[target.target_idx])
+                    end
+                end
+            end     
+            
+            foreach it in set 
+                foreach target in it.targets
+                    if target.change_value != "%NULL%"
+                        var new_val = true
+                        foreach set_iter in to_set
+                            if target.target_idx == set_iter.idx
+                                new_val = false
+                            end
+                        end
+                        if new_val
+                            to_set.push_back(input_list[target.target_idx])
+                        end
+                    end
+                end
+            end
+        end 
+        subset.subset = set
+        subset.to_ele = to_set
+        subset_list.push_back(subset)
+
+        #统计不同的输出term
+        var target_array = new array
+
+        foreach iter in to_set
+            #检查转换符号
+            var value = iter.mark_before
+            var new_target = true
+            #若已有该转换符号的term,则添加
+            foreach it in target_array
+                if value == it[0].mark_before
+                    it.push_back(iter)
+                    new_target = false
+                end
+            end
+            #若没有,则新建一个列
+            if !new_target
+                continue
+            else
+                var new_array = new array
+                new_array.push_back(iter)
+                target_array.push_back(new_array)
+            end
+        end
+
+
+        foreach iter in target_array do minimal_subset(iter)
+
+    end
+
+    function print_table()
+        var index= 0 
+        foreach iter in subset_list
+            iter.idx = index
+            print_header("#" + index + "  TERM#")
+            print_header("#FROM SET#")
+            foreach it in iter.from_ele do print_LR_type(it)
+            print_header("#SUBSET#")
+            foreach it in iter.subset do print_LR_type(it)
+            print_header("#TO SET#")
+            foreach it in iter.to_ele do print_LR_type(it)
+            index++
+        end
+    end
     
+    
+    function run(input)
+        input_list = input
+        print_header("#DFA#")
+        var terms = new array
+        terms.push_back(input_list[0])
+        minimal_subset(terms)
+        
+
+         print_table()
     end
 end
-
 
 
 function print_header(txt)
@@ -245,3 +356,4 @@ function print_header(txt)
     foreach i in range(txt.size) do system.out.print('#')
     system.out.println("")
 end
+

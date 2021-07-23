@@ -9,6 +9,7 @@ var new_tree = new grammar_transfer.traversal_old_tree
 var LR_term_list = new check_LR_grammar.LR_term
 
 var NFA = new check_LR_grammar.NFA_type
+var DFA = new check_LR_grammar.DFA_type
 parser.add_grammar("ebnf-lang", ebnf_parser.grammar)
 
 var time_start = runtime.time()
@@ -25,4 +26,5 @@ if !parser.ast == null
     LR_term_list.run(new_tree.res)
     #res.run(system.out, new_tree.root)
     NFA.run(LR_term_list.result)
+    DFA.run(NFA.result_list)
 end

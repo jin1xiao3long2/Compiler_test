@@ -1,4 +1,4 @@
-Compile Time: 0.102s
+Compile Time: 0.101s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -818,9 +818,8 @@ ADD TARGETS
 %start%  :  %MARK%  begin  
  index is: 0, before: %NULL%, after: begin
 TARGET LIST: 
-target index: 1  , change_source: begin
-target index: 2  , change_source: %NULL%
-target index: 3  , change_source: %NULL%
+target index: 1  , change_value: begin
+target index: 2  , change_value: %NULL%
 
 %start%  :  begin  %MARK%  
  index is: 1, before: begin, after: %NULL%
@@ -829,11 +828,9 @@ TARGET LIST:
 begin  :  %MARK%  begin_rep_1  
  index is: 2, before: %NULL%, after: begin_rep_1
 TARGET LIST: 
-target index: 3  , change_source: begin_rep_1
-target index: 4  , change_source: %NULL%
-target index: 5  , change_source: %NULL%
-target index: 6  , change_source: %NULL%
-target index: 7  , change_source: %NULL%
+target index: 3  , change_value: begin_rep_1
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
 
 begin  :  begin_rep_1  %MARK%  
  index is: 3, before: begin_rep_1, after: %NULL%
@@ -846,21 +843,15 @@ TARGET LIST:
 begin_rep_1  :  %MARK%  statement  begin_rep_1  
  index is: 5, before: %NULL%, after: statement
 TARGET LIST: 
-target index: 6  , change_source: statement
-target index: 8  , change_source: %NULL%
-target index: 9  , change_source: %NULL%
-target index: 10  , change_source: %NULL%
-target index: 11  , change_source: %NULL%
-target index: 12  , change_source: %NULL%
+target index: 6  , change_value: statement
+target index: 8  , change_value: %NULL%
 
 begin_rep_1  :  statement  %MARK%  begin_rep_1  
  index is: 6, before: statement, after: begin_rep_1
 TARGET LIST: 
-target index: 4  , change_source: %NULL%
-target index: 5  , change_source: %NULL%
-target index: 6  , change_source: %NULL%
-target index: 7  , change_source: %NULL%
-target index: 7  , change_source: begin_rep_1
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
 
 begin_rep_1  :  statement  begin_rep_1  %MARK%  
  index is: 7, before: begin_rep_1, after: %NULL%
@@ -869,35 +860,28 @@ TARGET LIST:
 statement  :  %MARK%  non_terminal_symbol  assign_op  declaration  end_op  
  index is: 8, before: %NULL%, after: non_terminal_symbol
 TARGET LIST: 
-target index: 9  , change_source: non_terminal_symbol
-target index: 68  , change_source: %NULL%
-target index: 69  , change_source: %NULL%
+target index: 9  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
 
 statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
  index is: 9, before: non_terminal_symbol, after: assign_op
 TARGET LIST: 
-target index: 10  , change_source: assign_op
-target index: 13  , change_source: %NULL%
-target index: 14  , change_source: %NULL%
-target index: 15  , change_source: %NULL%
-target index: 16  , change_source: %NULL%
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
 
 statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
  index is: 10, before: assign_op, after: declaration
 TARGET LIST: 
-target index: 11  , change_source: declaration
-target index: 21  , change_source: %NULL%
-target index: 22  , change_source: %NULL%
-target index: 23  , change_source: %NULL%
+target index: 11  , change_value: declaration
+target index: 21  , change_value: %NULL%
 
 statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
  index is: 11, before: declaration, after: end_op
 TARGET LIST: 
-target index: 12  , change_source: end_op
-target index: 17  , change_source: %NULL%
-target index: 18  , change_source: %NULL%
-target index: 19  , change_source: %NULL%
-target index: 20  , change_source: %NULL%
+target index: 12  , change_value: end_op
+target index: 17  , change_value: %NULL%
+target index: 19  , change_value: %NULL%
 
 statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
  index is: 12, before: end_op, after: %NULL%
@@ -906,7 +890,7 @@ TARGET LIST:
 assign_op  :  %MARK%  '::='  
  index is: 13, before: %NULL%, after: '::='
 TARGET LIST: 
-target index: 14  , change_source: '::='
+target index: 14  , change_value: '::='
 
 assign_op  :  '::='  %MARK%  
  index is: 14, before: '::=', after: %NULL%
@@ -915,7 +899,7 @@ TARGET LIST:
 assign_op  :  %MARK%  '='  
  index is: 15, before: %NULL%, after: '='
 TARGET LIST: 
-target index: 16  , change_source: '='
+target index: 16  , change_value: '='
 
 assign_op  :  '='  %MARK%  
  index is: 16, before: '=', after: %NULL%
@@ -924,7 +908,7 @@ TARGET LIST:
 end_op  :  %MARK%  "."  
  index is: 17, before: %NULL%, after: "."
 TARGET LIST: 
-target index: 18  , change_source: "."
+target index: 18  , change_value: "."
 
 end_op  :  "."  %MARK%  
  index is: 18, before: ".", after: %NULL%
@@ -933,7 +917,7 @@ TARGET LIST:
 end_op  :  %MARK%  ';'  
  index is: 19, before: %NULL%, after: ';'
 TARGET LIST: 
-target index: 20  , change_source: ';'
+target index: 20  , change_value: ';'
 
 end_op  :  ';'  %MARK%  
  index is: 20, before: ';', after: %NULL%
@@ -942,20 +926,15 @@ TARGET LIST:
 declaration  :  %MARK%  term  declaration_rep_2  
  index is: 21, before: %NULL%, after: term
 TARGET LIST: 
-target index: 22  , change_source: term
-target index: 29  , change_source: %NULL%
-target index: 30  , change_source: %NULL%
-target index: 31  , change_source: %NULL%
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
 
 declaration  :  term  %MARK%  declaration_rep_2  
  index is: 22, before: term, after: declaration_rep_2
 TARGET LIST: 
-target index: 23  , change_source: declaration_rep_2
-target index: 24  , change_source: %NULL%
-target index: 25  , change_source: %NULL%
-target index: 26  , change_source: %NULL%
-target index: 27  , change_source: %NULL%
-target index: 28  , change_source: %NULL%
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
 
 declaration  :  term  declaration_rep_2  %MARK%  
  index is: 23, before: declaration_rep_2, after: %NULL%
@@ -968,25 +947,20 @@ TARGET LIST:
 declaration_rep_2  :  %MARK%  '|'  term  declaration_rep_2  
  index is: 25, before: %NULL%, after: '|'
 TARGET LIST: 
-target index: 26  , change_source: '|'
+target index: 26  , change_value: '|'
 
 declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
  index is: 26, before: '|', after: term
 TARGET LIST: 
-target index: 27  , change_source: term
-target index: 29  , change_source: %NULL%
-target index: 30  , change_source: %NULL%
-target index: 31  , change_source: %NULL%
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
 
 declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
  index is: 27, before: term, after: declaration_rep_2
 TARGET LIST: 
-target index: 24  , change_source: %NULL%
-target index: 25  , change_source: %NULL%
-target index: 26  , change_source: %NULL%
-target index: 27  , change_source: %NULL%
-target index: 28  , change_source: %NULL%
-target index: 28  , change_source: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+target index: 28  , change_value: declaration_rep_2
 
 declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
  index is: 28, before: declaration_rep_2, after: %NULL%
@@ -995,25 +969,18 @@ TARGET LIST:
 term  :  %MARK%  part  term_rep_2  
  index is: 29, before: %NULL%, after: part
 TARGET LIST: 
-target index: 30  , change_source: part
-target index: 40  , change_source: %NULL%
-target index: 41  , change_source: %NULL%
-target index: 42  , change_source: %NULL%
-target index: 43  , change_source: %NULL%
-target index: 44  , change_source: %NULL%
-target index: 45  , change_source: %NULL%
-target index: 46  , change_source: %NULL%
-target index: 47  , change_source: %NULL%
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
 
 term  :  part  %MARK%  term_rep_2  
  index is: 30, before: part, after: term_rep_2
 TARGET LIST: 
-target index: 31  , change_source: term_rep_2
-target index: 32  , change_source: %NULL%
-target index: 33  , change_source: %NULL%
-target index: 34  , change_source: %NULL%
-target index: 35  , change_source: %NULL%
-target index: 36  , change_source: %NULL%
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
 
 term  :  part  term_rep_2  %MARK%  
  index is: 31, before: term_rep_2, after: %NULL%
@@ -1026,33 +993,25 @@ TARGET LIST:
 term_rep_2  :  %MARK%  term_rep_2_opt_1  part  term_rep_2  
  index is: 33, before: %NULL%, after: term_rep_2_opt_1
 TARGET LIST: 
-target index: 34  , change_source: term_rep_2_opt_1
-target index: 37  , change_source: %NULL%
-target index: 38  , change_source: %NULL%
-target index: 39  , change_source: %NULL%
+target index: 34  , change_value: term_rep_2_opt_1
+target index: 37  , change_value: %NULL%
+target index: 38  , change_value: %NULL%
 
 term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
  index is: 34, before: term_rep_2_opt_1, after: part
 TARGET LIST: 
-target index: 35  , change_source: part
-target index: 40  , change_source: %NULL%
-target index: 41  , change_source: %NULL%
-target index: 42  , change_source: %NULL%
-target index: 43  , change_source: %NULL%
-target index: 44  , change_source: %NULL%
-target index: 45  , change_source: %NULL%
-target index: 46  , change_source: %NULL%
-target index: 47  , change_source: %NULL%
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
 
 term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
  index is: 35, before: part, after: term_rep_2
 TARGET LIST: 
-target index: 32  , change_source: %NULL%
-target index: 33  , change_source: %NULL%
-target index: 34  , change_source: %NULL%
-target index: 35  , change_source: %NULL%
-target index: 36  , change_source: %NULL%
-target index: 36  , change_source: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+target index: 36  , change_value: term_rep_2
 
 term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
  index is: 36, before: term_rep_2, after: %NULL%
@@ -1065,7 +1024,7 @@ TARGET LIST:
 term_rep_2_opt_1  :  %MARK%  ','  
  index is: 38, before: %NULL%, after: ','
 TARGET LIST: 
-target index: 39  , change_source: ','
+target index: 39  , change_value: ','
 
 term_rep_2_opt_1  :  ','  %MARK%  
  index is: 39, before: ',', after: %NULL%
@@ -1074,11 +1033,9 @@ TARGET LIST:
 part  :  %MARK%  simple_part  
  index is: 40, before: %NULL%, after: simple_part
 TARGET LIST: 
-target index: 41  , change_source: simple_part
-target index: 60  , change_source: %NULL%
-target index: 61  , change_source: %NULL%
-target index: 62  , change_source: %NULL%
-target index: 63  , change_source: %NULL%
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
 
 part  :  simple_part  %MARK%  
  index is: 41, before: simple_part, after: %NULL%
@@ -1087,11 +1044,8 @@ TARGET LIST:
 part  :  %MARK%  alternative_part  
  index is: 42, before: %NULL%, after: alternative_part
 TARGET LIST: 
-target index: 43  , change_source: alternative_part
-target index: 56  , change_source: %NULL%
-target index: 57  , change_source: %NULL%
-target index: 58  , change_source: %NULL%
-target index: 59  , change_source: %NULL%
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
 
 part  :  alternative_part  %MARK%  
  index is: 43, before: alternative_part, after: %NULL%
@@ -1100,11 +1054,8 @@ TARGET LIST:
 part  :  %MARK%  declaration_part  
  index is: 44, before: %NULL%, after: declaration_part
 TARGET LIST: 
-target index: 45  , change_source: declaration_part
-target index: 52  , change_source: %NULL%
-target index: 53  , change_source: %NULL%
-target index: 54  , change_source: %NULL%
-target index: 55  , change_source: %NULL%
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
 
 part  :  declaration_part  %MARK%  
  index is: 45, before: declaration_part, after: %NULL%
@@ -1113,11 +1064,8 @@ TARGET LIST:
 part  :  %MARK%  repeat_part  
  index is: 46, before: %NULL%, after: repeat_part
 TARGET LIST: 
-target index: 47  , change_source: repeat_part
-target index: 48  , change_source: %NULL%
-target index: 49  , change_source: %NULL%
-target index: 50  , change_source: %NULL%
-target index: 51  , change_source: %NULL%
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
 
 part  :  repeat_part  %MARK%  
  index is: 47, before: repeat_part, after: %NULL%
@@ -1126,20 +1074,18 @@ TARGET LIST:
 repeat_part  :  %MARK%  '{'  declaration  '}'  
  index is: 48, before: %NULL%, after: '{'
 TARGET LIST: 
-target index: 49  , change_source: '{'
+target index: 49  , change_value: '{'
 
 repeat_part  :  '{'  %MARK%  declaration  '}'  
  index is: 49, before: '{', after: declaration
 TARGET LIST: 
-target index: 21  , change_source: %NULL%
-target index: 22  , change_source: %NULL%
-target index: 23  , change_source: %NULL%
-target index: 50  , change_source: declaration
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
 
 repeat_part  :  '{'  declaration  %MARK%  '}'  
  index is: 50, before: declaration, after: '}'
 TARGET LIST: 
-target index: 51  , change_source: '}'
+target index: 51  , change_value: '}'
 
 repeat_part  :  '{'  declaration  '}'  %MARK%  
  index is: 51, before: '}', after: %NULL%
@@ -1148,20 +1094,18 @@ TARGET LIST:
 declaration_part  :  %MARK%  '('  declaration  ')'  
  index is: 52, before: %NULL%, after: '('
 TARGET LIST: 
-target index: 53  , change_source: '('
+target index: 53  , change_value: '('
 
 declaration_part  :  '('  %MARK%  declaration  ')'  
  index is: 53, before: '(', after: declaration
 TARGET LIST: 
-target index: 21  , change_source: %NULL%
-target index: 22  , change_source: %NULL%
-target index: 23  , change_source: %NULL%
-target index: 54  , change_source: declaration
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
 
 declaration_part  :  '('  declaration  %MARK%  ')'  
  index is: 54, before: declaration, after: ')'
 TARGET LIST: 
-target index: 55  , change_source: ')'
+target index: 55  , change_value: ')'
 
 declaration_part  :  '('  declaration  ')'  %MARK%  
  index is: 55, before: ')', after: %NULL%
@@ -1170,20 +1114,18 @@ TARGET LIST:
 alternative_part  :  %MARK%  '['  declaration  ']'  
  index is: 56, before: %NULL%, after: '['
 TARGET LIST: 
-target index: 57  , change_source: '['
+target index: 57  , change_value: '['
 
 alternative_part  :  '['  %MARK%  declaration  ']'  
  index is: 57, before: '[', after: declaration
 TARGET LIST: 
-target index: 21  , change_source: %NULL%
-target index: 22  , change_source: %NULL%
-target index: 23  , change_source: %NULL%
-target index: 58  , change_source: declaration
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
 
 alternative_part  :  '['  declaration  %MARK%  ']'  
  index is: 58, before: declaration, after: ']'
 TARGET LIST: 
-target index: 59  , change_source: ']'
+target index: 59  , change_value: ']'
 
 alternative_part  :  '['  declaration  ']'  %MARK%  
  index is: 59, before: ']', after: %NULL%
@@ -1192,7 +1134,7 @@ TARGET LIST:
 simple_part  :  %MARK%  terminal_symbol  
  index is: 60, before: %NULL%, after: terminal_symbol
 TARGET LIST: 
-target index: 61  , change_source: terminal_symbol
+target index: 61  , change_value: terminal_symbol
 
 simple_part  :  terminal_symbol  %MARK%  
  index is: 61, before: terminal_symbol, after: %NULL%
@@ -1201,9 +1143,8 @@ TARGET LIST:
 simple_part  :  %MARK%  non_terminal_symbol  
  index is: 62, before: %NULL%, after: non_terminal_symbol
 TARGET LIST: 
-target index: 63  , change_source: non_terminal_symbol
-target index: 68  , change_source: %NULL%
-target index: 69  , change_source: %NULL%
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
 
 simple_part  :  non_terminal_symbol  %MARK%  
  index is: 63, before: non_terminal_symbol, after: %NULL%
@@ -1212,7 +1153,7 @@ TARGET LIST:
 terminal_symlol  :  %MARK%  TOKEN  
  index is: 64, before: %NULL%, after: TOKEN
 TARGET LIST: 
-target index: 65  , change_source: TOKEN
+target index: 65  , change_value: TOKEN
 
 terminal_symlol  :  TOKEN  %MARK%  
  index is: 65, before: TOKEN, after: %NULL%
@@ -1221,7 +1162,7 @@ TARGET LIST:
 terminal_symlol  :  %MARK%  LIT  
  index is: 66, before: %NULL%, after: LIT
 TARGET LIST: 
-target index: 67  , change_source: LIT
+target index: 67  , change_value: LIT
 
 terminal_symlol  :  LIT  %MARK%  
  index is: 67, before: LIT, after: %NULL%
@@ -1230,7 +1171,7 @@ TARGET LIST:
 non_terminal_symbol  :  %MARK%  ID  
  index is: 68, before: %NULL%, after: ID
 TARGET LIST: 
-target index: 69  , change_source: ID
+target index: 69  , change_value: ID
 
 non_terminal_symbol  :  ID  %MARK%  
  index is: 69, before: ID, after: %NULL%
@@ -1239,17 +1180,14 @@ TARGET LIST:
 a  :  %MARK%  ","  a_rep_2  
  index is: 70, before: %NULL%, after: ","
 TARGET LIST: 
-target index: 71  , change_source: ","
+target index: 71  , change_value: ","
 
 a  :  ","  %MARK%  a_rep_2  
  index is: 71, before: ",", after: a_rep_2
 TARGET LIST: 
-target index: 72  , change_source: a_rep_2
-target index: 73  , change_source: %NULL%
-target index: 74  , change_source: %NULL%
-target index: 75  , change_source: %NULL%
-target index: 76  , change_source: %NULL%
-target index: 77  , change_source: %NULL%
+target index: 72  , change_value: a_rep_2
+target index: 73  , change_value: %NULL%
+target index: 74  , change_value: %NULL%
 
 a  :  ","  a_rep_2  %MARK%  
  index is: 72, before: a_rep_2, after: %NULL%
@@ -1262,25 +1200,21 @@ TARGET LIST:
 a_rep_2  :  %MARK%  a_rep_2_opt_1  C  a_rep_2  
  index is: 74, before: %NULL%, after: a_rep_2_opt_1
 TARGET LIST: 
-target index: 75  , change_source: a_rep_2_opt_1
-target index: 78  , change_source: %NULL%
-target index: 79  , change_source: %NULL%
-target index: 80  , change_source: %NULL%
+target index: 75  , change_value: a_rep_2_opt_1
+target index: 78  , change_value: %NULL%
+target index: 79  , change_value: %NULL%
 
 a_rep_2  :  a_rep_2_opt_1  %MARK%  C  a_rep_2  
  index is: 75, before: a_rep_2_opt_1, after: C
 TARGET LIST: 
-target index: 76  , change_source: C
+target index: 76  , change_value: C
 
 a_rep_2  :  a_rep_2_opt_1  C  %MARK%  a_rep_2  
  index is: 76, before: C, after: a_rep_2
 TARGET LIST: 
-target index: 73  , change_source: %NULL%
-target index: 74  , change_source: %NULL%
-target index: 75  , change_source: %NULL%
-target index: 76  , change_source: %NULL%
-target index: 77  , change_source: %NULL%
-target index: 77  , change_source: a_rep_2
+target index: 73  , change_value: %NULL%
+target index: 74  , change_value: %NULL%
+target index: 77  , change_value: a_rep_2
 
 a_rep_2  :  a_rep_2_opt_1  C  a_rep_2  %MARK%  
  index is: 77, before: a_rep_2, after: %NULL%
@@ -1293,7 +1227,7 @@ TARGET LIST:
 a_rep_2_opt_1  :  %MARK%  b  
  index is: 79, before: %NULL%, after: b
 TARGET LIST: 
-target index: 80  , change_source: b
+target index: 80  , change_value: b
 
 a_rep_2_opt_1  :  b  %MARK%  
  index is: 80, before: b, after: %NULL%

@@ -87,9 +87,9 @@ ADD TARGETS
 %start%  :  %MARK%  e  
  index is: 0, before: %NULL%, after: e
 TARGET LIST: 
-target index: 1  , change_source: e
-target index: 2  , change_source: %NULL%
-target index: 4  , change_source: %NULL%
+target index: 1  , change_value: e
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
 
 %start%  :  e  %MARK%  
  index is: 1, before: e, after: %NULL%
@@ -98,7 +98,7 @@ TARGET LIST:
 e  :  %MARK%  "n"  
  index is: 2, before: %NULL%, after: "n"
 TARGET LIST: 
-target index: 3  , change_source: "n"
+target index: 3  , change_value: "n"
 
 e  :  "n"  %MARK%  
  index is: 3, before: "n", after: %NULL%
@@ -107,21 +107,225 @@ TARGET LIST:
 e  :  %MARK%  e  "+"  "n"  
  index is: 4, before: %NULL%, after: e
 TARGET LIST: 
-target index: 2  , change_source: %NULL%
-target index: 4  , change_source: %NULL%
-target index: 5  , change_source: e
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: e
 
 e  :  e  %MARK%  "+"  "n"  
  index is: 5, before: e, after: "+"
 TARGET LIST: 
-target index: 6  , change_source: "+"
+target index: 6  , change_value: "+"
 
 e  :  e  "+"  %MARK%  "n"  
  index is: 6, before: "+", after: "n"
 TARGET LIST: 
-target index: 7  , change_source: "n"
+target index: 7  , change_value: "n"
 
 e  :  e  "+"  "n"  %MARK%  
  index is: 7, before: "n", after: %NULL%
 TARGET LIST: 
 
+#####
+#DFA#
+#####
+###########
+SHOW TARGET
+###########
+#
+e
+#
+%start%  :  e  %MARK%  
+ index is: 1, before: e, after: %NULL%
+TARGET LIST: 
+
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, before: e, after: "+"
+TARGET LIST: 
+target index: 6  , change_value: "+"
+
+###########
+SHOW TARGET
+###########
+###
+"+"
+###
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, before: "+", after: "n"
+TARGET LIST: 
+target index: 7  , change_value: "n"
+
+###########
+SHOW TARGET
+###########
+###
+"n"
+###
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, before: "n", after: %NULL%
+TARGET LIST: 
+
+###########
+SHOW TARGET
+###########
+###
+"n"
+###
+e  :  "n"  %MARK%  
+ index is: 3, before: "n", after: %NULL%
+TARGET LIST: 
+
+###########
+SHOW TARGET
+###########
+#########
+#0  TERM#
+#########
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  e  
+ index is: 0, before: %NULL%, after: e
+TARGET LIST: 
+target index: 1  , change_value: e
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  e  
+ index is: 0, before: %NULL%, after: e
+TARGET LIST: 
+target index: 1  , change_value: e
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+e  :  %MARK%  "n"  
+ index is: 2, before: %NULL%, after: "n"
+TARGET LIST: 
+target index: 3  , change_value: "n"
+
+e  :  %MARK%  e  "+"  "n"  
+ index is: 4, before: %NULL%, after: e
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: e
+
+########
+#TO SET#
+########
+%start%  :  e  %MARK%  
+ index is: 1, before: e, after: %NULL%
+TARGET LIST: 
+
+e  :  "n"  %MARK%  
+ index is: 3, before: "n", after: %NULL%
+TARGET LIST: 
+
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, before: e, after: "+"
+TARGET LIST: 
+target index: 6  , change_value: "+"
+
+#########
+#1  TERM#
+#########
+##########
+#FROM SET#
+##########
+%start%  :  e  %MARK%  
+ index is: 1, before: e, after: %NULL%
+TARGET LIST: 
+
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, before: e, after: "+"
+TARGET LIST: 
+target index: 6  , change_value: "+"
+
+########
+#SUBSET#
+########
+%start%  :  e  %MARK%  
+ index is: 1, before: e, after: %NULL%
+TARGET LIST: 
+
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, before: e, after: "+"
+TARGET LIST: 
+target index: 6  , change_value: "+"
+
+########
+#TO SET#
+########
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, before: "+", after: "n"
+TARGET LIST: 
+target index: 7  , change_value: "n"
+
+#########
+#2  TERM#
+#########
+##########
+#FROM SET#
+##########
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, before: "+", after: "n"
+TARGET LIST: 
+target index: 7  , change_value: "n"
+
+########
+#SUBSET#
+########
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, before: "+", after: "n"
+TARGET LIST: 
+target index: 7  , change_value: "n"
+
+########
+#TO SET#
+########
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, before: "n", after: %NULL%
+TARGET LIST: 
+
+#########
+#3  TERM#
+#########
+##########
+#FROM SET#
+##########
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, before: "n", after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, before: "n", after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+#########
+#4  TERM#
+#########
+##########
+#FROM SET#
+##########
+e  :  "n"  %MARK%  
+ index is: 3, before: "n", after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+e  :  "n"  %MARK%  
+ index is: 3, before: "n", after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
