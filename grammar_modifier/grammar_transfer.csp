@@ -208,7 +208,7 @@ class traversal_old_tree
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "repeat_part")
                 matched = true
                 # Recursive Visit repeat_part
-
+                
                 # new parsergen.syntax_tree
                 var tree = new tree_type
                 var name = now_name + "_rep_" + (now_tree.nodes.size + 1)
@@ -333,7 +333,7 @@ class traversal_old_tree
         repeat_nodes = add_suffix_part(repeat_nodes)
         repeat_nodes = add_null_term(repeat_nodes)
         
-        this.visit_declaration(repeat_nodes)
+        return this.visit_declaration(repeat_nodes)
 
         # Vconsume term "}"
         ++idx; 
@@ -344,7 +344,7 @@ class traversal_old_tree
         # Visit term "("
         ++idx; 
         # Recursive Visit declaration
-        this.visit_declaration(nodes[idx++].nodes)
+        return this.visit_declaration(nodes[idx++].nodes)
         # Visit term ")"
         ++idx; 
     end
@@ -358,7 +358,7 @@ class traversal_old_tree
         declaration_nodes = add_null_term(declaration_nodes)
         
         # Recursive Visit declaration
-        this.visit_declaration(declaration_nodes)
+        return this.visit_declaration(declaration_nodes)
         # Visit term "]"
         ++idx; 
     end
@@ -366,12 +366,13 @@ class traversal_old_tree
     function visit_simple_part(nodes)
         var idx = 0
         # Condition
+        var name = ""
         block
             var matched = false
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "right_non_terminal_symbol")
                 matched = true
                 # Recursive Visit right_non_terminal_symbol
-                var name = this.visit_right_non_terminal_symbol(nodes[idx++].nodes)
+                name = this.visit_right_non_terminal_symbol(nodes[idx++].nodes)
 
                 var tree = new tree_type
                 tree.root = name
@@ -379,25 +380,26 @@ class traversal_old_tree
                 print_info("simple part: non_terminal_symbol: " + tree.root)
                 
                 now_tree.nodes.push_back(tree)
-                now_tree.seq = now_tree.seq + "_" + name
+                # now_tree.seq = now_tree.seq + "_" + name
             end
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "terminal_symbol")
                 matched = true
                 # Recursive Visit terminal_symbol
-                var name = this.visit_terminal_symbol(nodes[idx++].nodes)
+                name = this.visit_terminal_symbol(nodes[idx++].nodes)
                 var tree = new tree_type
                 tree.root = name
                 tree.seq = name
                 print_info("simple part: terminal_symbol: " + tree.root)
 
                 now_tree.nodes.push_back(tree)
-                now_tree.seq = now_tree.seq + "_" + name
+                # now_tree.seq = now_tree.seq + "_" + name
             end
             if !matched
             	# Error
             	return
             end
         end
+        return name
     end
 
     function visit_right_non_terminal_symbol(nodes)
@@ -474,9 +476,9 @@ class traversal_old_tree
     function run(ast)
         root.root = "%root%"
         this.visit_begin(ast.nodes)
-        print_header("show all names")
-        #foreach iter in root.nodes do compute_now_tree(iter.root)
-        foreach iter in root.nodes do system.out.println(iter.seq)
+        # print_header("show all names")
+        # foreach iter in root.nodes do compute_now_tree(iter.root)
+        # foreach iter in root.nodes do system.out.println(iter.seq)
     end
 end
 

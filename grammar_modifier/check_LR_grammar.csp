@@ -1,0 +1,18 @@
+package check_LR_grammar
+
+import grammar_transfer
+
+
+
+class LR_term
+
+end
+
+class NFA_type
+
+end
+
+class DFA_type
+
+end
+

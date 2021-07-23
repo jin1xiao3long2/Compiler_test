@@ -36,3 +36,6 @@ terminal_symlol ::= LIT
 
 
 non_terminal_symbol ::= ID ;
+
+
+zzz ::= ",";
