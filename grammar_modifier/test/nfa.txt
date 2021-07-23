@@ -1,0 +1,127 @@
+Compile Time: 0.008s
+begin
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "e"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "e"
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> ""+""
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> ""n""
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> ""n""
+    statement -> end_op
+      end_op -> ";"
+#############
+New Statement
+#############
+Left Non-terminal-symbol: e
+Now_name: e
+create now_tree : e
+Start analyze Declaration: 
+simple part: non_terminal_symbol: e
+simple part: terminal_symbol: "+"
+simple part: terminal_symbol: "n"
+simple part: terminal_symbol: "n"
+End analyze Decalration 
+
+
+
+#########
+show list
+#########
+################
+show_origin_info
+################
+e ::= "n" 
+e ::= e "+" "n" 
+#############
+show_new_info
+#############
+%start% =  %MARK% e
+%start% =  e %MARK%
+e =  %MARK% "n"
+e =  "n" %MARK%
+e =  %MARK% e "+" "n"
+e =  e %MARK% "+" "n"
+e =  e "+" %MARK% "n"
+e =  e "+" "n" %MARK%
+########
+DNF TERM
+########
+%start%  :  %MARK%  e  
+ index is: 0, source_index: 0, before: %NULL%, after: e
+%start%  :  e  %MARK%  
+ index is: 1, source_index: 0, before: e, after: %NULL%
+e  :  %MARK%  "n"  
+ index is: 2, source_index: 1, before: %NULL%, after: "n"
+e  :  "n"  %MARK%  
+ index is: 3, source_index: 1, before: "n", after: %NULL%
+e  :  %MARK%  e  "+"  "n"  
+ index is: 4, source_index: 2, before: %NULL%, after: e
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, source_index: 2, before: e, after: "+"
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, source_index: 2, before: "+", after: "n"
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, source_index: 2, before: "n", after: %NULL%
+###########
+ADD TARGETS
+###########
+%start%  :  %MARK%  e  
+ index is: 0, before: %NULL%, after: e
+TARGET LIST: 
+target index: 1  , change_source: e
+target index: 2  , change_source: %NULL%
+target index: 4  , change_source: %NULL%
+
+%start%  :  e  %MARK%  
+ index is: 1, before: e, after: %NULL%
+TARGET LIST: 
+
+e  :  %MARK%  "n"  
+ index is: 2, before: %NULL%, after: "n"
+TARGET LIST: 
+target index: 3  , change_source: "n"
+
+e  :  "n"  %MARK%  
+ index is: 3, before: "n", after: %NULL%
+TARGET LIST: 
+
+e  :  %MARK%  e  "+"  "n"  
+ index is: 4, before: %NULL%, after: e
+TARGET LIST: 
+target index: 2  , change_source: %NULL%
+target index: 4  , change_source: %NULL%
+target index: 5  , change_source: e
+
+e  :  e  %MARK%  "+"  "n"  
+ index is: 5, before: e, after: "+"
+TARGET LIST: 
+target index: 6  , change_source: "+"
+
+e  :  e  "+"  %MARK%  "n"  
+ index is: 6, before: "+", after: "n"
+TARGET LIST: 
+target index: 7  , change_source: "n"
+
+e  :  e  "+"  "n"  %MARK%  
+ index is: 7, before: "n", after: %NULL%
+TARGET LIST: 
+

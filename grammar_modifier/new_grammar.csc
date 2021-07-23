@@ -12,6 +12,9 @@ parser.enable_log = true
 parser.from_file(context.cmd_args.at(1))
 system.out.println("Compile Time: " + (runtime.time() - time_start)/1000 + "s")
 
+#Parsergen生成语法树
+#new_tree改换为Bnf语法并储存表达式序列
+#res遍历树并输出
 if !parser.ast == null
     parsergen.print_ast(parser.ast)
     new_tree.run(parser.ast)

@@ -3,16 +3,245 @@ package check_LR_grammar
 import grammar_transfer
 
 
+class LR_type
+    var idx = -1
+    var root = ""
+    var nodes = new array
+    var source_index = -1
+    var mark_pos = -1
+    var term_type = 0
+    var mark_before = ""
+    var mark_after = ""
+    var targets = new array
+end
 
 class LR_term
+    var input_res = new array
+    var result = new array
 
+    function add_start_term(res)
+        #first_node
+        var begin_node = res.begin.data
+        var root = begin_node.root
+         
+        var start_node = new grammar_transfer.tree_type
+        start_node.root = "%start%"
+        
+        var start_begin_node = new grammar_transfer.tree_type
+        start_begin_node.root = root
+
+        start_node.nodes.push_back(start_begin_node)
+        
+        input_res.push_front(start_node)
+    end
+
+    # 修改为LR0项, 将同一个statement不同位添加%MARK%标记
+    function add_mark_term(node, source_index)
+
+        #若仅有一个NULL(ε), 则修改为%MARK%
+        if node.nodes.size == 1 && node.nodes[0].root == "NULL"
+            var new_term = new LR_type
+            new_term.root = node.root
+            new_term.nodes.push_back("%MARK%")
+            new_term.source_index = source_index
+            result.push_back(new_term)
+            return ;
+        end
+
+        for i = 0, i <= node.nodes.size, i++
+            var new_term = new LR_type
+            new_term.root = node.root
+            #转移node
+            foreach iter in node.nodes do new_term.nodes.push_back(iter.root)
+            
+            #添加MARK
+            var mark = "%MARK%"
+            var iter = new_term.nodes.begin.next_n(i)
+            new_term.nodes.insert(iter, mark)
+            new_term.source_index = source_index
+            result.push_back(new_term)
+        end
+    end
+
+    #查看LR0信息
+    function show_result()
+        foreach iter in result
+            system.out.print(iter.root + " = ")
+            foreach it in iter.nodes do system.out.print(" " + it)
+            system.out.println("")
+        end
+    end
+
+    function show_node_info(node)
+        foreach iter in node.nodes do system.out.print(iter.root + " ")
+    end
+
+    function run(res)
+
+        # recieve statement list
+        input_res = res
+
+        # show now info
+        print_header("show_origin_info")
+        foreach iter in input_res
+            system.out.print(iter.root + " ::= ")
+            show_node_info(iter)
+            system.out.println("")
+        end
+        
+        # add unique entrance
+        add_start_term(input_res)
+
+        # add LR(0) TERM
+        for i = 0, i < input_res.size, i++
+             add_mark_term(input_res[i], i)
+        end
+        print_header("show_new_info")
+
+        show_result()
+    end
+end
+
+
+class target_type
+    var target_idx = -1
+    var change_value = ""
 end
 
 class NFA_type
+    var input_list = new array
 
+    var flat_list = new array
+
+    var result_list = new array
+    
+    function flat_trees()
+        var statement_idx = 0
+        var temp_str = ""
+        foreach iter in input_list
+            var idx = 0 
+            var new_term = new LR_type
+            new_term.root = iter.root
+            new_term.source_index = iter.source_index
+            
+            if iter.nodes.size == 1 && iter.nodes[0] == "%MARK%"
+                
+                new_term.nodes.push_back("%MARK%")
+
+                #修改term属性
+                new_term.mark_pos = 0
+                new_term.mark_before = "%NULL%"
+                new_term.mark_after = "%NULL%"
+                new_term.idx = statement_idx
+
+
+                flat_list.push_back(new_term)
+                statement_idx++
+                continue
+            end
+
+            foreach it in iter.nodes
+                
+                var str = it
+                new_term.nodes.push_back(str)
+            
+                #mark after
+                if new_term.mark_pos >= 0 && idx == new_term.mark_pos + 1
+                    new_term.mark_after = str
+                end
+
+                #找前一项
+                if str == "%MARK%"
+                    new_term.mark_pos = idx
+                    if idx == 0
+                        new_term.mark_before = "%NULL%"
+                    else
+                        new_term.mark_before = temp_str
+                    end
+                    
+                    #最后一项
+                    if idx == iter.nodes.size - 1
+                        new_term.mark_after = "%NULL%"
+                    end
+                end
+                
+                temp_str = str
+
+                idx++
+            end
+            new_term.idx = statement_idx
+            flat_list.push_back(new_term)
+            
+            statement_idx++
+        end
+    end
+
+    function create_NFA()
+        foreach iter in flat_list
+            var after_ele = iter.mark_after
+            foreach it in flat_list
+                if after_ele == it.root && it.mark_pos == 0
+                    var target = new target_type
+                    target.target_idx = it.idx
+                    target.change_value = "%NULL%"
+                    iter.targets.push_back(target)
+                end
+                if iter.source_index == it.source_index && iter.mark_pos + 1 == it.mark_pos
+                    var target = new target_type
+                    target.target_idx = it.idx
+                    target.change_value = it.mark_before
+                    iter.targets.push_back(target)
+                end
+            end
+        end
+    end
+
+    function run(statement_list)
+        input_list = statement_list
+        flat_trees()
+
+        print_header("DNF TERM")
+        foreach iter in flat_list
+            system.out.print(iter.root + "  :  ")
+            foreach it in iter.nodes
+                system.out.print(it + "  ")
+            end
+            system.out.println("\n index is: " + iter.idx + ", source_index: " + iter.source_index + ", before: " + iter.mark_before + ", after: " + iter.mark_after)
+        end
+
+        create_NFA()
+
+        print_header("ADD TARGETS")
+        foreach iter in flat_list
+            system.out.print(iter.root + "  :  ")
+            foreach it in iter.nodes
+                system.out.print(it + "  ")
+            end
+            system.out.println("\n index is: " + iter.idx + ", before: " + iter.mark_before + ", after: " + iter.mark_after)
+            system.out.println("TARGET LIST: ")
+            foreach iter in iter.targets do system.out.println("target index: " + iter.target_idx + "  , change_source: " + iter.change_value)
+            system.out.println("")
+        end
+
+        result_list = flat_list
+    end
 end
+
 
 class DFA_type
+    var input_list = new array
 
+    function run(input)
+    
+    end
 end
 
+
+
+function print_header(txt)
+    foreach i in range(txt.size) do system.out.print('#')
+    system.out.println("")
+    system.out.println(txt)
+    foreach i in range(txt.size) do system.out.print('#')
+    system.out.println("")
+end

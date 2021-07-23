@@ -16,6 +16,7 @@ class traversal_old_tree
     var now_tree = new tree_type
     var root = new tree_type
     var store_tree = new array
+    var res = new array
 
     function add_suffix_part(nodes)
         #here nodes should be delcaration nodes
@@ -472,6 +473,9 @@ class traversal_old_tree
     #     return seq
     # end
 
+    function store_statements()
+        foreach iter in root.nodes do res.push_back(iter)
+    end
 
     function run(ast)
         root.root = "%root%"
@@ -479,6 +483,7 @@ class traversal_old_tree
         # print_header("show all names")
         # foreach iter in root.nodes do compute_now_tree(iter.root)
         # foreach iter in root.nodes do system.out.println(iter.seq)
+        store_statements()
     end
 end
 
