@@ -3,22 +3,60 @@ package check_LR_grammar
 import grammar_transfer
 
 
+namespace LR_term_type
+@begin
+    constant
+        deduce = 0,
+        accept = 1,
+        shift = 2,
+        to_deduce = 3
+@end
+end
+
 class LR_type
     var idx = -1
     var root = ""
     var nodes = new array
     var source_index = -1
     var mark_pos = -1
-    var term_type = 0
+    var term_type = -1
     var mark_before = ""
     var mark_after = ""
     var targets = new array
+    var First_post = -1
+end
+
+
+#to judge whether a node is non_terminal or not
+function is_non_terminal_symbol(str)
+    foreach iter in str
+        if iter == '\"'
+            return false
+        end
+        if iter == '\''
+            return false
+        end
+        if iter.isupper()
+            return false
+        end 
+    end
+
+    return true
 end
 
 
 class LR_term
+    #输入信息
     var input_res = new array
+    
+    #输出信息
     var result = new array
+
+    #First集
+    var first_map = new hash_map
+
+    #Follow集
+    var follow_map = new hash_map
 
     function add_start_term(res)
         #first_node
@@ -36,6 +74,249 @@ class LR_term
         input_res.push_front(start_node)
     end
 
+    function show_first_follow_map(map)
+        foreach iter in map
+            print_header("TERM  " + iter.first)
+            foreach it in iter.second
+                system.out.print(it + "  ")
+            end
+            system.out.println("\n\n")
+        end
+    end
+
+
+    function new_cal_first_map()
+    
+    end
+
+    function cal_first_map()
+    
+        if first_map.empty()
+            foreach iter in input_res
+                var arr = new hash_set
+                var node_root = iter.root
+                var first_node = iter.nodes[0].root
+                
+                if first_node == node_root
+                    continue
+                end
+
+                #获得元素
+                if first_map.exist(node_root)
+                    arr = first_map.at(node_root)
+                    arr.insert(first_node)
+                    first_map.at(node_root) = arr
+                else
+                    arr.insert(first_node)
+                    first_map.insert(node_root, arr)
+                end
+            end
+        end
+
+        foreach iter in first_map
+            var has_null = false
+            var term = iter.second
+            var del_set = new hash_set
+            foreach it in iter.second
+                if is_non_terminal_symbol(it)
+                    term = hash_set.merge(term,first_map.at(it))
+                    del_set.insert(it)
+                    foreach first_map_iter in first_map.at(it)
+                        if first_map_iter == "NULL"
+                            has_null = true
+                        end
+                    end
+                end
+            end
+            foreach it in del_set do term.erase(it)
+            term.erase(iter.first)
+            
+            #加入所有空之后的项
+            if has_null
+                #从所有的term查看
+                var add_set = new hash_set
+                foreach term in input_res
+                    if term.root == iter.first
+                        foreach node in term.nodes
+                            var id = node.root
+                            #非终结符
+                            if is_non_terminal_symbol(id)
+                                var first_set = first_map.at(id)
+                                add_set = hash_set.merge(add_set, first_set)
+                                #若含有空,则继续合并下个first
+                                if !first_set.exist("NULL")
+                                    break
+                                end
+                            end
+                        end
+                    end  
+                end
+
+                term = hash_set.merge(term, add_set)
+            end
+
+            iter.second = term
+        end
+
+        #first集中消除所有的non_terminal_symbol
+        var next_scan = false
+        foreach iter in first_map
+            foreach it in iter.second
+                if is_non_terminal_symbol(it)
+                    next_scan = true
+                end
+            end
+        end
+
+        if next_scan 
+            cal_first_map()
+        end
+    end
+
+    function add_map_element(map, key, value)
+        var set = new hash_set
+        if map.exist(key)
+            set.insert(value)
+            set = hash_set.merge(set, map.at(key))
+            map.at(key) = set
+        else
+            set.insert(value)
+            map.insert(key,set)
+        end
+    end
+
+    function cal_follow_map()
+        if follow_map.empty()
+            foreach iter in input_res
+                var root = iter.root
+                var has_null = false
+
+                var temp_symbol = ""
+
+                #添加结束符
+                if root == "%START%"
+                    add_map_element(follow_map, root, "%END%")
+                end
+                
+                #空或非结束符
+                if iter.nodes.size == 1 && !is_non_terminal_symbol(iter.nodes[0].root)
+                    continue
+                end
+
+                #正常的数据
+                var idx = 0
+                foreach it in iter.nodes
+                    var left_root = it.root
+                    #判断第几位
+                    var it_idx = idx 
+
+                    #若是第一个字符,则跳过判断
+                    if temp_symbol == ""
+                        temp_symbol = left_root
+                        continue
+                    end
+
+                    var right_root = temp_symbol
+
+                    #查找是否后面均为NULL
+                    var find_null_it = it
+                    var all_null = true
+
+                    
+
+                    for pos = it_idx, pos < iter.nodes.size, pos++
+                        var next_root = iter.nodes[pos].root
+                        if first_map.exist(next_root)
+                            #含有空
+                            foreach first_iter in first_map.at(next_root)
+                                if first_iter == left_root
+                                    continue
+                                end
+                                if first_iter == "NULL"
+                                    continue
+                                end
+                                add_map_element(follow_map, left_root, first_iter)
+                            end
+                            if !first_map.at(next_root).exist("NULL")
+                                all_null = false
+                                break
+                            end
+                        else
+                            #终结符
+                            all_null = false
+                            add_map_element(follow_map, left_root, next_root)
+                            break
+                        end
+                    end
+                    if all_null
+                        add_map_element(follow_map, left_root, root)
+                    end
+                    
+                    
+                    if is_non_terminal_symbol(left_root)
+                        if !is_non_terminal_symbol(right_root)
+                            add_map_element(follow_map, left_root, right_root)
+                        else
+                            var right_first_map = first_map.at(right_root)
+                            
+                            #B -> aAY
+                            #First(Y) - {ε} => Follow(A)
+
+                            foreach iter in right_first_map
+                                #防止死循环
+                                if iter == left_root
+                                    continue
+                                end
+                                #ε
+                                if iter == "NULL"
+                                    continue
+                                end
+                                #其他元素
+                                add_map_element(follow_map, left_root, iter)
+                            end
+                        end
+                    end 
+
+                    temp_symbol = left_root
+                    idx++
+                end
+            end
+        end
+
+
+
+        #去除follow
+        foreach iter in follow_map
+            var term = iter.second
+            var del_set = new hash_set
+            foreach it in iter.second
+                if is_non_terminal_symbol(it)
+                    term = hash_set.merge(term,follow_map.at(it))
+                    del_set.insert(it)
+                end
+            end
+            foreach it in del_set do term.erase(it)
+            term.erase(iter.first)
+            iter.second = term
+        end
+
+        #first集中消除所有的non_terminal_symbol
+        var next_scan = false
+        foreach iter in follow_map
+            foreach it in iter.second
+                if is_non_terminal_symbol(it)
+                    next_scan = true
+                end
+            end
+        end
+
+        if next_scan 
+            cal_follow_map()
+        end
+
+    end
+
+    
     # 修改为LR0项, 将同一个statement不同位添加%MARK%标记
     function add_mark_term(node, source_index)
 
@@ -93,6 +374,17 @@ class LR_term
         # add unique entrance
         add_start_term(input_res)
 
+        print_header("show info after add start node")
+        foreach iter in input_res
+            system.out.print(iter.root + " ::= ")
+            show_node_info(iter)
+            system.out.println("")
+        end
+        # calculate first set and follow set
+        cal_first_map()
+
+        cal_follow_map()
+
         # add LR(0) TERM
         for i = 0, i < input_res.size, i++
              add_mark_term(input_res[i], i)
@@ -117,15 +409,21 @@ class NFA_type
 
     var result_list = new array
     
+
+
     function flat_trees()
         var statement_idx = 0
         var temp_str = ""
+
+        #需要判断项类型
+        #针对每一个项
         foreach iter in input_list
             var idx = 0 
             var new_term = new LR_type
             new_term.root = iter.root
             new_term.source_index = iter.source_index
             
+            #只有一个%MARK%的项
             if iter.nodes.size == 1 && iter.nodes[0] == "%MARK%"
                 
                 new_term.nodes.push_back("%MARK%")
@@ -142,6 +440,7 @@ class NFA_type
                 continue
             end
 
+            #其他类型的项
             foreach it in iter.nodes
                 
                 var str = it
@@ -152,7 +451,7 @@ class NFA_type
                     new_term.mark_after = str
                 end
 
-                #找前一项
+                #找前一项 mark_before
                 if str == "%MARK%"
                     new_term.mark_pos = idx
                     if idx == 0
@@ -167,10 +466,27 @@ class NFA_type
                     end
                 end
                 
+                
                 temp_str = str
-
+                
                 idx++
             end
+
+            #判断term类型
+            if new_term.mark_after != "%NULL%"
+                if is_non_terminal_symbol(new_term.mark_after)
+                    new_term.term_type = LR_term_type.to_deduce
+                else
+                    new_term.term_type = LR_term_type.shift
+                end
+            else
+                if new_term.root == "%start%"
+                    new_term.term_type = LR_term_type.accept
+                else
+                    new_term.term_type = LR_term_type.deduce
+                end
+            end
+
             new_term.idx = statement_idx
             flat_list.push_back(new_term)
             
@@ -225,12 +541,39 @@ function print_LR_type(term)
     foreach it in term.nodes
         system.out.print(it + "  ")
     end
-    system.out.println("\n index is: " + term.idx + ", before: " + term.mark_before + ", after: " + term.mark_after)
+
+    var type_info = ""
+    switch term.term_type
+        case LR_term_type.accept
+            type_info = "accept"
+        end
+        case LR_term_type.deduce
+            type_info = "deduce"
+        end
+        case LR_term_type.shift
+            type_info = "shift"
+        end
+        case LR_term_type.to_deduce
+            type_info = "to_deduce"
+        end
+        default
+            type_info = "wrong type"
+        end
+    end
+
+    system.out.println("\n index is: " + term.idx + ", term type: " + type_info + ", before: " + term.mark_before + ", after: " + term.mark_after)
+    
+    
     system.out.println("TARGET LIST: ")
     foreach iter in term.targets do system.out.println("target index: " + iter.target_idx + "  , change_value: " + iter.change_value)
     system.out.println("")
 end
 
+
+#idx: Term序号
+#from_ele: 记录 (其实没什么用)
+#subset:   记录该项中所有LRTerm项
+#to_ele:   记录状态转移项
 struct subset_type
     var idx = -1
 

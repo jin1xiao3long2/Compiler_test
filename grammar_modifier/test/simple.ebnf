@@ -30,10 +30,8 @@ simple_part ::= non_terminal_symbol
               | terminal_symbol
               ;
 
-terminal_symlol ::= LIT
+terminal_symbol ::= LIT
                   | TOKEN
                   ;
 
 non_terminal_symbol ::= ID ;
-
-a ::= "," {[b] C} ;

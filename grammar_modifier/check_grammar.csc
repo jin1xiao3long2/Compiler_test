@@ -24,7 +24,12 @@ if !parser.ast == null
     system.out.println("\n\n")
     parsergen.print_header("show list")
     LR_term_list.run(new_tree.res)
-    #res.run(system.out, new_tree.root)
-    NFA.run(LR_term_list.result)
-    DFA.run(NFA.result_list)
+
+    parsergen.print_header("show FIRST SET")
+    LR_term_list.show_first_follow_map(LR_term_list.first_map)
+
+    # parsergen.print_header("show FOLLOW SET")
+    # LR_term_list.show_first_follow_map(LR_term_list.follow_map)
+    #NFA.run(LR_term_list.result)
+    #DFA.run(NFA.result_list)
 end
