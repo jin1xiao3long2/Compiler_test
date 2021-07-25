@@ -15,6 +15,7 @@
  + 文件结尾(FEOF)
 ## Bytecode Standard
 VM 采用32位定长指令
+当地址位为全1时，代表从栈顶取值
 
 | Mnemonic | Opcode (in hex, 1 byte) | Other bytes ([count]: [operand labels]) | Description |
 | ---- | ---- | ---- | ----|
