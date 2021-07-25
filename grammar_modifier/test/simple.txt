@@ -1,4 +1,4 @@
-Compile Time: 0.078s
+Compile Time: 0.068s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -305,175 +305,18 @@ begin
               terminal_symbol -> "ID"
     statement -> end_op
       end_op -> ";"
-#############
-New Statement
-#############
-Left Non-terminal-symbol: begin
-Now_name: begin
-create now_tree : begin
-Start analyze Declaration: 
-add new node: begin_rep_1
-record old tree: begin
-change now tree: begin_rep_1
-simple part: non_terminal_symbol: statement
-simple part: non_terminal_symbol: begin_rep_1
-simple part: non_terminal_symbol: NULL
-recover from fun, now_tree: begin
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: statement
-Now_name: statement
-create now_tree : statement
-Start analyze Declaration: 
-simple part: non_terminal_symbol: non_terminal_symbol
-simple part: non_terminal_symbol: assign_op
-simple part: non_terminal_symbol: declaration
-simple part: non_terminal_symbol: end_op
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: assign_op
-Now_name: assign_op
-create now_tree : assign_op
-Start analyze Declaration: 
-simple part: terminal_symbol: '='
-simple part: terminal_symbol: '::='
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: end_op
-Now_name: end_op
-create now_tree : end_op
-Start analyze Declaration: 
-simple part: terminal_symbol: ';'
-simple part: terminal_symbol: "."
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: declaration
-Now_name: declaration
-create now_tree : declaration
-Start analyze Declaration: 
-simple part: non_terminal_symbol: term
-add new node: declaration_rep_2
-record old tree: declaration
-change now tree: declaration_rep_2
-simple part: terminal_symbol: '|'
-simple part: non_terminal_symbol: term
-simple part: non_terminal_symbol: declaration_rep_2
-simple part: non_terminal_symbol: NULL
-recover from fun, now_tree: declaration
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: term
-Now_name: term
-create now_tree : term
-Start analyze Declaration: 
-simple part: non_terminal_symbol: part
-add new node: term_rep_2
-record old tree: term
-change now tree: term_rep_2
-add new node: term_rep_2_opt_1
-record old tree: term_rep_2
-change now tree: term_rep_2_opt_1
-simple part: terminal_symbol: ','
-simple part: non_terminal_symbol: NULL
-recover from fun, now_tree: term_rep_2
-simple part: non_terminal_symbol: part
-simple part: non_terminal_symbol: term_rep_2
-simple part: non_terminal_symbol: NULL
-recover from fun, now_tree: term
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: part
-Now_name: part
-create now_tree : part
-Start analyze Declaration: 
-simple part: non_terminal_symbol: repeat_part
-simple part: non_terminal_symbol: declaration_part
-simple part: non_terminal_symbol: alternative_part
-simple part: non_terminal_symbol: simple_part
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: repeat_part
-Now_name: repeat_part
-create now_tree : repeat_part
-Start analyze Declaration: 
-simple part: terminal_symbol: '{'
-simple part: non_terminal_symbol: declaration
-simple part: terminal_symbol: '}'
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: declaration_part
-Now_name: declaration_part
-create now_tree : declaration_part
-Start analyze Declaration: 
-simple part: terminal_symbol: '('
-simple part: non_terminal_symbol: declaration
-simple part: terminal_symbol: ')'
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: alternative_part
-Now_name: alternative_part
-create now_tree : alternative_part
-Start analyze Declaration: 
-simple part: terminal_symbol: '['
-simple part: non_terminal_symbol: declaration
-simple part: terminal_symbol: ']'
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: simple_part
-Now_name: simple_part
-create now_tree : simple_part
-Start analyze Declaration: 
-simple part: non_terminal_symbol: non_terminal_symbol
-simple part: non_terminal_symbol: terminal_symbol
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: terminal_symbol
-Now_name: terminal_symbol
-create now_tree : terminal_symbol
-Start analyze Declaration: 
-simple part: terminal_symbol: LIT
-simple part: terminal_symbol: TOKEN
-End analyze Decalration 
-#############
-New Statement
-#############
-Left Non-terminal-symbol: non_terminal_symbol
-Now_name: non_terminal_symbol
-create now_tree : non_terminal_symbol
-Start analyze Declaration: 
-simple part: terminal_symbol: ID
-End analyze Decalration 
 
 
 
 #########
 show list
 #########
-################
-show_origin_info
-################
+
+
+
+######################
+show origin terms info
+######################
 begin ::= begin_rep_1 
 begin_rep_1 ::= NULL 
 begin_rep_1 ::= statement begin_rep_1 
@@ -502,6 +345,9 @@ simple_part ::= non_terminal_symbol
 terminal_symbol ::= TOKEN 
 terminal_symbol ::= LIT 
 non_terminal_symbol ::= ID 
+
+
+
 ##############################
 show info after add start node
 ##############################
@@ -534,9 +380,93 @@ simple_part ::= non_terminal_symbol
 terminal_symbol ::= TOKEN 
 terminal_symbol ::= LIT 
 non_terminal_symbol ::= ID 
-#############
-show_new_info
-#############
+
+
+
+##############
+show FIRST SET
+##############
+TERM  end_op : ';'  "."  
+
+TERM  %start% : NULL  ID  
+
+TERM  alternative_part : '['  
+
+TERM  declaration : '('  TOKEN  '['  '{'  ID  LIT  
+
+TERM  terminal_symbol : TOKEN  LIT  
+
+TERM  declaration_part : '('  
+
+TERM  declaration_rep_2 : '|'  NULL  
+
+TERM  begin : NULL  ID  
+
+TERM  statement : ID  
+
+TERM  repeat_part : '{'  
+
+TERM  term : TOKEN  '('  '['  ID  LIT  '{'  
+
+TERM  assign_op : '='  '::='  
+
+TERM  term_rep_2_opt_1 : NULL  ','  
+
+TERM  simple_part : ID  TOKEN  LIT  
+
+TERM  term_rep_2 : TOKEN  '('  '['  ID  '{'  NULL  LIT  ','  
+
+TERM  begin_rep_1 : ID  NULL  
+
+TERM  non_terminal_symbol : ID  
+
+TERM  part : '('  TOKEN  '['  '{'  ID  LIT  
+
+
+
+
+###############
+show FOLLOW SET
+###############
+TERM  %start% : %END%  
+
+TERM  declaration : ']'  ')'  ';'  '}'  "."  
+
+TERM  end_op : ID  %END%  
+
+TERM  alternative_part : TOKEN  '('  '['  '|'  ID  '{'  '}'  ']'  "."  ')'  ';'  ','  LIT  
+
+TERM  terminal_symbol : '|'  '('  TOKEN  '}'  '['  '{'  ID  ']'  LIT  ';'  ')'  "."  ','  
+
+TERM  declaration_part : TOKEN  '('  '['  '|'  ID  '{'  '}'  ']'  "."  ')'  ';'  ','  LIT  
+
+TERM  declaration_rep_2 : ']'  ';'  ')'  '}'  "."  
+
+TERM  begin : %END%  
+
+TERM  statement : ID  %END%  
+
+TERM  repeat_part : TOKEN  '('  '['  '|'  ID  '{'  '}'  ']'  "."  ')'  ';'  ','  LIT  
+
+TERM  term : ']'  ';'  ')'  '}'  '|'  "."  
+
+TERM  assign_op : TOKEN  '('  '['  ID  LIT  '{'  
+
+TERM  term_rep_2_opt_1 : TOKEN  '('  '['  ID  LIT  '{'  
+
+TERM  simple_part : TOKEN  '('  '['  '|'  ID  '{'  '}'  ']'  "."  ')'  ';'  ','  LIT  
+
+TERM  term_rep_2 : ']'  ';'  ')'  '}'  '|'  "."  
+
+TERM  begin_rep_1 : %END%  
+
+TERM  part : '|'  '('  TOKEN  '}'  '['  '{'  ID  ']'  ','  ';'  ')'  LIT  "."  
+
+TERM  non_terminal_symbol : '|'  '('  TOKEN  '['  '='  '::='  ']'  ';'  ')'  LIT  '}'  '{'  ID  "."  ','  
+
+##############
+show_mark_info
+##############
 %start% =  %MARK% begin
 %start% =  begin %MARK%
 begin =  %MARK% begin_rep_1
@@ -607,114 +537,2791 @@ terminal_symbol =  %MARK% LIT
 terminal_symbol =  LIT %MARK%
 non_terminal_symbol =  %MARK% ID
 non_terminal_symbol =  ID %MARK%
-##############
-show FIRST SET
-##############
-#############
-TERM  %start%
-#############
-NULL  ID  
 
 
-#################
-TERM  declaration
-#################
-'('  TOKEN  '['  '{'  LIT  ID  
 
+########
+DNF TERM
+########
+%start%  :  %MARK%  begin  
+ index is: 0, source_index: 0, before: %NULL%, after: begin
+%start%  :  begin  %MARK%  
+ index is: 1, source_index: 0, before: begin, after: %NULL%
+begin  :  %MARK%  begin_rep_1  
+ index is: 2, source_index: 1, before: %NULL%, after: begin_rep_1
+begin  :  begin_rep_1  %MARK%  
+ index is: 3, source_index: 1, before: begin_rep_1, after: %NULL%
+begin_rep_1  :  %MARK%  
+ index is: 4, source_index: 2, before: %NULL%, after: %NULL%
+begin_rep_1  :  %MARK%  statement  begin_rep_1  
+ index is: 5, source_index: 3, before: %NULL%, after: statement
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, source_index: 3, before: statement, after: begin_rep_1
+begin_rep_1  :  statement  begin_rep_1  %MARK%  
+ index is: 7, source_index: 3, before: begin_rep_1, after: %NULL%
+statement  :  %MARK%  non_terminal_symbol  assign_op  declaration  end_op  
+ index is: 8, source_index: 4, before: %NULL%, after: non_terminal_symbol
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, source_index: 4, before: non_terminal_symbol, after: assign_op
+statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
+ index is: 10, source_index: 4, before: assign_op, after: declaration
+statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
+ index is: 11, source_index: 4, before: declaration, after: end_op
+statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
+ index is: 12, source_index: 4, before: end_op, after: %NULL%
+assign_op  :  %MARK%  '::='  
+ index is: 13, source_index: 5, before: %NULL%, after: '::='
+assign_op  :  '::='  %MARK%  
+ index is: 14, source_index: 5, before: '::=', after: %NULL%
+assign_op  :  %MARK%  '='  
+ index is: 15, source_index: 6, before: %NULL%, after: '='
+assign_op  :  '='  %MARK%  
+ index is: 16, source_index: 6, before: '=', after: %NULL%
+end_op  :  %MARK%  "."  
+ index is: 17, source_index: 7, before: %NULL%, after: "."
+end_op  :  "."  %MARK%  
+ index is: 18, source_index: 7, before: ".", after: %NULL%
+end_op  :  %MARK%  ';'  
+ index is: 19, source_index: 8, before: %NULL%, after: ';'
+end_op  :  ';'  %MARK%  
+ index is: 20, source_index: 8, before: ';', after: %NULL%
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, source_index: 9, before: %NULL%, after: term
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, source_index: 9, before: term, after: declaration_rep_2
+declaration  :  term  declaration_rep_2  %MARK%  
+ index is: 23, source_index: 9, before: declaration_rep_2, after: %NULL%
+declaration_rep_2  :  %MARK%  
+ index is: 24, source_index: 10, before: %NULL%, after: %NULL%
+declaration_rep_2  :  %MARK%  '|'  term  declaration_rep_2  
+ index is: 25, source_index: 11, before: %NULL%, after: '|'
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, source_index: 11, before: '|', after: term
+declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
+ index is: 27, source_index: 11, before: term, after: declaration_rep_2
+declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
+ index is: 28, source_index: 11, before: declaration_rep_2, after: %NULL%
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, source_index: 12, before: %NULL%, after: part
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, source_index: 12, before: part, after: term_rep_2
+term  :  part  term_rep_2  %MARK%  
+ index is: 31, source_index: 12, before: term_rep_2, after: %NULL%
+term_rep_2  :  %MARK%  
+ index is: 32, source_index: 13, before: %NULL%, after: %NULL%
+term_rep_2  :  %MARK%  term_rep_2_opt_1  part  term_rep_2  
+ index is: 33, source_index: 14, before: %NULL%, after: term_rep_2_opt_1
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, source_index: 14, before: term_rep_2_opt_1, after: part
+term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
+ index is: 35, source_index: 14, before: part, after: term_rep_2
+term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
+ index is: 36, source_index: 14, before: term_rep_2, after: %NULL%
+term_rep_2_opt_1  :  %MARK%  
+ index is: 37, source_index: 15, before: %NULL%, after: %NULL%
+term_rep_2_opt_1  :  %MARK%  ','  
+ index is: 38, source_index: 16, before: %NULL%, after: ','
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, source_index: 16, before: ',', after: %NULL%
+part  :  %MARK%  simple_part  
+ index is: 40, source_index: 17, before: %NULL%, after: simple_part
+part  :  simple_part  %MARK%  
+ index is: 41, source_index: 17, before: simple_part, after: %NULL%
+part  :  %MARK%  alternative_part  
+ index is: 42, source_index: 18, before: %NULL%, after: alternative_part
+part  :  alternative_part  %MARK%  
+ index is: 43, source_index: 18, before: alternative_part, after: %NULL%
+part  :  %MARK%  declaration_part  
+ index is: 44, source_index: 19, before: %NULL%, after: declaration_part
+part  :  declaration_part  %MARK%  
+ index is: 45, source_index: 19, before: declaration_part, after: %NULL%
+part  :  %MARK%  repeat_part  
+ index is: 46, source_index: 20, before: %NULL%, after: repeat_part
+part  :  repeat_part  %MARK%  
+ index is: 47, source_index: 20, before: repeat_part, after: %NULL%
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, source_index: 21, before: %NULL%, after: '{'
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, source_index: 21, before: '{', after: declaration
+repeat_part  :  '{'  declaration  %MARK%  '}'  
+ index is: 50, source_index: 21, before: declaration, after: '}'
+repeat_part  :  '{'  declaration  '}'  %MARK%  
+ index is: 51, source_index: 21, before: '}', after: %NULL%
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, source_index: 22, before: %NULL%, after: '('
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, source_index: 22, before: '(', after: declaration
+declaration_part  :  '('  declaration  %MARK%  ')'  
+ index is: 54, source_index: 22, before: declaration, after: ')'
+declaration_part  :  '('  declaration  ')'  %MARK%  
+ index is: 55, source_index: 22, before: ')', after: %NULL%
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, source_index: 23, before: %NULL%, after: '['
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, source_index: 23, before: '[', after: declaration
+alternative_part  :  '['  declaration  %MARK%  ']'  
+ index is: 58, source_index: 23, before: declaration, after: ']'
+alternative_part  :  '['  declaration  ']'  %MARK%  
+ index is: 59, source_index: 23, before: ']', after: %NULL%
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, source_index: 24, before: %NULL%, after: terminal_symbol
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, source_index: 24, before: terminal_symbol, after: %NULL%
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, source_index: 25, before: %NULL%, after: non_terminal_symbol
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, source_index: 25, before: non_terminal_symbol, after: %NULL%
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, source_index: 26, before: %NULL%, after: TOKEN
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, source_index: 26, before: TOKEN, after: %NULL%
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, source_index: 27, before: %NULL%, after: LIT
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, source_index: 27, before: LIT, after: %NULL%
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, source_index: 28, before: %NULL%, after: ID
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, source_index: 28, before: ID, after: %NULL%
 
-######################
-TERM  alternative_part
-######################
-'['  
-
-
-#########################
-TERM  non_terminal_symbol
-#########################
-ID  
-
-
-#####################
-TERM  terminal_symbol
-#####################
-TOKEN  LIT  
-
-
-######################
-TERM  declaration_part
-######################
-'('  
-
-
-#######################
-TERM  declaration_rep_2
-#######################
-NULL  '|'  
 
 
 ###########
-TERM  begin
+ADD TARGETS
 ###########
-NULL  ID  
+%start%  :  %MARK%  begin  
+ index is: 0, term type: to_deduce, before: %NULL%, after: begin
+TARGET LIST: 
+target index: 1  , change_value: begin
+target index: 2  , change_value: %NULL%
 
+%start%  :  begin  %MARK%  
+ index is: 1, term type: accept, before: begin, after: %NULL%
+TARGET LIST: 
 
-###############
-TERM  statement
-###############
-ID  
+begin  :  %MARK%  begin_rep_1  
+ index is: 2, term type: to_deduce, before: %NULL%, after: begin_rep_1
+TARGET LIST: 
+target index: 3  , change_value: begin_rep_1
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
 
+begin  :  begin_rep_1  %MARK%  
+ index is: 3, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
 
-#################
-TERM  repeat_part
-#################
-'{'  
+begin_rep_1  :  %MARK%  
+ index is: 4, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+begin_rep_1  :  %MARK%  statement  begin_rep_1  
+ index is: 5, term type: to_deduce, before: %NULL%, after: statement
+TARGET LIST: 
+target index: 6  , change_value: statement
+target index: 8  , change_value: %NULL%
+
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, term type: to_deduce, before: statement, after: begin_rep_1
+TARGET LIST: 
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
+
+begin_rep_1  :  statement  begin_rep_1  %MARK%  
+ index is: 7, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+statement  :  %MARK%  non_terminal_symbol  assign_op  declaration  end_op  
+ index is: 8, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 9  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, term type: to_deduce, before: non_terminal_symbol, after: assign_op
+TARGET LIST: 
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
+
+statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
+ index is: 10, term type: to_deduce, before: assign_op, after: declaration
+TARGET LIST: 
+target index: 11  , change_value: declaration
+target index: 21  , change_value: %NULL%
+
+statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
+ index is: 11, term type: to_deduce, before: declaration, after: end_op
+TARGET LIST: 
+target index: 12  , change_value: end_op
+target index: 17  , change_value: %NULL%
+target index: 19  , change_value: %NULL%
+
+statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
+ index is: 12, term type: deduce, before: end_op, after: %NULL%
+TARGET LIST: 
+
+assign_op  :  %MARK%  '::='  
+ index is: 13, term type: shift, before: %NULL%, after: '::='
+TARGET LIST: 
+target index: 14  , change_value: '::='
+
+assign_op  :  '::='  %MARK%  
+ index is: 14, term type: deduce, before: '::=', after: %NULL%
+TARGET LIST: 
+
+assign_op  :  %MARK%  '='  
+ index is: 15, term type: shift, before: %NULL%, after: '='
+TARGET LIST: 
+target index: 16  , change_value: '='
+
+assign_op  :  '='  %MARK%  
+ index is: 16, term type: deduce, before: '=', after: %NULL%
+TARGET LIST: 
+
+end_op  :  %MARK%  "."  
+ index is: 17, term type: shift, before: %NULL%, after: "."
+TARGET LIST: 
+target index: 18  , change_value: "."
+
+end_op  :  "."  %MARK%  
+ index is: 18, term type: deduce, before: ".", after: %NULL%
+TARGET LIST: 
+
+end_op  :  %MARK%  ';'  
+ index is: 19, term type: shift, before: %NULL%, after: ';'
+TARGET LIST: 
+target index: 20  , change_value: ';'
+
+end_op  :  ';'  %MARK%  
+ index is: 20, term type: deduce, before: ';', after: %NULL%
+TARGET LIST: 
+
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, term type: to_deduce, before: %NULL%, after: term
+TARGET LIST: 
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
+
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+declaration  :  term  declaration_rep_2  %MARK%  
+ index is: 23, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  %MARK%  
+ index is: 24, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  %MARK%  '|'  term  declaration_rep_2  
+ index is: 25, term type: shift, before: %NULL%, after: '|'
+TARGET LIST: 
+target index: 26  , change_value: '|'
+
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, term type: to_deduce, before: '|', after: term
+TARGET LIST: 
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
+
+declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
+ index is: 27, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+target index: 28  , change_value: declaration_rep_2
+
+declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
+ index is: 28, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+term  :  part  term_rep_2  %MARK%  
+ index is: 31, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  %MARK%  
+ index is: 32, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  %MARK%  term_rep_2_opt_1  part  term_rep_2  
+ index is: 33, term type: to_deduce, before: %NULL%, after: term_rep_2_opt_1
+TARGET LIST: 
+target index: 34  , change_value: term_rep_2_opt_1
+target index: 37  , change_value: %NULL%
+target index: 38  , change_value: %NULL%
+
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, term type: to_deduce, before: term_rep_2_opt_1, after: part
+TARGET LIST: 
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
+ index is: 35, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+target index: 36  , change_value: term_rep_2
+
+term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
+ index is: 36, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+term_rep_2_opt_1  :  %MARK%  
+ index is: 37, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2_opt_1  :  %MARK%  ','  
+ index is: 38, term type: shift, before: %NULL%, after: ','
+TARGET LIST: 
+target index: 39  , change_value: ','
+
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, term type: deduce, before: ',', after: %NULL%
+TARGET LIST: 
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+repeat_part  :  '{'  declaration  %MARK%  '}'  
+ index is: 50, term type: shift, before: declaration, after: '}'
+TARGET LIST: 
+target index: 51  , change_value: '}'
+
+repeat_part  :  '{'  declaration  '}'  %MARK%  
+ index is: 51, term type: deduce, before: '}', after: %NULL%
+TARGET LIST: 
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+declaration_part  :  '('  declaration  %MARK%  ')'  
+ index is: 54, term type: shift, before: declaration, after: ')'
+TARGET LIST: 
+target index: 55  , change_value: ')'
+
+declaration_part  :  '('  declaration  ')'  %MARK%  
+ index is: 55, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+alternative_part  :  '['  declaration  %MARK%  ']'  
+ index is: 58, term type: shift, before: declaration, after: ']'
+TARGET LIST: 
+target index: 59  , change_value: ']'
+
+alternative_part  :  '['  declaration  ']'  %MARK%  
+ index is: 59, term type: deduce, before: ']', after: %NULL%
+TARGET LIST: 
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+#####
+#DFA#
+#####
+#########
+#0  TERM#
+#########
 
 
 ##########
-TERM  term
+#FROM SET#
 ##########
-'('  TOKEN  '['  '{'  ID  LIT  
+%start%  :  %MARK%  begin  
+ index is: 0, term type: to_deduce, before: %NULL%, after: begin
+TARGET LIST: 
+target index: 1  , change_value: begin
+target index: 2  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  begin  
+ index is: 0, term type: to_deduce, before: %NULL%, after: begin
+TARGET LIST: 
+target index: 1  , change_value: begin
+target index: 2  , change_value: %NULL%
+
+begin  :  %MARK%  begin_rep_1  
+ index is: 2, term type: to_deduce, before: %NULL%, after: begin_rep_1
+TARGET LIST: 
+target index: 3  , change_value: begin_rep_1
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+
+begin_rep_1  :  %MARK%  
+ index is: 4, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+begin_rep_1  :  %MARK%  statement  begin_rep_1  
+ index is: 5, term type: to_deduce, before: %NULL%, after: statement
+TARGET LIST: 
+target index: 6  , change_value: statement
+target index: 8  , change_value: %NULL%
+
+statement  :  %MARK%  non_terminal_symbol  assign_op  declaration  end_op  
+ index is: 8, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 9  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+%start%  :  begin  %MARK%  
+ index is: 1, term type: accept, before: begin, after: %NULL%
+TARGET LIST: 
+
+begin  :  begin_rep_1  %MARK%  
+ index is: 3, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, term type: to_deduce, before: statement, after: begin_rep_1
+TARGET LIST: 
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
+
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, term type: to_deduce, before: non_terminal_symbol, after: assign_op
+TARGET LIST: 
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
 
 
-###############
-TERM  assign_op
-###############
-'='  '::='  
 
-
-######################
-TERM  term_rep_2_opt_1
-######################
-NULL  ','  
-
-
-#################
-TERM  simple_part
-#################
-TOKEN  LIT  ID  
-
-
-################
-TERM  term_rep_2
-################
-'('  TOKEN  '['  '{'  ID  NULL  ','  LIT  
-
-
-#################
-TERM  begin_rep_1
-#################
-NULL  ID  
+#########
+#1  TERM#
+#########
 
 
 ##########
-TERM  part
+#FROM SET#
 ##########
-'('  TOKEN  '['  '{'  ID  LIT  
+%start%  :  begin  %MARK%  
+ index is: 1, term type: accept, before: begin, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  begin  %MARK%  
+ index is: 1, term type: accept, before: begin, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
 
 
-############
-TERM  end_op
-############
-"."  ';'  
+#########
+#2  TERM#
+#########
 
 
+##########
+#FROM SET#
+##########
+begin  :  begin_rep_1  %MARK%  
+ index is: 3, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+begin  :  begin_rep_1  %MARK%  
+ index is: 3, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, term type: to_deduce, before: statement, after: begin_rep_1
+TARGET LIST: 
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
+
+########
+#SUBSET#
+########
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, term type: to_deduce, before: statement, after: begin_rep_1
+TARGET LIST: 
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
+
+begin_rep_1  :  %MARK%  
+ index is: 4, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+begin_rep_1  :  %MARK%  statement  begin_rep_1  
+ index is: 5, term type: to_deduce, before: %NULL%, after: statement
+TARGET LIST: 
+target index: 6  , change_value: statement
+target index: 8  , change_value: %NULL%
+
+statement  :  %MARK%  non_terminal_symbol  assign_op  declaration  end_op  
+ index is: 8, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 9  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+begin_rep_1  :  statement  begin_rep_1  %MARK%  
+ index is: 7, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+begin_rep_1  :  statement  %MARK%  begin_rep_1  
+ index is: 6, term type: to_deduce, before: statement, after: begin_rep_1
+TARGET LIST: 
+target index: 4  , change_value: %NULL%
+target index: 5  , change_value: %NULL%
+target index: 7  , change_value: begin_rep_1
+
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, term type: to_deduce, before: non_terminal_symbol, after: assign_op
+TARGET LIST: 
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+begin_rep_1  :  statement  begin_rep_1  %MARK%  
+ index is: 7, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+begin_rep_1  :  statement  begin_rep_1  %MARK%  
+ index is: 7, term type: deduce, before: begin_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, term type: to_deduce, before: non_terminal_symbol, after: assign_op
+TARGET LIST: 
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+statement  :  non_terminal_symbol  %MARK%  assign_op  declaration  end_op  
+ index is: 9, term type: to_deduce, before: non_terminal_symbol, after: assign_op
+TARGET LIST: 
+target index: 10  , change_value: assign_op
+target index: 13  , change_value: %NULL%
+target index: 15  , change_value: %NULL%
+
+assign_op  :  %MARK%  '::='  
+ index is: 13, term type: shift, before: %NULL%, after: '::='
+TARGET LIST: 
+target index: 14  , change_value: '::='
+
+assign_op  :  %MARK%  '='  
+ index is: 15, term type: shift, before: %NULL%, after: '='
+TARGET LIST: 
+target index: 16  , change_value: '='
+
+########
+#TO SET#
+########
+statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
+ index is: 10, term type: to_deduce, before: assign_op, after: declaration
+TARGET LIST: 
+target index: 11  , change_value: declaration
+target index: 21  , change_value: %NULL%
+
+assign_op  :  '::='  %MARK%  
+ index is: 14, term type: deduce, before: '::=', after: %NULL%
+TARGET LIST: 
+
+assign_op  :  '='  %MARK%  
+ index is: 16, term type: deduce, before: '=', after: %NULL%
+TARGET LIST: 
+
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
+ index is: 10, term type: to_deduce, before: assign_op, after: declaration
+TARGET LIST: 
+target index: 11  , change_value: declaration
+target index: 21  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+statement  :  non_terminal_symbol  assign_op  %MARK%  declaration  end_op  
+ index is: 10, term type: to_deduce, before: assign_op, after: declaration
+TARGET LIST: 
+target index: 11  , change_value: declaration
+target index: 21  , change_value: %NULL%
+
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, term type: to_deduce, before: %NULL%, after: term
+TARGET LIST: 
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
+ index is: 11, term type: to_deduce, before: declaration, after: end_op
+TARGET LIST: 
+target index: 12  , change_value: end_op
+target index: 17  , change_value: %NULL%
+target index: 19  , change_value: %NULL%
+
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+#########
+#7  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
+ index is: 11, term type: to_deduce, before: declaration, after: end_op
+TARGET LIST: 
+target index: 12  , change_value: end_op
+target index: 17  , change_value: %NULL%
+target index: 19  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+statement  :  non_terminal_symbol  assign_op  declaration  %MARK%  end_op  
+ index is: 11, term type: to_deduce, before: declaration, after: end_op
+TARGET LIST: 
+target index: 12  , change_value: end_op
+target index: 17  , change_value: %NULL%
+target index: 19  , change_value: %NULL%
+
+end_op  :  %MARK%  "."  
+ index is: 17, term type: shift, before: %NULL%, after: "."
+TARGET LIST: 
+target index: 18  , change_value: "."
+
+end_op  :  %MARK%  ';'  
+ index is: 19, term type: shift, before: %NULL%, after: ';'
+TARGET LIST: 
+target index: 20  , change_value: ';'
+
+########
+#TO SET#
+########
+statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
+ index is: 12, term type: deduce, before: end_op, after: %NULL%
+TARGET LIST: 
+
+end_op  :  "."  %MARK%  
+ index is: 18, term type: deduce, before: ".", after: %NULL%
+TARGET LIST: 
+
+end_op  :  ';'  %MARK%  
+ index is: 20, term type: deduce, before: ';', after: %NULL%
+TARGET LIST: 
+
+
+
+#########
+#8  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
+ index is: 12, term type: deduce, before: end_op, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+statement  :  non_terminal_symbol  assign_op  declaration  end_op  %MARK%  
+ index is: 12, term type: deduce, before: end_op, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#9  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+end_op  :  "."  %MARK%  
+ index is: 18, term type: deduce, before: ".", after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+end_op  :  "."  %MARK%  
+ index is: 18, term type: deduce, before: ".", after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#10  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+end_op  :  ';'  %MARK%  
+ index is: 20, term type: deduce, before: ';', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+end_op  :  ';'  %MARK%  
+ index is: 20, term type: deduce, before: ';', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#11  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+declaration_rep_2  :  %MARK%  
+ index is: 24, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  %MARK%  '|'  term  declaration_rep_2  
+ index is: 25, term type: shift, before: %NULL%, after: '|'
+TARGET LIST: 
+target index: 26  , change_value: '|'
+
+########
+#TO SET#
+########
+declaration  :  term  declaration_rep_2  %MARK%  
+ index is: 23, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, term type: to_deduce, before: '|', after: term
+TARGET LIST: 
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
+
+
+
+##########
+#12  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration  :  term  declaration_rep_2  %MARK%  
+ index is: 23, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+declaration  :  term  declaration_rep_2  %MARK%  
+ index is: 23, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#13  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, term type: to_deduce, before: '|', after: term
+TARGET LIST: 
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, term type: to_deduce, before: '|', after: term
+TARGET LIST: 
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
+ index is: 27, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+target index: 28  , change_value: declaration_rep_2
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#14  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
+ index is: 27, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+target index: 28  , change_value: declaration_rep_2
+
+########
+#SUBSET#
+########
+declaration_rep_2  :  '|'  term  %MARK%  declaration_rep_2  
+ index is: 27, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+target index: 28  , change_value: declaration_rep_2
+
+declaration_rep_2  :  %MARK%  
+ index is: 24, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  %MARK%  '|'  term  declaration_rep_2  
+ index is: 25, term type: shift, before: %NULL%, after: '|'
+TARGET LIST: 
+target index: 26  , change_value: '|'
+
+########
+#TO SET#
+########
+declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
+ index is: 28, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+declaration_rep_2  :  '|'  %MARK%  term  declaration_rep_2  
+ index is: 26, term type: to_deduce, before: '|', after: term
+TARGET LIST: 
+target index: 27  , change_value: term
+target index: 29  , change_value: %NULL%
+
+
+
+##########
+#15  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
+ index is: 28, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+declaration_rep_2  :  '|'  term  declaration_rep_2  %MARK%  
+ index is: 28, term type: deduce, before: declaration_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#16  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+term_rep_2  :  %MARK%  
+ index is: 32, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  %MARK%  term_rep_2_opt_1  part  term_rep_2  
+ index is: 33, term type: to_deduce, before: %NULL%, after: term_rep_2_opt_1
+TARGET LIST: 
+target index: 34  , change_value: term_rep_2_opt_1
+target index: 37  , change_value: %NULL%
+target index: 38  , change_value: %NULL%
+
+term_rep_2_opt_1  :  %MARK%  
+ index is: 37, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2_opt_1  :  %MARK%  ','  
+ index is: 38, term type: shift, before: %NULL%, after: ','
+TARGET LIST: 
+target index: 39  , change_value: ','
+
+########
+#TO SET#
+########
+term  :  part  term_rep_2  %MARK%  
+ index is: 31, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, term type: to_deduce, before: term_rep_2_opt_1, after: part
+TARGET LIST: 
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, term type: deduce, before: ',', after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#17  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term  :  part  term_rep_2  %MARK%  
+ index is: 31, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+term  :  part  term_rep_2  %MARK%  
+ index is: 31, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#18  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, term type: to_deduce, before: term_rep_2_opt_1, after: part
+TARGET LIST: 
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, term type: to_deduce, before: term_rep_2_opt_1, after: part
+TARGET LIST: 
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
+ index is: 35, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+target index: 36  , change_value: term_rep_2
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#19  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
+ index is: 35, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+target index: 36  , change_value: term_rep_2
+
+########
+#SUBSET#
+########
+term_rep_2  :  term_rep_2_opt_1  part  %MARK%  term_rep_2  
+ index is: 35, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+target index: 36  , change_value: term_rep_2
+
+term_rep_2  :  %MARK%  
+ index is: 32, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  %MARK%  term_rep_2_opt_1  part  term_rep_2  
+ index is: 33, term type: to_deduce, before: %NULL%, after: term_rep_2_opt_1
+TARGET LIST: 
+target index: 34  , change_value: term_rep_2_opt_1
+target index: 37  , change_value: %NULL%
+target index: 38  , change_value: %NULL%
+
+term_rep_2_opt_1  :  %MARK%  
+ index is: 37, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+term_rep_2_opt_1  :  %MARK%  ','  
+ index is: 38, term type: shift, before: %NULL%, after: ','
+TARGET LIST: 
+target index: 39  , change_value: ','
+
+########
+#TO SET#
+########
+term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
+ index is: 36, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+term_rep_2  :  term_rep_2_opt_1  %MARK%  part  term_rep_2  
+ index is: 34, term type: to_deduce, before: term_rep_2_opt_1, after: part
+TARGET LIST: 
+target index: 35  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, term type: deduce, before: ',', after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#20  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
+ index is: 36, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+term_rep_2  :  term_rep_2_opt_1  part  term_rep_2  %MARK%  
+ index is: 36, term type: deduce, before: term_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#21  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, term type: deduce, before: ',', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+term_rep_2_opt_1  :  ','  %MARK%  
+ index is: 39, term type: deduce, before: ',', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#22  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#23  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#24  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#25  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#26  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#27  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#28  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+########
+#SUBSET#
+########
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, term type: to_deduce, before: %NULL%, after: term
+TARGET LIST: 
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+alternative_part  :  '['  declaration  %MARK%  ']'  
+ index is: 58, term type: shift, before: declaration, after: ']'
+TARGET LIST: 
+target index: 59  , change_value: ']'
+
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#29  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+alternative_part  :  '['  declaration  %MARK%  ']'  
+ index is: 58, term type: shift, before: declaration, after: ']'
+TARGET LIST: 
+target index: 59  , change_value: ']'
+
+########
+#SUBSET#
+########
+alternative_part  :  '['  declaration  %MARK%  ']'  
+ index is: 58, term type: shift, before: declaration, after: ']'
+TARGET LIST: 
+target index: 59  , change_value: ']'
+
+########
+#TO SET#
+########
+alternative_part  :  '['  declaration  ']'  %MARK%  
+ index is: 59, term type: deduce, before: ']', after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#30  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+alternative_part  :  '['  declaration  ']'  %MARK%  
+ index is: 59, term type: deduce, before: ']', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+alternative_part  :  '['  declaration  ']'  %MARK%  
+ index is: 59, term type: deduce, before: ']', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#31  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+########
+#SUBSET#
+########
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, term type: to_deduce, before: %NULL%, after: term
+TARGET LIST: 
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+declaration_part  :  '('  declaration  %MARK%  ')'  
+ index is: 54, term type: shift, before: declaration, after: ')'
+TARGET LIST: 
+target index: 55  , change_value: ')'
+
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#32  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_part  :  '('  declaration  %MARK%  ')'  
+ index is: 54, term type: shift, before: declaration, after: ')'
+TARGET LIST: 
+target index: 55  , change_value: ')'
+
+########
+#SUBSET#
+########
+declaration_part  :  '('  declaration  %MARK%  ')'  
+ index is: 54, term type: shift, before: declaration, after: ')'
+TARGET LIST: 
+target index: 55  , change_value: ')'
+
+########
+#TO SET#
+########
+declaration_part  :  '('  declaration  ')'  %MARK%  
+ index is: 55, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#33  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+declaration_part  :  '('  declaration  ')'  %MARK%  
+ index is: 55, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+declaration_part  :  '('  declaration  ')'  %MARK%  
+ index is: 55, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#34  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+########
+#SUBSET#
+########
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+declaration  :  %MARK%  term  declaration_rep_2  
+ index is: 21, term type: to_deduce, before: %NULL%, after: term
+TARGET LIST: 
+target index: 22  , change_value: term
+target index: 29  , change_value: %NULL%
+
+term  :  %MARK%  part  term_rep_2  
+ index is: 29, term type: to_deduce, before: %NULL%, after: part
+TARGET LIST: 
+target index: 30  , change_value: part
+target index: 40  , change_value: %NULL%
+target index: 42  , change_value: %NULL%
+target index: 44  , change_value: %NULL%
+target index: 46  , change_value: %NULL%
+
+part  :  %MARK%  simple_part  
+ index is: 40, term type: to_deduce, before: %NULL%, after: simple_part
+TARGET LIST: 
+target index: 41  , change_value: simple_part
+target index: 60  , change_value: %NULL%
+target index: 62  , change_value: %NULL%
+
+part  :  %MARK%  alternative_part  
+ index is: 42, term type: to_deduce, before: %NULL%, after: alternative_part
+TARGET LIST: 
+target index: 43  , change_value: alternative_part
+target index: 56  , change_value: %NULL%
+
+part  :  %MARK%  declaration_part  
+ index is: 44, term type: to_deduce, before: %NULL%, after: declaration_part
+TARGET LIST: 
+target index: 45  , change_value: declaration_part
+target index: 52  , change_value: %NULL%
+
+part  :  %MARK%  repeat_part  
+ index is: 46, term type: to_deduce, before: %NULL%, after: repeat_part
+TARGET LIST: 
+target index: 47  , change_value: repeat_part
+target index: 48  , change_value: %NULL%
+
+simple_part  :  %MARK%  terminal_symbol  
+ index is: 60, term type: to_deduce, before: %NULL%, after: terminal_symbol
+TARGET LIST: 
+target index: 61  , change_value: terminal_symbol
+target index: 64  , change_value: %NULL%
+target index: 66  , change_value: %NULL%
+
+simple_part  :  %MARK%  non_terminal_symbol  
+ index is: 62, term type: to_deduce, before: %NULL%, after: non_terminal_symbol
+TARGET LIST: 
+target index: 63  , change_value: non_terminal_symbol
+target index: 68  , change_value: %NULL%
+
+alternative_part  :  %MARK%  '['  declaration  ']'  
+ index is: 56, term type: shift, before: %NULL%, after: '['
+TARGET LIST: 
+target index: 57  , change_value: '['
+
+declaration_part  :  %MARK%  '('  declaration  ')'  
+ index is: 52, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 53  , change_value: '('
+
+repeat_part  :  %MARK%  '{'  declaration  '}'  
+ index is: 48, term type: shift, before: %NULL%, after: '{'
+TARGET LIST: 
+target index: 49  , change_value: '{'
+
+terminal_symbol  :  %MARK%  TOKEN  
+ index is: 64, term type: shift, before: %NULL%, after: TOKEN
+TARGET LIST: 
+target index: 65  , change_value: TOKEN
+
+terminal_symbol  :  %MARK%  LIT  
+ index is: 66, term type: shift, before: %NULL%, after: LIT
+TARGET LIST: 
+target index: 67  , change_value: LIT
+
+non_terminal_symbol  :  %MARK%  ID  
+ index is: 68, term type: shift, before: %NULL%, after: ID
+TARGET LIST: 
+target index: 69  , change_value: ID
+
+########
+#TO SET#
+########
+repeat_part  :  '{'  declaration  %MARK%  '}'  
+ index is: 50, term type: shift, before: declaration, after: '}'
+TARGET LIST: 
+target index: 51  , change_value: '}'
+
+declaration  :  term  %MARK%  declaration_rep_2  
+ index is: 22, term type: to_deduce, before: term, after: declaration_rep_2
+TARGET LIST: 
+target index: 23  , change_value: declaration_rep_2
+target index: 24  , change_value: %NULL%
+target index: 25  , change_value: %NULL%
+
+term  :  part  %MARK%  term_rep_2  
+ index is: 30, term type: to_deduce, before: part, after: term_rep_2
+TARGET LIST: 
+target index: 31  , change_value: term_rep_2
+target index: 32  , change_value: %NULL%
+target index: 33  , change_value: %NULL%
+
+part  :  simple_part  %MARK%  
+ index is: 41, term type: deduce, before: simple_part, after: %NULL%
+TARGET LIST: 
+
+part  :  alternative_part  %MARK%  
+ index is: 43, term type: deduce, before: alternative_part, after: %NULL%
+TARGET LIST: 
+
+part  :  declaration_part  %MARK%  
+ index is: 45, term type: deduce, before: declaration_part, after: %NULL%
+TARGET LIST: 
+
+part  :  repeat_part  %MARK%  
+ index is: 47, term type: deduce, before: repeat_part, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  terminal_symbol  %MARK%  
+ index is: 61, term type: deduce, before: terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+simple_part  :  non_terminal_symbol  %MARK%  
+ index is: 63, term type: deduce, before: non_terminal_symbol, after: %NULL%
+TARGET LIST: 
+
+alternative_part  :  '['  %MARK%  declaration  ']'  
+ index is: 57, term type: to_deduce, before: '[', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 58  , change_value: declaration
+
+declaration_part  :  '('  %MARK%  declaration  ')'  
+ index is: 53, term type: to_deduce, before: '(', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 54  , change_value: declaration
+
+repeat_part  :  '{'  %MARK%  declaration  '}'  
+ index is: 49, term type: to_deduce, before: '{', after: declaration
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 50  , change_value: declaration
+
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#35  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+repeat_part  :  '{'  declaration  %MARK%  '}'  
+ index is: 50, term type: shift, before: declaration, after: '}'
+TARGET LIST: 
+target index: 51  , change_value: '}'
+
+########
+#SUBSET#
+########
+repeat_part  :  '{'  declaration  %MARK%  '}'  
+ index is: 50, term type: shift, before: declaration, after: '}'
+TARGET LIST: 
+target index: 51  , change_value: '}'
+
+########
+#TO SET#
+########
+repeat_part  :  '{'  declaration  '}'  %MARK%  
+ index is: 51, term type: deduce, before: '}', after: %NULL%
+TARGET LIST: 
+
+
+
+##########
+#36  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+repeat_part  :  '{'  declaration  '}'  %MARK%  
+ index is: 51, term type: deduce, before: '}', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+repeat_part  :  '{'  declaration  '}'  %MARK%  
+ index is: 51, term type: deduce, before: '}', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#37  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+terminal_symbol  :  TOKEN  %MARK%  
+ index is: 65, term type: deduce, before: TOKEN, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#38  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+terminal_symbol  :  LIT  %MARK%  
+ index is: 67, term type: deduce, before: LIT, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#39  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+non_terminal_symbol  :  ID  %MARK%  
+ index is: 69, term type: deduce, before: ID, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#40  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+assign_op  :  '::='  %MARK%  
+ index is: 14, term type: deduce, before: '::=', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+assign_op  :  '::='  %MARK%  
+ index is: 14, term type: deduce, before: '::=', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+##########
+#41  TERM#
+##########
+
+
+##########
+#FROM SET#
+##########
+assign_op  :  '='  %MARK%  
+ index is: 16, term type: deduce, before: '=', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+assign_op  :  '='  %MARK%  
+ index is: 16, term type: deduce, before: '=', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+
+
+
+########
+LOG INFO
+########
+
+
+
+##########
+ERROR INFO
+##########

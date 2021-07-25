@@ -1,0 +1,2490 @@
+Compile Time: 0.016s
+begin
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "s"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'('"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "s"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "r"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'a'"
+    statement -> end_op
+      end_op -> ";"
+  begin -> statement
+    statement -> non_terminal_symbol
+      non_terminal_symbol -> "r"
+    statement -> assign_op
+      assign_op -> "::="
+    statement -> declaration
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "'+'"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "s"
+        term -> part
+          part -> simple_part
+            simple_part -> right_non_terminal_symbol
+              right_non_terminal_symbol -> non_terminal_symbol
+                non_terminal_symbol -> "r"
+      declaration -> "|"
+      declaration -> term
+        term -> part
+          part -> simple_part
+            simple_part -> terminal_symbol
+              terminal_symbol -> "')'"
+    statement -> end_op
+      end_op -> ";"
+
+
+
+#########
+show list
+#########
+
+
+
+######################
+show origin terms info
+######################
+s ::= 'a' 
+s ::= '(' s r 
+r ::= ')' 
+r ::= '+' s r 
+
+
+
+##############################
+show info after add start node
+##############################
+%start% ::= s 
+s ::= 'a' 
+s ::= '(' s r 
+r ::= ')' 
+r ::= '+' s r 
+
+
+
+##############
+show FIRST SET
+##############
+TERM  s : '('  'a'  
+
+TERM  %start% : '('  'a'  
+
+TERM  r : '+'  ')'  
+
+
+
+
+###############
+show FOLLOW SET
+###############
+TERM  %start% : %END%  
+
+TERM  s : '+'  ')'  %END%  
+
+TERM  r : '+'  ')'  %END%  
+
+##############
+show_mark_info
+##############
+%start% =  %MARK% s
+%start% =  s %MARK%
+s =  %MARK% 'a'
+s =  'a' %MARK%
+s =  %MARK% '(' s r
+s =  '(' %MARK% s r
+s =  '(' s %MARK% r
+s =  '(' s r %MARK%
+r =  %MARK% ')'
+r =  ')' %MARK%
+r =  %MARK% '+' s r
+r =  '+' %MARK% s r
+r =  '+' s %MARK% r
+r =  '+' s r %MARK%
+
+
+
+########
+DNF TERM
+########
+%start%  :  %MARK%  s  
+ index is: 0, source_index: 0, before: %NULL%, after: s
+%start%  :  s  %MARK%  
+ index is: 1, source_index: 0, before: s, after: %NULL%
+s  :  %MARK%  'a'  
+ index is: 2, source_index: 1, before: %NULL%, after: 'a'
+s  :  'a'  %MARK%  
+ index is: 3, source_index: 1, before: 'a', after: %NULL%
+s  :  %MARK%  '('  s  r  
+ index is: 4, source_index: 2, before: %NULL%, after: '('
+s  :  '('  %MARK%  s  r  
+ index is: 5, source_index: 2, before: '(', after: s
+s  :  '('  s  %MARK%  r  
+ index is: 6, source_index: 2, before: s, after: r
+s  :  '('  s  r  %MARK%  
+ index is: 7, source_index: 2, before: r, after: %NULL%
+r  :  %MARK%  ')'  
+ index is: 8, source_index: 3, before: %NULL%, after: ')'
+r  :  ')'  %MARK%  
+ index is: 9, source_index: 3, before: ')', after: %NULL%
+r  :  %MARK%  '+'  s  r  
+ index is: 10, source_index: 4, before: %NULL%, after: '+'
+r  :  '+'  %MARK%  s  r  
+ index is: 11, source_index: 4, before: '+', after: s
+r  :  '+'  s  %MARK%  r  
+ index is: 12, source_index: 4, before: s, after: r
+r  :  '+'  s  r  %MARK%  
+ index is: 13, source_index: 4, before: r, after: %NULL%
+
+
+
+###########
+ADD TARGETS
+###########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+r  :  '+'  s  r  %MARK%  
+ index is: 13, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+#####
+#DFA#
+#####
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#7  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+########
+#SUBSET#
+########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#7  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+########
+#SUBSET#
+########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#8  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+########
+#SUBSET#
+########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+r  :  '+'  s  r  %MARK%  
+ index is: 13, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#0  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+%start%  :  %MARK%  s  
+ index is: 0, term type: to_deduce, before: %NULL%, after: s
+TARGET LIST: 
+target index: 1  , change_value: s
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#1  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+%start%  :  s  %MARK%  
+ index is: 1, term type: accept, before: s, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#2  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+########
+#SUBSET#
+########
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+s  :  '('  s  %MARK%  r  
+ index is: 6, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 7  , change_value: r
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+s  :  '('  s  r  %MARK%  
+ index is: 7, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#7  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+########
+#SUBSET#
+########
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+s  :  %MARK%  'a'  
+ index is: 2, term type: shift, before: %NULL%, after: 'a'
+TARGET LIST: 
+target index: 3  , change_value: 'a'
+
+s  :  %MARK%  '('  s  r  
+ index is: 4, term type: shift, before: %NULL%, after: '('
+TARGET LIST: 
+target index: 5  , change_value: '('
+
+########
+#TO SET#
+########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+s  :  'a'  %MARK%  
+ index is: 3, term type: deduce, before: 'a', after: %NULL%
+TARGET LIST: 
+
+s  :  '('  %MARK%  s  r  
+ index is: 5, term type: to_deduce, before: '(', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 6  , change_value: s
+
+
+
+#########
+#8  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+########
+#SUBSET#
+########
+r  :  '+'  s  %MARK%  r  
+ index is: 12, term type: to_deduce, before: s, after: r
+TARGET LIST: 
+target index: 8  , change_value: %NULL%
+target index: 10  , change_value: %NULL%
+target index: 13  , change_value: r
+
+r  :  %MARK%  ')'  
+ index is: 8, term type: shift, before: %NULL%, after: ')'
+TARGET LIST: 
+target index: 9  , change_value: ')'
+
+r  :  %MARK%  '+'  s  r  
+ index is: 10, term type: shift, before: %NULL%, after: '+'
+TARGET LIST: 
+target index: 11  , change_value: '+'
+
+########
+#TO SET#
+########
+r  :  '+'  s  r  %MARK%  
+ index is: 13, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+r  :  ')'  %MARK%  
+ index is: 9, term type: deduce, before: ')', after: %NULL%
+TARGET LIST: 
+
+r  :  '+'  %MARK%  s  r  
+ index is: 11, term type: to_deduce, before: '+', after: s
+TARGET LIST: 
+target index: 2  , change_value: %NULL%
+target index: 4  , change_value: %NULL%
+target index: 12  , change_value: s
+
+
+
+#########
+#9  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+r  :  '+'  s  r  %MARK%  
+ index is: 13, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+r  :  '+'  s  r  %MARK%  
+ index is: 13, term type: deduce, before: r, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+???
+???
+???
+deduce
+???
+???
+???
+deduce
+???
+deduce
+???
+???
+???
+deduce
+
+
+
+########
+LOG INFO
+########
+
+
+
+##########
+ERROR INFO
+##########

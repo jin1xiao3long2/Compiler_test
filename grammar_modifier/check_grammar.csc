@@ -25,11 +25,25 @@ if !parser.ast == null
     parsergen.print_header("show list")
     LR_term_list.run(new_tree.res)
 
+    system.out.println("\n\n")
     parsergen.print_header("show FIRST SET")
     LR_term_list.show_first_follow_map(LR_term_list.first_map)
 
-    # parsergen.print_header("show FOLLOW SET")
-    # LR_term_list.show_first_follow_map(LR_term_list.follow_map)
-    #NFA.run(LR_term_list.result)
-    #DFA.run(NFA.result_list)
+    system.out.println("\n\n")
+    parsergen.print_header("show FOLLOW SET")
+    LR_term_list.show_first_follow_map(LR_term_list.follow_map)
+
+    parsergen.print_header("show_mark_info")
+    LR_term_list.show_result()
+   
+    NFA.run(LR_term_list.result)
+    DFA.run(NFA.result_list,LR_term_list.first_map, LR_term_list.follow_map)
+
+    system.out.println("\n\n")
+    parsergen.print_header("LOG INFO")
+    foreach mes in DFA.log_info do system.out.println(mes)
+
+    system.out.println("\n\n")
+    parsergen.print_header("ERROR INFO")
+    foreach mes in DFA.error_info do system.out.println(mes)
 end

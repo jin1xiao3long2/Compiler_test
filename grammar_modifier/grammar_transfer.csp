@@ -107,15 +107,15 @@ class traversal_old_tree
     function visit_statement(nodes)
         var idx = 0
         
-        print_header("New Statement")
+        # print_header("New Statement")
         
         # Recursive Visit non_terminal_symbol
         var name = ""
         name = this.visit_non_terminal_symbol(nodes[idx++].nodes)
         
-        print_info("Left Non-terminal-symbol: " + name)
+        # print_info("Left Non-terminal-symbol: " + name)
         now_name = name
-        print_info("Now_name: " + now_name)
+        # print_info("Now_name: " + now_name)
 
         #consume assign_op
         idx++
@@ -126,11 +126,11 @@ class traversal_old_tree
         var tree = new tree_type
         tree.root = now_name
         now_tree = tree
-        print_info("create now_tree : " + now_name)
+        # print_info("create now_tree : " + now_name)
         # Recursive Visit declaration
-        print_info("Start analyze Declaration: ")
+        # print_info("Start analyze Declaration: ")
         this.visit_declaration(nodes[idx++].nodes)
-        print_info("End analyze Decalration ")
+        # print_info("End analyze Decalration ")
 
         #consume end_op
         idx++
@@ -219,17 +219,17 @@ class traversal_old_tree
                 var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
-                print_info("add new node: " + node.root)
+                # print_info("add new node: " + node.root)
 
                 # record old info
                 prev_tree = now_tree
                 prev_name = now_name
-                print_info("record old tree: " + now_tree.root)
+                # print_info("record old tree: " + now_tree.root)
 
                 # change now tree 
                 now_tree = tree
                 now_name = name
-                print_info("change now tree: " + now_name)
+                # print_info("change now tree: " + now_name)
 
                 this.visit_repeat_part(nodes[idx++].nodes)
                 
@@ -239,7 +239,7 @@ class traversal_old_tree
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
-                print_info("recover from fun, now_tree: " +  now_tree.root)
+                # print_info("recover from fun, now_tree: " +  now_tree.root)
                 
             end
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "declaration_part")
@@ -256,17 +256,17 @@ class traversal_old_tree
                 var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
-                print_info("add new node: " + node.root)
+                # print_info("add new node: " + node.root)
 
                 # record old info
                 prev_tree = now_tree
                 prev_name = now_name
-                print_info("record old tree: " + now_tree.root)
+                # print_info("record old tree: " + now_tree.root)
 
                 # change now tree 
                 now_tree = tree
                 now_name = name
-                print_info("change now tree: " + now_name)
+                # print_info("change now tree: " + now_name)
 
                 this.visit_declaration_part(nodes[idx++].nodes)
 
@@ -276,7 +276,7 @@ class traversal_old_tree
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
-                print_info("recover from fun, now_tree: " +  now_tree.root)
+                # print_info("recover from fun, now_tree: " +  now_tree.root)
             end
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "alternative_part")
                 matched = true
@@ -291,17 +291,17 @@ class traversal_old_tree
                 var node = new tree_type
                 node.root = name
                 now_tree.nodes.push_back(node)
-                print_info("add new node: " + node.root)
+                # print_info("add new node: " + node.root)
 
                 # record old info
                 prev_tree = now_tree
                 prev_name = now_name
-                print_info("record old tree: " + now_tree.root)
+                # print_info("record old tree: " + now_tree.root)
 
                 # change now tree 
                 now_tree = tree
                 now_name = name
-                print_info("change now tree: " + now_name)
+                # print_info("change now tree: " + now_name)
 
                 this.visit_alternative_part(nodes[idx++].nodes)
                 
@@ -311,7 +311,7 @@ class traversal_old_tree
                 # recover
                 now_tree = prev_tree
                 now_name = prev_name
-                print_info("recover from fun, now_tree: " +  now_tree.root)
+                # print_info("recover from fun, now_tree: " +  now_tree.root)
             end
             if !matched && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "simple_part")
                 matched = true
@@ -378,7 +378,7 @@ class traversal_old_tree
                 var tree = new tree_type
                 tree.root = name
                 tree.seq = name
-                print_info("simple part: non_terminal_symbol: " + tree.root)
+                # print_info("simple part: non_terminal_symbol: " + tree.root)
                 
                 now_tree.nodes.push_back(tree)
                 # now_tree.seq = now_tree.seq + "_" + name
@@ -390,7 +390,7 @@ class traversal_old_tree
                 var tree = new tree_type
                 tree.root = name
                 tree.seq = name
-                print_info("simple part: terminal_symbol: " + tree.root)
+                # print_info("simple part: terminal_symbol: " + tree.root)
 
                 now_tree.nodes.push_back(tree)
                 # now_tree.seq = now_tree.seq + "_" + name

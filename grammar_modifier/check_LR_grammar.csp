@@ -23,7 +23,7 @@ class LR_type
     var mark_before = ""
     var mark_after = ""
     var targets = new array
-    var First_post = -1
+    var Follow_post = -1
 end
 
 
@@ -76,105 +76,17 @@ class LR_term
 
     function show_first_follow_map(map)
         foreach iter in map
-            print_header("TERM  " + iter.first)
+            system.out.print("TERM  " + iter.first + " : ")
             foreach it in iter.second
                 system.out.print(it + "  ")
             end
-            system.out.println("\n\n")
-        end
-    end
-
-
-    function new_cal_first_map()
-    
-    end
-
-    function cal_first_map()
-    
-        if first_map.empty()
-            foreach iter in input_res
-                var arr = new hash_set
-                var node_root = iter.root
-                var first_node = iter.nodes[0].root
-                
-                if first_node == node_root
-                    continue
-                end
-
-                #获得元素
-                if first_map.exist(node_root)
-                    arr = first_map.at(node_root)
-                    arr.insert(first_node)
-                    first_map.at(node_root) = arr
-                else
-                    arr.insert(first_node)
-                    first_map.insert(node_root, arr)
-                end
-            end
-        end
-
-        foreach iter in first_map
-            var has_null = false
-            var term = iter.second
-            var del_set = new hash_set
-            foreach it in iter.second
-                if is_non_terminal_symbol(it)
-                    term = hash_set.merge(term,first_map.at(it))
-                    del_set.insert(it)
-                    foreach first_map_iter in first_map.at(it)
-                        if first_map_iter == "NULL"
-                            has_null = true
-                        end
-                    end
-                end
-            end
-            foreach it in del_set do term.erase(it)
-            term.erase(iter.first)
-            
-            #加入所有空之后的项
-            if has_null
-                #从所有的term查看
-                var add_set = new hash_set
-                foreach term in input_res
-                    if term.root == iter.first
-                        foreach node in term.nodes
-                            var id = node.root
-                            #非终结符
-                            if is_non_terminal_symbol(id)
-                                var first_set = first_map.at(id)
-                                add_set = hash_set.merge(add_set, first_set)
-                                #若含有空,则继续合并下个first
-                                if !first_set.exist("NULL")
-                                    break
-                                end
-                            end
-                        end
-                    end  
-                end
-
-                term = hash_set.merge(term, add_set)
-            end
-
-            iter.second = term
-        end
-
-        #first集中消除所有的non_terminal_symbol
-        var next_scan = false
-        foreach iter in first_map
-            foreach it in iter.second
-                if is_non_terminal_symbol(it)
-                    next_scan = true
-                end
-            end
-        end
-
-        if next_scan 
-            cal_first_map()
+            system.out.println("\n")
         end
     end
 
     function add_map_element(map, key, value)
         var set = new hash_set
+        # var new_key = false
         if map.exist(key)
             set.insert(value)
             set = hash_set.merge(set, map.at(key))
@@ -183,138 +95,163 @@ class LR_term
             set.insert(value)
             map.insert(key,set)
         end
+
+        # return new_key
     end
 
-    function cal_follow_map()
-        if follow_map.empty()
-            foreach iter in input_res
-                var root = iter.root
+    function cal_first_map()
+        var before_cal_map = first_map
+
+        foreach term in input_res
+            var root = term.root
+
+            if term.nodes.size == 1 && !is_non_terminal_symbol(term.nodes[0].root)
+                add_map_element(first_map, root, term.nodes[0].root)
+                continue
+            end
+
+            #A -> x1x2x3...xn
+            
+            var all_null = true
+
+            for i = 0, i < term.nodes.size, i++
                 var has_null = false
+                var now_node_root = term.nodes[i].root
 
-                var temp_symbol = ""
-
-                #添加结束符
-                if root == "%START%"
-                    add_map_element(follow_map, root, "%END%")
+                if !is_non_terminal_symbol(now_node_root)
+                    #不会出现空结尾的式子
+                    all_null = false
+                    add_map_element(first_map, root, now_node_root)
+                    break
+                else
+                    #add First(xi) - ε to First(A)
+                    if !first_map.exist(now_node_root)
+                        #add_map_element(first_map, root, now_node_root)
+                        has_null = false
+                        all_null = false
+                        break
+                    else
+                        var now_node_set = first_map.at(now_node_root)
+                        foreach ele in now_node_set
+                            if ele == "NULL"
+                                has_null = true
+                                continue
+                            else
+                                add_map_element(first_map, root, ele)
+                            end
+                        end
+                    end
                 end
                 
-                #空或非结束符
-                if iter.nodes.size == 1 && !is_non_terminal_symbol(iter.nodes[0].root)
+                if has_null == false
+                    all_null = false
+                    break
+                end
+            end
+
+            if all_null
+                add_map_element(first_map, root, "NULL")
+            end
+        end
+
+        if first_map != before_cal_map
+            cal_first_map()
+        end
+    end
+
+
+
+
+    function cal_follow_map()
+        
+        var before_cal_hash = follow_map
+
+        #for all non_terminal A != start-symbol do
+        foreach iter in input_res
+
+            #NULL and terminal_symbol
+            if iter.nodes.size == 1 && !is_non_terminal_symbol(iter.nodes[0].root)
+                continue
+            end
+
+            var root = iter.root
+            if root == "%start%"
+                add_map_element(follow_map, root, "%END%")
+            end
+
+            #Follow A := {}
+
+            #A ::= X1X2X3...Xn do
+            #遍历每个结点
+            #foreach Xi that is non_terminal
+            
+            for i = 0, i < iter.nodes.size, i++
+                var now_node_root = iter.nodes[i].root
+                
+                
+                #if terminal_symbol continue
+                if !is_non_terminal_symbol(now_node_root)
                     continue
                 end
 
-                #正常的数据
-                var idx = 0
-                foreach it in iter.nodes
-                    var left_root = it.root
-                    #判断第几位
-                    var it_idx = idx 
+                var all_null = true
 
-                    #若是第一个字符,则跳过判断
-                    if temp_symbol == ""
-                        temp_symbol = left_root
-                        continue
-                    end
-
-                    var right_root = temp_symbol
-
-                    #查找是否后面均为NULL
-                    var find_null_it = it
-                    var all_null = true
-
-                    
-
-                    for pos = it_idx, pos < iter.nodes.size, pos++
-                        var next_root = iter.nodes[pos].root
-                        if first_map.exist(next_root)
-                            #含有空
-                            foreach first_iter in first_map.at(next_root)
-                                if first_iter == left_root
-                                    continue
-                                end
-                                if first_iter == "NULL"
-                                    continue
-                                end
-                                add_map_element(follow_map, left_root, first_iter)
+                #add Xi+1Xi+2...Xn
+                for j = i + 1, j < iter.nodes.size, j++
+                    var xj = iter.nodes[j].root
+                    #如果是非终结符,停止计算
+                    if !is_non_terminal_symbol(xj)
+                        #add xj - NULL to follow(xi)
+                        if xj != "NULL"
+                            add_map_element(follow_map, now_node_root, xj)
+                        end
+                        all_null = false
+                        break
+                    else
+                        var first_xj_set = first_map.at(xj)
+                        #first集元素
+                        var has_null = false
+                        #add First(xj) - ε to Follow(xi)
+                        foreach ele in first_xj_set
+                            if ele == "NULL"
+                                has_null = true
+                                continue
+                            else
+                                add_map_element(follow_map, now_node_root, ele)
                             end
-                            if !first_map.at(next_root).exist("NULL")
-                                all_null = false
-                                break
-                            end
-                        else
-                            #终结符
+                        end
+                        
+                        if !has_null
                             all_null = false
-                            add_map_element(follow_map, left_root, next_root)
                             break
                         end
+                        
+                        
                     end
-                    if all_null
-                        add_map_element(follow_map, left_root, root)
-                    end
-                    
-                    
-                    if is_non_terminal_symbol(left_root)
-                        if !is_non_terminal_symbol(right_root)
-                            add_map_element(follow_map, left_root, right_root)
-                        else
-                            var right_first_map = first_map.at(right_root)
-                            
-                            #B -> aAY
-                            #First(Y) - {ε} => Follow(A)
+                end 
 
-                            foreach iter in right_first_map
-                                #防止死循环
-                                if iter == left_root
-                                    continue
-                                end
-                                #ε
-                                if iter == "NULL"
-                                    continue
-                                end
-                                #其他元素
-                                add_map_element(follow_map, left_root, iter)
-                            end
+                # ε ∈ First(xi+1xi+2...xn)
+                if all_null
+                    if follow_map.exist(root)
+                        var root_follow_set = follow_map.at(root)
+                        foreach ele in root_follow_set
+                            add_map_element(follow_map, now_node_root, ele)
                         end
-                    end 
-
-                    temp_symbol = left_root
-                    idx++
+                    end
                 end
+                
             end
+
         end
-
-
-
-        #去除follow
-        foreach iter in follow_map
-            var term = iter.second
-            var del_set = new hash_set
-            foreach it in iter.second
-                if is_non_terminal_symbol(it)
-                    term = hash_set.merge(term,follow_map.at(it))
-                    del_set.insert(it)
-                end
-            end
-            foreach it in del_set do term.erase(it)
-            term.erase(iter.first)
-            iter.second = term
-        end
-
-        #first集中消除所有的non_terminal_symbol
-        var next_scan = false
-        foreach iter in follow_map
-            foreach it in iter.second
-                if is_non_terminal_symbol(it)
-                    next_scan = true
-                end
-            end
-        end
-
-        if next_scan 
+        
+        if before_cal_hash != follow_map
             cal_follow_map()
         end
-
     end
+
+    
+    #E -> A1A2A3s -> FirstA2 - ε  -> FollowA1;  FirstA3 - ε -> FollowA2 s->FollowA3
+    #     ε  ∈ FirstA2  :  FollowA2 -  
 
     
     # 修改为LR0项, 将同一个statement不同位添加%MARK%标记
@@ -364,7 +301,8 @@ class LR_term
         input_res = res
 
         # show now info
-        print_header("show_origin_info")
+        system.out.println("\n\n")
+        print_header("show origin terms info")
         foreach iter in input_res
             system.out.print(iter.root + " ::= ")
             show_node_info(iter)
@@ -374,6 +312,7 @@ class LR_term
         # add unique entrance
         add_start_term(input_res)
 
+        system.out.println("\n\n")
         print_header("show info after add start node")
         foreach iter in input_res
             system.out.print(iter.root + " ::= ")
@@ -381,6 +320,7 @@ class LR_term
             system.out.println("")
         end
         # calculate first set and follow set
+
         cal_first_map()
 
         cal_follow_map()
@@ -389,9 +329,7 @@ class LR_term
         for i = 0, i < input_res.size, i++
              add_mark_term(input_res[i], i)
         end
-        print_header("show_new_info")
-
-        show_result()
+        
     end
 end
 
@@ -514,11 +452,7 @@ class NFA_type
         end
     end
 
-    function run(statement_list)
-        input_list = statement_list
-        flat_trees()
-
-        print_header("DNF TERM")
+    function show_flat_result()
         foreach iter in flat_list
             system.out.print(iter.root + "  :  ")
             foreach it in iter.nodes
@@ -526,9 +460,20 @@ class NFA_type
             end
             system.out.println("\n index is: " + iter.idx + ", source_index: " + iter.source_index + ", before: " + iter.mark_before + ", after: " + iter.mark_after)
         end
+    end
+
+    function run(statement_list)
+        input_list = statement_list
+        flat_trees()
+
+        system.out.println("\n\n")
+        print_header("DNF TERM")
+        
+        show_flat_result()
 
         create_NFA()
 
+        system.out.println("\n\n")
         print_header("ADD TARGETS")
         foreach iter in flat_list do print_LR_type(iter)
         
@@ -589,30 +534,100 @@ class DFA_type
  
     var subset_list = new array
 
+    var first_map = new hash_map
+
+    var follow_map = new hash_map
+
+    var log_info = new array
+
+    var error_info = new array
+
+
+    function print_table()
+        var index= 0 
+        foreach iter in subset_list
+            iter.idx = index
+            print_header("#" + index + "  TERM#")
+            system.out.println("\n")
+            print_header("#FROM SET#")
+            foreach it in iter.from_ele do print_LR_type(it)
+            print_header("#SUBSET#")
+            foreach it in iter.subset do print_LR_type(it)
+            print_header("#TO SET#")
+            foreach it in iter.to_ele do print_LR_type(it)
+            system.out.println("\n")
+            index++
+        end
+    end
+    
+    function print_simple_table()
+
+        foreach row in subset_list
+            print_header("###TERM###")
+            system.out.println("\nFrom Source")
+            foreach ele in row.from_ele do system.out.print(to_string(ele.idx) + "  ")
+            system.out.println("\nSub Set")
+            foreach ele in row.subset do system.out.print(to_string(ele.idx) + "  ")
+            system.out.println("\nTo Target")
+            foreach ele in row.to_ele do system.out.print(to_string(ele.idx) + "  ")
+            system.out.println("")
+        end
+    end
+
+    function cal_sub_set(set)
+        var add_set = new array
+
+        foreach term in set
+            foreach target in term.targets
+                if target.change_value != "%NULL%"
+                    continue
+                end
+                var new_val = true
+                var add_new_val = true
+                foreach ele in set
+                    if target.target_idx == ele.idx
+                        new_val = false
+                    end
+                end
+                if new_val
+                    foreach ele in add_set
+                        if target.target_idx == ele.idx
+                            add_new_val = false
+                        end
+                    end
+                else
+                    add_new_val = false
+                end    
+                if add_new_val
+                    add_set.push_back(input_list[target.target_idx])
+                end
+            end
+        end
+        
+        if !add_set.empty()
+            foreach iter in add_set do set.push_back(iter)
+            # print_header("#SHOW S#")
+            # foreach iter in set do system.out.print(to_string(iter.idx) + "  ")
+            # system.out.println("")
+            set = cal_sub_set(set)
+        end
+        return set
+    end
+
     function minimal_subset(terms)
         var subset = new subset_type
         var set = new array
         var to_set = new array
         #M值
         subset.from_ele = terms
+
         foreach iter in terms do set.push_back(iter)
 
-        foreach iter in terms
-            
-            #统计S值
-            foreach target in iter.targets
-                if target.change_value == "%NULL%"
-                    var new_val = true
-                    foreach set_iter in set
-                        if target.target_idx == set_iter.idx
-                            new_val = false
-                        end
-                    end
-                    if new_val
-                        set.push_back(input_list[target.target_idx])
-                    end
-                end
-            end     
+        #统计S值
+        set = cal_sub_set(set)
+
+
+        foreach iter in terms    
             
             foreach it in set 
                 foreach target in it.targets
@@ -659,35 +674,110 @@ class DFA_type
         end
 
 
-        foreach iter in target_array do minimal_subset(iter)
-
-    end
-
-    function print_table()
-        var index= 0 
-        foreach iter in subset_list
-            iter.idx = index
-            print_header("#" + index + "  TERM#")
-            print_header("#FROM SET#")
-            foreach it in iter.from_ele do print_LR_type(it)
-            print_header("#SUBSET#")
-            foreach it in iter.subset do print_LR_type(it)
-            print_header("#TO SET#")
-            foreach it in iter.to_ele do print_LR_type(it)
-            index++
+        foreach targets in target_array 
+            var target_set = new hash_set
+            var new_target = true
+            foreach target in targets do target_set.insert(target.idx)
+            foreach s_set in subset_list
+                var compare_set = new hash_set
+                foreach ele in s_set.from_ele do compare_set.insert(ele.idx)
+                if compare_set == target_set
+                    new_target = false
+                end
+            end
+            if new_target
+                minimal_subset(targets)
+            end
         end
     end
+
+
+
+    function check_rule()
+        
+        foreach dfa_term in subset_list
+            # system.out.println("???")
+            var deduce_array = new array
+            var shift_array = new array
+            foreach lr0_term in dfa_term.subset
+
+
+                if lr0_term.term_type == LR_term_type.shift && is_non_terminal_symbol(lr0_term.mark_after)
+                    # system.out.println("shift")
+                    shift_array.push_back(lr0_term.mark_after)
+                end
+                if lr0_term.term_type == LR_term_type.deduce
+                    # system.out.println("deduce")
+                    deduce_array.push_back(lr0_term.root)
+                end
+            end
+
+            if deduce_array.size >= 2
+                log_info.push_back(dfa_term.idx + "  has deduce-deduce conflict")
+                for i = 0, i < shift_array.size, i++
+                    for j = i + 1, j < shift_array.size, j++
+                        var wrong = false
+                        if shift_array[i].root == shift_array[j].root
+                            wrong = true
+                        else
+                            var left_set = follow_map.at(shift_array[i].root)
+                            var right_set = follow_map.at(shift_array[j].root)
+                            #交集为空
+                            if !hash_set.intersect(left_set, right_set).empty
+                                wrong = true
+                            end
+                        end
+                        if wrong 
+                            log_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
+                            error_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
+                        else
+                            log_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce (NOT CONFLICT)")
+                        end
+                    end
+                end
+            end
+
+            if !deduce_array.empty() && !shift_array.empty()
+                log_info.push_back(dfa_term.idx + "  has shift-deduce conflict")
+
+                foreach shift_term in shift_array
+                    foreach deduce_term in deduce_array
+                        
+                        var con_symbol = shift_term.mark_after
+                        #如果有交集
+                        if follow_map.at(deduce_term.root).exist(con_symbol)
+                            log_info.push_back(shift_term.root + "   " + deduce_term.root + " shift-deduce conflict")
+                            error_info.push_back(shift_term.root + "   " + deduce_term.root + " shift-deduce conflict")
+                        else 
+                            log_info.push_back(shift_term.root + "   " + deduce_term.root + " shift-deduce(NOT CONFLICT)")
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+
     
     
-    function run(input)
+    function run(input, first_m, follow_m)
         input_list = input
+        first_map = first_m
+        follow_map = follow_m
+
         print_header("#DFA#")
         var terms = new array
         terms.push_back(input_list[0])
         minimal_subset(terms)
         
 
-         print_table()
+        print_table()
+
+        # print_simple_table()
+
+        check_rule()
+
+       
     end
 end
 
