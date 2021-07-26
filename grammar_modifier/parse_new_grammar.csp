@@ -1,0 +1,95 @@
+import check_LR_grammar
+import grammar_transfer
+
+package parse_new_grammar
+
+class slr_parser_type
+    var code = ""
+    var predict_table = new array
+
+
+    var parsing_stack = new array
+    var data_stack = new array
+
+    var error_info = new array
+
+
+    function show_stack_state()
+        check_LR_grammar.print_header("SHOW PARSING STACKS")
+        system.out.println("Parsing stack: ")
+        system.out.print("\t")
+        foreach iter in parsing_stack do system.out.print(to_string(iter) + " ")
+        system.out.println("")
+        system.out.println("Input: ")
+        system.out.print("\t")
+        foreach iter in data_stack do system.out.print(to_string(iter) + " ")
+        system.out.println("")
+    end
+
+
+
+    function slr_parse()
+        
+        while true
+            var state = parsing_stack.back
+            var dat = data_stack.back
+            if dat != "%END%"
+                dat = "\'" + dat + "\'"
+            end
+            
+            if predict_table[state].exist(dat)
+                var res = predict_table[state].at(dat)
+                if typeid res != typeid check_LR_grammar.LR_type
+                    system.out.println("res is : " + res)
+                    if res == -1
+                        system.out.print("END OF PARSING")
+                        break
+                    end
+                    
+                    #shift操作
+                    parsing_stack.push_back(dat)
+                    parsing_stack.push_back(res)
+                    data_stack.pop_back()
+                    system.out.print("shift res")
+                else
+                    if res.origin_nodes.size == 1 && res.origin_nodes[0] == "NULL"
+                        
+                    else
+                        var del_time = res.origin_nodes.size
+                        #reduce
+                        for i = 0, i < del_time, i++
+                            #pop state
+                            parsing_stack.pop_back()
+                            #pop data
+                            parsing_stack.pop_back()
+                        end
+                    end
+
+                    var now_state = parsing_stack.back
+                    if predict_table[now_state].exist(res.root) && typeid predict_table[now_state].at(res.root) != typeid check_LR_grammar.LR_type
+                        parsing_stack.push_back(res.root)
+                        parsing_stack.push_back(predict_table[now_state].at(res.root))
+                    else
+                        system.out.println("REDUCE ERROR")
+                    end
+                end 
+            else
+                system.out.println("PARSING ERROR")
+            end
+            
+            show_stack_state()
+        end
+        system.out.println("END PARSING")
+    end
+
+
+    #栈改用指针的模式
+    function run(input_code, input_predict_table)
+        code = input_code
+        predict_table = input_predict_table
+        parsing_stack.push_back(0)
+        
+        foreach dat in code do data_stack.push_front(dat)
+        data_stack.push_front("%END%")
+    end
+end

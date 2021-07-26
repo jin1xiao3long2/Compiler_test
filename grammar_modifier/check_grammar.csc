@@ -2,6 +2,7 @@ import check_LR_grammar
 import grammar_transfer
 import ebnf_parser
 import parsergen
+import parse_new_grammar
 
 var parser = new parsergen.generator
 var new_tree = new grammar_transfer.traversal_old_tree
@@ -10,7 +11,10 @@ var LR_term_list = new check_LR_grammar.LR_term
 
 var NFA = new check_LR_grammar.NFA_type
 var DFA = new check_LR_grammar.DFA_type
+
+var slr_parser = new parse_new_grammar.slr_parser_type
 parser.add_grammar("ebnf-lang", ebnf_parser.grammar)
+
 
 var time_start = runtime.time()
 parser.enable_log = false
@@ -46,4 +50,18 @@ if !parser.ast == null
     system.out.println("\n\n")
     parsergen.print_header("ERROR INFO")
     foreach mes in DFA.error_info do system.out.println(mes)
+
+    #需要分析
+    system.out.println("\n\n")
+    parsergen.print_header("CREATE PREDICT TABLE")
+    DFA.create_predict_table()
+
+    system.out.println("\n\n")
+    parsergen.print_header("SHOW PREDICT TABLE")
+    DFA.show_predict_table()
+
+    system.out.println("\n\n")
+    parsergen.print_header("PARSING CODE")
+    slr_parser.run("(())", DFA.predict_table)
+    slr_parser.slr_parse()
 end

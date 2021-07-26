@@ -17,6 +17,7 @@ class LR_type
     var idx = -1
     var root = ""
     var nodes = new array
+    var origin_nodes = new array
     var source_index = -1
     var mark_pos = -1
     var term_type = -1
@@ -261,6 +262,7 @@ class LR_term
         if node.nodes.size == 1 && node.nodes[0].root == "NULL"
             var new_term = new LR_type
             new_term.root = node.root
+            new_term.origin_nodes.push_back("NULL")
             new_term.nodes.push_back("%MARK%")
             new_term.source_index = source_index
             result.push_back(new_term)
@@ -272,7 +274,7 @@ class LR_term
             new_term.root = node.root
             #转移node
             foreach iter in node.nodes do new_term.nodes.push_back(iter.root)
-            
+            foreach iter in node.nodes do new_term.origin_nodes.push_back(iter.root)
             #添加MARK
             var mark = "%MARK%"
             var iter = new_term.nodes.begin.next_n(i)
@@ -360,6 +362,7 @@ class NFA_type
             var new_term = new LR_type
             new_term.root = iter.root
             new_term.source_index = iter.source_index
+            new_term.origin_nodes = iter.origin_nodes
             
             #只有一个%MARK%的项
             if iter.nodes.size == 1 && iter.nodes[0] == "%MARK%"
@@ -371,6 +374,7 @@ class NFA_type
                 new_term.mark_before = "%NULL%"
                 new_term.mark_after = "%NULL%"
                 new_term.idx = statement_idx
+                new_term.term_type = LR_term_type.deduce
 
 
                 flat_list.push_back(new_term)
@@ -529,9 +533,20 @@ struct subset_type
     var to_ele = new array
 end
 
+struct DFA_to_type
+
+    var target_idx = -1
+
+    var target_source = ""
+
+    var targets = new array
+
+end
+
+
 class DFA_type
     var input_list = new array
- 
+
     var subset_list = new array
 
     var first_map = new hash_map
@@ -542,21 +557,27 @@ class DFA_type
 
     var error_info = new array
 
+    var predict_table = new array
 
     function print_table()
-        var index= 0 
+        # var index= 0 
         foreach iter in subset_list
-            iter.idx = index
-            print_header("#" + index + "  TERM#")
+            # iter.idx = index
+            print_header("#" + iter.idx + "  TERM#")
             system.out.println("\n")
             print_header("#FROM SET#")
             foreach it in iter.from_ele do print_LR_type(it)
             print_header("#SUBSET#")
             foreach it in iter.subset do print_LR_type(it)
             print_header("#TO SET#")
-            foreach it in iter.to_ele do print_LR_type(it)
+            # foreach it in iter.to_ele do print_LR_type(it)
+            foreach it in iter.to_ele
+                system.out.println("index: " + it.target_idx + ", target_source: " + it.target_source)
+                # foreach ele in it.targets do print_LR_type(ele)
+                system.out.println("")
+            end
             system.out.println("\n")
-            index++
+            # index++
         end
     end
     
@@ -619,36 +640,48 @@ class DFA_type
         var set = new array
         var to_set = new array
         #M值
+
         subset.from_ele = terms
 
         foreach iter in terms do set.push_back(iter)
 
         #统计S值
         set = cal_sub_set(set)
+        foreach subset_term in subset_list
+            if set == subset_term.subset
+                return 
+            end
+        end
 
+        
+        subset.subset = set
+        #to_set 需要修改
+        # subset.to_ele = to_set
+        
+        #iter : from_set各元素
+        # foreach iter in terms 
+               
+        #subset各元素
+        
+        foreach it in set
 
-        foreach iter in terms    
-            
-            foreach it in set 
-                foreach target in it.targets
-                    if target.change_value != "%NULL%"
-                        var new_val = true
-                        foreach set_iter in to_set
-                            if target.target_idx == set_iter.idx
-                                new_val = false
-                            end
+            foreach target in it.targets
+                if target.change_value != "%NULL%"
+                    var new_val = true
+                    foreach set_iter in to_set
+                        if target.target_idx == set_iter.idx
+                            new_val = false
                         end
-                        if new_val
-                            to_set.push_back(input_list[target.target_idx])
-                        end
+                    end
+                    if new_val
+                        to_set.push_back(input_list[target.target_idx])
                     end
                 end
             end
-        end 
-        subset.subset = set
-        subset.to_ele = to_set
-        subset_list.push_back(subset)
+        end
+        # end 
 
+        
         #统计不同的输出term
         var target_array = new array
 
@@ -661,6 +694,7 @@ class DFA_type
                 if value == it[0].mark_before
                     it.push_back(iter)
                     new_target = false
+                    break
                 end
             end
             #若没有,则新建一个列
@@ -674,27 +708,72 @@ class DFA_type
         end
 
 
+        # if set.size == 3
+        #     print_header("especial test")
+        #     print_header("SET")
+        #     foreach iter in set do print_LR_type(iter)
+        #     print_header("TARGET SET")
+        #     foreach iter in target_array 
+        #          foreach it in iter do print_LR_type(it)
+        #     end
+        # end
+
+        var cal_targets = new array
+
         foreach targets in target_array 
             var target_set = new hash_set
             var new_target = true
+            var target_source = targets[0].mark_before
             foreach target in targets do target_set.insert(target.idx)
-            foreach s_set in subset_list
-                var compare_set = new hash_set
-                foreach ele in s_set.from_ele do compare_set.insert(ele.idx)
-                if compare_set == target_set
-                    new_target = false
-                end
-            end
             if new_target
-                minimal_subset(targets)
+                var dfa_to_ele = new DFA_to_type
+                dfa_to_ele.target_source = target_source
+                dfa_to_ele.targets = targets
+                subset.to_ele.push_back(dfa_to_ele)
+                cal_targets.push_back(targets)        
+            end
+        end
+
+        subset_list.push_back(subset)
+
+        foreach targets in cal_targets 
+            minimal_subset(targets)
+        end
+        
+    end
+
+    function add_target()
+        var index = 0
+        #排序
+        foreach iter in subset_list do iter.idx = index++
+
+        foreach term in subset_list
+            foreach target in term.to_ele
+                #to_set
+                var set = cal_sub_set(target.targets)
+                var to_set = new hash_set
+                foreach ele in set do to_set.insert(ele.idx)
+                var match = false
+                foreach compare_term in subset_list
+                    #sub set
+                    var sub_set = new hash_set
+                    foreach ele in compare_term.subset do sub_set.insert(ele.idx) 
+                    
+                    if to_set == sub_set
+                        match =true
+                        target.target_idx = compare_term.idx
+                    end
+                end
+
+                if !match
+                    print_header("ERRORRRRRRRRRRRRRRR")
+                end
             end
         end
     end
 
-
-
     function check_rule()
-        
+        var has_deduce_conflict = false
         foreach dfa_term in subset_list
             # system.out.println("???")
             var deduce_array = new array
@@ -702,18 +781,16 @@ class DFA_type
             foreach lr0_term in dfa_term.subset
 
 
-                if lr0_term.term_type == LR_term_type.shift && is_non_terminal_symbol(lr0_term.mark_after)
-                    # system.out.println("shift")
-                    shift_array.push_back(lr0_term.mark_after)
+                if lr0_term.term_type == LR_term_type.shift && !is_non_terminal_symbol(lr0_term.mark_after)
+                    shift_array.push_back(lr0_term)
                 end
-                if lr0_term.term_type == LR_term_type.deduce
-                    # system.out.println("deduce")
-                    deduce_array.push_back(lr0_term.root)
+                if lr0_term.term_type == LR_term_type.deduce || lr0_term.term_type == LR_term_type.accept
+                    deduce_array.push_back(lr0_term)
                 end
             end
 
             if deduce_array.size >= 2
-                log_info.push_back(dfa_term.idx + "  has deduce-deduce conflict")
+                log_info.push_back(to_string(dfa_term.idx) +  + "  has deduce-deduce conflict")
                 for i = 0, i < shift_array.size, i++
                     for j = i + 1, j < shift_array.size, j++
                         var wrong = false
@@ -728,17 +805,18 @@ class DFA_type
                             end
                         end
                         if wrong 
-                            log_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
+                            log_info.push_back("\t" + shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
                             error_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
+                            has_deduce_conflict = true
                         else
-                            log_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce (NOT CONFLICT)")
+                            log_info.push_back("\t" + shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce (NOT CONFLICT)")
                         end
                     end
                 end
             end
 
             if !deduce_array.empty() && !shift_array.empty()
-                log_info.push_back(dfa_term.idx + "  has shift-deduce conflict")
+                log_info.push_back(to_string(dfa_term.idx) + "  has shift-deduce conflict")
 
                 foreach shift_term in shift_array
                     foreach deduce_term in deduce_array
@@ -755,10 +833,60 @@ class DFA_type
                 end
             end
         end
+
+        return has_deduce_conflict
     end
 
+    function create_predict_table()
+        foreach iter in subset_list
+            #state
+            var index = iter.idx
 
+            var to_map = new hash_map
+            
+            foreach term in iter.subset
+                if term.term_type == LR_term_type.accept
+                    to_map.insert("%END%", -1)
+                end
+                if term.term_type == LR_term_type.deduce
+                    foreach follow_ele in follow_map.at(term.root) do to_map.insert(follow_ele, term)
+                end
+            end
+
+            #get subset.to_ele
+            foreach change_term in iter.to_ele
+                to_map.insert(change_term.target_source, change_term.target_idx)
+            end
+
+            if !to_map.empty()
+                predict_table.push_back(to_map)
+            end
+        end
+    end
     
+    function show_predict_table()
+        var index = 0
+        #predict_table(array)
+        foreach iter in predict_table
+            system.out.println("State " + index + " : ")
+            foreach change_rule in iter
+                system.out.print("\t" + change_rule.first +  " : ")
+                if typeid change_rule.second == typeid LR_type
+                    system.out.print("" + change_rule.second.root + " ::= ")
+                    foreach node in change_rule.second.origin_nodes
+                        system.out.print(" " + node)
+                    end
+                    
+                else
+                    system.out.print(" " + change_rule.second)
+                end
+                system.out.println(";")
+            end
+            system.out.println("")
+            index++
+            
+        end
+    end
     
     function run(input, first_m, follow_m)
         input_list = input
@@ -770,14 +898,17 @@ class DFA_type
         terms.push_back(input_list[0])
         minimal_subset(terms)
         
+        # print_table()
+
+        add_target()
 
         print_table()
 
         # print_simple_table()
 
-        check_rule()
+        var is_slr_grammar = check_rule()
 
-       
+        return is_slr_grammar
     end
 end
 

@@ -1,4 +1,4 @@
-Compile Time: 0.518s
+Compile Time: 0.502s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -9466,6 +9466,22 @@ TARGET LIST:
 target index: 3  , change_value: stmts
 target index: 14  , change_value: %NULL%
 
+stmts  :  %MARK%  stmts_rep_1  
+ index is: 14, term type: to_deduce, before: %NULL%, after: stmts_rep_1
+TARGET LIST: 
+target index: 15  , change_value: stmts_rep_1
+target index: 16  , change_value: %NULL%
+target index: 17  , change_value: %NULL%
+
+stmts_rep_1  :  %MARK%  
+ index is: 16, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1  :  %MARK%  statements  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 17, term type: to_deduce, before: %NULL%, after: statements
+TARGET LIST: 
+target index: 18  , change_value: statements
+
 ########
 #TO SET#
 ########
@@ -9476,6 +9492,17 @@ TARGET LIST:
 begin  :  stmts  %MARK%  
  index is: 3, term type: deduce, before: stmts, after: %NULL%
 TARGET LIST: 
+
+stmts  :  stmts_rep_1  %MARK%  
+ index is: 15, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1  :  statements  %MARK%  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 18, term type: to_deduce, before: statements, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 19  , change_value: stmts_rep_1_rep_2
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
 
 
 
@@ -9527,9 +9554,237 @@ TARGET LIST:
 ########
 
 
-???
-???
-???
+#########
+#3  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts  :  stmts_rep_1  %MARK%  
+ index is: 15, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+stmts  :  stmts_rep_1  %MARK%  
+ index is: 15, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#4  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts_rep_1  :  statements  %MARK%  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 18, term type: to_deduce, before: statements, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 19  , change_value: stmts_rep_1_rep_2
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+
+########
+#SUBSET#
+########
+stmts_rep_1  :  statements  %MARK%  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 18, term type: to_deduce, before: statements, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 19  , change_value: stmts_rep_1_rep_2
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+
+stmts_rep_1_rep_2  :  %MARK%  
+ index is: 21, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1_rep_2  :  %MARK%  ENDL  stmts_rep_1_rep_2  
+ index is: 22, term type: shift, before: %NULL%, after: ENDL
+TARGET LIST: 
+target index: 23  , change_value: ENDL
+
+########
+#TO SET#
+########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  %MARK%  stmts_rep_1  
+ index is: 19, term type: to_deduce, before: stmts_rep_1_rep_2, after: stmts_rep_1
+TARGET LIST: 
+target index: 16  , change_value: %NULL%
+target index: 17  , change_value: %NULL%
+target index: 20  , change_value: stmts_rep_1
+
+stmts_rep_1_rep_2  :  ENDL  %MARK%  stmts_rep_1_rep_2  
+ index is: 23, term type: to_deduce, before: ENDL, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+target index: 24  , change_value: stmts_rep_1_rep_2
+
+
+
+#########
+#5  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  %MARK%  stmts_rep_1  
+ index is: 19, term type: to_deduce, before: stmts_rep_1_rep_2, after: stmts_rep_1
+TARGET LIST: 
+target index: 16  , change_value: %NULL%
+target index: 17  , change_value: %NULL%
+target index: 20  , change_value: stmts_rep_1
+
+########
+#SUBSET#
+########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  %MARK%  stmts_rep_1  
+ index is: 19, term type: to_deduce, before: stmts_rep_1_rep_2, after: stmts_rep_1
+TARGET LIST: 
+target index: 16  , change_value: %NULL%
+target index: 17  , change_value: %NULL%
+target index: 20  , change_value: stmts_rep_1
+
+stmts_rep_1  :  %MARK%  
+ index is: 16, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1  :  %MARK%  statements  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 17, term type: to_deduce, before: %NULL%, after: statements
+TARGET LIST: 
+target index: 18  , change_value: statements
+
+########
+#TO SET#
+########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  stmts_rep_1  %MARK%  
+ index is: 20, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1  :  statements  %MARK%  stmts_rep_1_rep_2  stmts_rep_1  
+ index is: 18, term type: to_deduce, before: statements, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 19  , change_value: stmts_rep_1_rep_2
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+
+
+
+#########
+#6  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  stmts_rep_1  %MARK%  
+ index is: 20, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+stmts_rep_1  :  statements  stmts_rep_1_rep_2  stmts_rep_1  %MARK%  
+ index is: 20, term type: deduce, before: stmts_rep_1, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+#########
+#7  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts_rep_1_rep_2  :  ENDL  %MARK%  stmts_rep_1_rep_2  
+ index is: 23, term type: to_deduce, before: ENDL, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+target index: 24  , change_value: stmts_rep_1_rep_2
+
+########
+#SUBSET#
+########
+stmts_rep_1_rep_2  :  ENDL  %MARK%  stmts_rep_1_rep_2  
+ index is: 23, term type: to_deduce, before: ENDL, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+target index: 24  , change_value: stmts_rep_1_rep_2
+
+stmts_rep_1_rep_2  :  %MARK%  
+ index is: 21, term type: wrong type, before: %NULL%, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1_rep_2  :  %MARK%  ENDL  stmts_rep_1_rep_2  
+ index is: 22, term type: shift, before: %NULL%, after: ENDL
+TARGET LIST: 
+target index: 23  , change_value: ENDL
+
+########
+#TO SET#
+########
+stmts_rep_1_rep_2  :  ENDL  stmts_rep_1_rep_2  %MARK%  
+ index is: 24, term type: deduce, before: stmts_rep_1_rep_2, after: %NULL%
+TARGET LIST: 
+
+stmts_rep_1_rep_2  :  ENDL  %MARK%  stmts_rep_1_rep_2  
+ index is: 23, term type: to_deduce, before: ENDL, after: stmts_rep_1_rep_2
+TARGET LIST: 
+target index: 21  , change_value: %NULL%
+target index: 22  , change_value: %NULL%
+target index: 24  , change_value: stmts_rep_1_rep_2
+
+
+
+#########
+#8  TERM#
+#########
+
+
+##########
+#FROM SET#
+##########
+stmts_rep_1_rep_2  :  ENDL  stmts_rep_1_rep_2  %MARK%  
+ index is: 24, term type: deduce, before: stmts_rep_1_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#SUBSET#
+########
+stmts_rep_1_rep_2  :  ENDL  stmts_rep_1_rep_2  %MARK%  
+ index is: 24, term type: deduce, before: stmts_rep_1_rep_2, after: %NULL%
+TARGET LIST: 
+
+########
+#TO SET#
+########
+
+
+deduce
+deduce
+deduce
+shift
+deduce
+shift
 deduce
 
 
