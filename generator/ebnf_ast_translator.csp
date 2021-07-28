@@ -62,7 +62,7 @@ class main
             target.print("{")
             this.visit_term(nodes[idx++].nodes)
             target.print(" }")
-            if idx + 1 < nodes.size
+            if idx < nodes.size
                 target.print(",")
             end
             target.print("\n")
@@ -100,9 +100,9 @@ class main
     function visit_right_non_terminal_symbol(nodes)
         var idx = 0
         # Recursive Visit non_terminal_symbol
-        target.print("syntax.ref(")
+        target.print("syntax.ref(\"")
         this.visit_non_terminal_symbol(nodes[idx++].nodes)
-        target.print(")")
+        target.print("\")")
     end
     function visit_simple_part(nodes)
         var idx = 0
@@ -206,7 +206,7 @@ class main
         while idx < nodes.size && (typeid nodes[idx] == typeid parsergen.syntax_tree && nodes[idx].root == "statement")
             # Recursive Visit statement
             this.visit_statement(nodes[idx++].nodes)
-            if(idx + 1 <nodes.size)
+            if(idx  <nodes.size)
                 target.print(",\n")
             end
         end

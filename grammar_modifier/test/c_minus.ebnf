@@ -9,12 +9,11 @@ function_declaration ::= type_specifier direct_declarator compound_statement ;
 
 type_specifier ::= ID;
 
-direct_declarator ::= ID
-                    | direct_declarator '[' ']'
-                    | direct_declarator '[' constant_expression ']'
-                    | ID '(' parameter_list ')'
-                    | ID '(' ')'
-                    ;
+direct_declarator ::= ID extend_part ;
+
+extend_part ::= {'[' [ constant_expression] ']' }
+              |  '(' [ parameter_list ] ')'
+              ;
 
 constant_expression ::= relat_expression ;
 
@@ -99,13 +98,13 @@ sadd_op ::= '++'
           | '-'
           ;
 
-postfix_expression ::= primary_expression
-                     | postfix_expression '[' expression ']'
-                     | postfix_expression '(' ')'
-                     | postfix_expression '(' assignment_expression {',' assignment_expression} ')'
-                     | postfix_expression '.' ID
-                     | postfix_expression post_op
-                     ;
+postfix_expression ::= primary_expression {postfix_extend_part} ;
+
+postfix_extend_part ::= '[' expression ']'
+                      | '(' [ assignment_expression {',' assignment_expression } ] ')'
+                      | '.' ID
+                      | post_op
+                      ;
 
 post_op ::= '++'
           | '--'

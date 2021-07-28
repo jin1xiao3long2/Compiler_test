@@ -4,6 +4,7 @@ import ebnf_parser
 import parsergen
 import parse_new_grammar
 import regex
+import ast_visitor
 
 function from_file(path)
     var ifs = iostream.ifstream(path)
@@ -33,6 +34,8 @@ var NFA = new check_LR_grammar.NFA_type
 var DFA = new check_LR_grammar.DFA_type
 
 var slr_parser = new parse_new_grammar.slr_parser_type
+
+var visitor = new ast_visitor.main
 
 @begin
 var cminus_lexical = {
@@ -106,4 +109,6 @@ if !parser.ast == null
     system.out.println("\n\n")
     parsergen.print_header("SHOW TREE")
     slr_parser.show_trees(slr_parser.tree_stack.back, 0)
+
+    visitor.run(slr_parser.tree_stack.back)
 end

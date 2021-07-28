@@ -1,0 +1,354 @@
+package new_c
+
+import parsergen, regex
+
+constant syntax = parsergen.syntax
+
+@begin
+var cminus_lexical = {
+    "ID" : regex.build("^[A-Za-z_]\\w*$"),
+    "NUMBER" : regex.build("^[0-9]+\\.?([0-9]+)?$"),
+    "STR" : regex.build("^(\"|\"([^\"]|\\\\\")*\"?)$"),
+    "CHAR" : regex.build("^(\'|\'([^\']|\\\\(0|\\\\|\'|\"|\\w))\'?)$"),
+    "BSIG" : regex.build("^(;|:=?|\\?|\\.\\.?|\\.\\.\\.)$"),
+    "MSIG" : regex.build("^(\\+(\\+|=)?|-(-|=|>)?|\\*=?|/=?|%=?|\\^=?)$"),
+    "LSIG" : regex.build("^(>|<|&|(\\|)|&&|(\\|\\|)|!|==?|!=?|>=?|<=?)$"),
+    "BRAC" : regex.build("^(\\(|\\)|\\[|\\]|\\{|\\}|,)$"),
+    "ign" : regex.build("^([ \\f\\r\\t\\v\n]+|#.*)$"),
+    "err" : regex.build("^(\"|\'|(\\|)|\\.\\.)$")
+}.to_hash_map()
+@end
+
+@begin
+var cminus_syntax = {
+	"program" : {
+		 syntax.ref("program_0_rep_1")
+	},
+	"program_0_rep_1" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("external_declaration"), syntax.ref("program_0_rep_1") }
+		)
+	},
+	"external_declaration" : {
+		syntax.cond_or(
+			{ syntax.ref("struct_specifier") },
+			{ syntax.ref("declaration") },
+			{ syntax.ref("function_declaration") }
+		)
+	},
+	"function_declaration" : {
+		syntax.ref("type_specifier"), syntax.ref("direct_declarator"), syntax.ref("compound_statement")
+	},
+	"type_specifier" : {
+		 syntax.token("ID")
+	},
+	"direct_declarator" : {
+		 syntax.token("ID"), syntax.ref("extend_part")
+	},
+	"extend_part" : {
+		syntax.cond_or(
+			{ syntax.term("("), syntax.ref("extend_part_1_opt_2"), syntax.term(")") },
+			{ syntax.ref("extend_part_0_rep_1") }
+		)
+	},
+	"extend_part_1_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("parameter_list") }
+		)
+	},
+	"extend_part_0_rep_1" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term("["), syntax.ref("extend_part_0_rep_1_0_opt_2"), syntax.term("]"), syntax.ref("extend_part_0_rep_1") }
+		)
+	},
+	"extend_part_0_rep_1_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("constant_expression") }
+		)
+	},
+	"constant_expression" : {
+		 syntax.ref("relat_expression")
+	},
+	"parameter_list" : {
+		 syntax.ref("parameter_declaration"), syntax.ref("parameter_list_0_rep_2")
+	},
+	"parameter_list_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term(","), syntax.ref("parameter_declaration"), syntax.ref("parameter_list_0_rep_2") }
+		)
+	},
+	"parameter_declaration" : {
+		 syntax.ref("declaration_specifier"), syntax.token("ID")
+	},
+	"declaration_specifier" : {
+		 syntax.ref("type_specifier")
+	},
+	"compound_statement" : {
+		 syntax.term("{"), syntax.ref("compound_statement_0_rep_2"), syntax.term("}")
+	},
+	"compound_statement_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("statement"), syntax.ref("compound_statement_0_rep_2") },
+			{ syntax.ref("declaration"), syntax.ref("compound_statement_0_rep_2") }
+		)
+	},
+	"declaration" : {
+		 syntax.ref("type_specifier"), syntax.ref("init_declarator"), syntax.term(";")
+	},
+	"init_declarator" : {
+		 syntax.ref("direct_declarator"), syntax.ref("init_declarator_0_opt_2")
+	},
+	"init_declarator_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term("="), syntax.ref("initializer") }
+		)
+	},
+	"initializer" : {
+		syntax.cond_or(
+			{ syntax.term("{"), syntax.ref("initializer_list"), syntax.ref("initializer_1_opt_3"), syntax.term("}") },
+			{ syntax.ref("assignment_expression") }
+		)
+	},
+	"initializer_1_opt_3" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term(",") }
+		)
+	},
+	"initializer_list" : {
+		 syntax.ref("initializer"), syntax.ref("initializer_list_0_rep_2")
+	},
+	"initializer_list_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term(","), syntax.ref("initializer"), syntax.ref("initializer_list_0_rep_2") }
+		)
+	},
+	"statement" : {
+		syntax.cond_or(
+			{ syntax.ref("return_statement") },
+			{ syntax.ref("iteration_statement") },
+			{ syntax.ref("selection_statement") },
+			{ syntax.ref("expression_statement") },
+			{ syntax.ref("compound_statement") }
+		)
+	},
+	"expression_statement" : {
+		syntax.cond_or(
+			{ syntax.ref("expression"), syntax.term(";") },
+			{ syntax.term(";") }
+		)
+	},
+	"selection_statement" : {
+		 syntax.term("if"), syntax.term("("), syntax.ref("expression"), syntax.term(")"), syntax.ref("statement"), syntax.ref("selection_statement_0_opt_6")
+	},
+	"selection_statement_0_opt_6" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term("else"), syntax.ref("statement") }
+		)
+	},
+	"iteration_statement" : {
+		 syntax.term("for"), syntax.term("("), syntax.ref("iteration_statement_0_opt_3"), syntax.term(";"), syntax.ref("iteration_statement_0_opt_5"), syntax.term(";"), syntax.ref("iteration_statement_0_opt_7"), syntax.term(")"), syntax.ref("statement")
+	},
+	"iteration_statement_0_opt_7" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("expression") }
+		)
+	},
+	"iteration_statement_0_opt_5" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("expression") }
+		)
+	},
+	"iteration_statement_0_opt_3" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("iteration_statement_0_opt_3_0_opt_1"), syntax.ref("init_declarator") }
+		)
+	},
+	"iteration_statement_0_opt_3_0_opt_1" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("type_specifier") }
+		)
+	},
+	"return_statement" : {
+		 syntax.term("return"), syntax.ref("expression_statement")
+	},
+	"expression" : {
+		 syntax.ref("assignment_expression"), syntax.ref("expression_0_rep_2")
+	},
+	"expression_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term(","), syntax.ref("assignment_expression"), syntax.ref("expression_0_rep_2") }
+		)
+	},
+	"assignment_expression" : {
+		 syntax.ref("equality_expression"), syntax.ref("assignment_expression_0_opt_2")
+	},
+	"assignment_expression_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("assign_op"), syntax.ref("assignment_expression") }
+		)
+	},
+	"assign_op" : {
+		syntax.cond_or(
+			{ syntax.term("/=") },
+			{ syntax.term("*=") },
+			{ syntax.term("-=") },
+			{ syntax.term("+=") },
+			{ syntax.term("=") }
+		)
+	},
+	"equality_expression" : {
+		 syntax.ref("relat_expression"), syntax.ref("equality_expression_0_opt_2")
+	},
+	"equality_expression_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("equal_op"), syntax.ref("equality_expression") }
+		)
+	},
+	"equal_op" : {
+		syntax.cond_or(
+			{ syntax.term("!=") },
+			{ syntax.term("==") }
+		)
+	},
+	"relat_expression" : {
+		 syntax.ref("additive_expression"), syntax.ref("relat_expression_0_opt_2")
+	},
+	"relat_expression_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("relat_op"), syntax.ref("relat_expression") }
+		)
+	},
+	"relat_op" : {
+		syntax.cond_or(
+			{ syntax.term("<=") },
+			{ syntax.term(">=") },
+			{ syntax.term("<") },
+			{ syntax.term(">") }
+		)
+	},
+	"additive_expression" : {
+		 syntax.ref("multiplicative_expression"), syntax.ref("additive_expression_0_opt_2")
+	},
+	"additive_expression_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("add_op"), syntax.ref("additive_expression") }
+		)
+	},
+	"add_op" : {
+		syntax.cond_or(
+			{ syntax.term("-") },
+			{ syntax.term("+") }
+		)
+	},
+	"multiplicative_expression" : {
+		 syntax.ref("unary_expression"), syntax.ref("multiplicative_expression_0_opt_2")
+	},
+	"multiplicative_expression_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("mul_op"), syntax.ref("multiplicative_expression") }
+		)
+	},
+	"mul_op" : {
+		syntax.cond_or(
+			{ syntax.term("/") },
+			{ syntax.term("*") }
+		)
+	},
+	"unary_expression" : {
+		syntax.cond_or(
+			{ syntax.ref("postfix_expression") },
+			{ syntax.ref("sadd_op"), syntax.ref("unary_expression") }
+		)
+	},
+	"sadd_op" : {
+		syntax.cond_or(
+			{ syntax.term("-") },
+			{ syntax.term("--") },
+			{ syntax.term("++") }
+		)
+	},
+	"postfix_expression" : {
+		 syntax.ref("primary_expression"), syntax.ref("postfix_expression_0_rep_2")
+	},
+	"postfix_expression_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("postfix_extend_part"), syntax.ref("postfix_expression_0_rep_2") }
+		)
+	},
+	"postfix_extend_part" : {
+		syntax.cond_or(
+			{ syntax.ref("post_op") },
+			{ syntax.term("."), syntax.token("ID") },
+			{ syntax.term("("), syntax.ref("postfix_extend_part_1_opt_2"), syntax.term(")") },
+			{ syntax.term("["), syntax.ref("expression"), syntax.term("]") }
+		)
+	},
+	"postfix_extend_part_1_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("assignment_expression"), syntax.ref("postfix_extend_part_1_opt_2_0_rep_2") }
+		)
+	},
+	"postfix_extend_part_1_opt_2_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term(","), syntax.ref("assignment_expression"), syntax.ref("postfix_extend_part_1_opt_2_0_rep_2") }
+		)
+	},
+	"post_op" : {
+		syntax.cond_or(
+			{ syntax.term("--") },
+			{ syntax.term("++") }
+		)
+	},
+	"primary_expression" : {
+		syntax.cond_or(
+			{ syntax.term("("), syntax.ref("expression"), syntax.term(")") },
+			{ syntax.token("NUMBER") },
+			{ syntax.token("ID") }
+		)
+	},
+	"struct_specifier" : {
+		 syntax.term("struct"), syntax.token("ID"), syntax.term("{"), syntax.ref("struct_specifier_0_rep_4"), syntax.term("}"), syntax.ref("struct_specifier_0_opt_6"), syntax.term(";")
+	},
+	"struct_specifier_0_opt_6" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.token("ID") }
+		)
+	},
+	"struct_specifier_0_rep_4" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.ref("declaration"), syntax.ref("struct_specifier_0_rep_4") }
+		)
+	}
+}.to_hash_map()
+@end
+
+
+var grammar = new parsergen.grammar
+grammar.lex = cminus_lexical
+grammar.stx = cminus_syntax
+grammar.ext = ".*\\.c"

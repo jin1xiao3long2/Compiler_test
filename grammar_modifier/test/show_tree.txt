@@ -1,4 +1,4 @@
-Compile Time: 0.207s
+Compile Time: 0.256s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -30775,10 +30775,10 @@ program
 			function_declaration
 				type_specifier
 					ID
-						'int'
+						int
 				direct_declarator
 					ID
-						'fib'
+						fib
 					extend_part
 						'('
 						extend_part_1_opt_2
@@ -30787,9 +30787,9 @@ program
 									declaration_specifier
 										type_specifier
 											ID
-												'int'
+												int
 									ID
-										'n'
+										n
 								parameter_list_0_rep_2
 									NULL
 						')'
@@ -30810,7 +30810,7 @@ program
 															postfix_expression
 																primary_expression
 																	ID
-																		'n'
+																		n
 																postfix_expression_0_rep_2
 																	NULL
 														multiplicative_expression_0_opt_2
@@ -30827,7 +30827,7 @@ program
 																	postfix_expression
 																		primary_expression
 																			NUMBER
-																				'1'
+																				1
 																		postfix_expression_0_rep_2
 																			NULL
 																multiplicative_expression_0_opt_2
@@ -30857,7 +30857,7 @@ program
 																		postfix_expression
 																			primary_expression
 																				ID
-																					'fib'
+																					fib
 																			postfix_expression_0_rep_2
 																				postfix_extend_part
 																					'('
@@ -30871,7 +30871,7 @@ program
 																												postfix_expression
 																													primary_expression
 																														ID
-																															'n'
+																															n
 																													postfix_expression_0_rep_2
 																														NULL
 																											multiplicative_expression_0_opt_2
@@ -30885,7 +30885,7 @@ program
 																														postfix_expression
 																															primary_expression
 																																NUMBER
-																																	'1'
+																																	1
 																															postfix_expression_0_rep_2
 																																NULL
 																													multiplicative_expression_0_opt_2
@@ -30914,7 +30914,7 @@ program
 																				postfix_expression
 																					primary_expression
 																						ID
-																							'fib'
+																							fib
 																					postfix_expression_0_rep_2
 																						postfix_extend_part
 																							'('
@@ -30928,7 +30928,7 @@ program
 																														postfix_expression
 																															primary_expression
 																																ID
-																																	'n'
+																																	n
 																															postfix_expression_0_rep_2
 																																NULL
 																													multiplicative_expression_0_opt_2
@@ -30942,7 +30942,7 @@ program
 																																postfix_expression
 																																	primary_expression
 																																		NUMBER
-																																			'2'
+																																			2
 																																	postfix_expression_0_rep_2
 																																		NULL
 																															multiplicative_expression_0_opt_2
@@ -30989,7 +30989,7 @@ program
 																			postfix_expression
 																				primary_expression
 																					NUMBER
-																						'1'
+																						1
 																				postfix_expression_0_rep_2
 																					NULL
 																		multiplicative_expression_0_opt_2
@@ -31013,10 +31013,10 @@ program
 				function_declaration
 					type_specifier
 						ID
-							'float'
+							float
 					direct_declarator
 						ID
-							'pi'
+							pi
 						extend_part
 							'('
 							extend_part_1_opt_2
@@ -31025,9 +31025,9 @@ program
 										declaration_specifier
 											type_specifier
 												ID
-													'int'
+													int
 										ID
-											'n'
+											n
 									parameter_list_0_rep_2
 										NULL
 							')'
@@ -31037,11 +31037,11 @@ program
 							declaration
 								type_specifier
 									ID
-										'float'
+										float
 								init_declarator
 									direct_declarator
 										ID
-											'sum'
+											sum
 										extend_part
 											extend_part_0_rep_1
 												NULL
@@ -31057,7 +31057,7 @@ program
 																	postfix_expression
 																		primary_expression
 																			NUMBER
-																				'0'
+																				0
 																		postfix_expression_0_rep_2
 																			NULL
 																multiplicative_expression_0_opt_2
@@ -31075,11 +31075,11 @@ program
 								declaration
 									type_specifier
 										ID
-											'float'
+											float
 									init_declarator
 										direct_declarator
 											ID
-												'sig'
+												sig
 											extend_part
 												extend_part_0_rep_1
 													NULL
@@ -31095,7 +31095,7 @@ program
 																		postfix_expression
 																			primary_expression
 																				NUMBER
-																					'1.0'
+																					1.0
 																			postfix_expression_0_rep_2
 																				NULL
 																	multiplicative_expression_0_opt_2
@@ -31118,11 +31118,11 @@ program
 												iteration_statement_0_opt_3_0_opt_1
 													type_specifier
 														ID
-															'int'
+															int
 												init_declarator
 													direct_declarator
 														ID
-															'i'
+															i
 														extend_part
 															extend_part_0_rep_1
 																NULL
@@ -31138,7 +31138,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							NUMBER
-																								'1'
+																								1
 																						postfix_expression_0_rep_2
 																							NULL
 																				multiplicative_expression_0_opt_2
@@ -31163,7 +31163,7 @@ program
 																			postfix_expression
 																				primary_expression
 																					ID
-																						'i'
+																						i
 																				postfix_expression_0_rep_2
 																					NULL
 																		multiplicative_expression_0_opt_2
@@ -31180,7 +31180,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							ID
-																								'n'
+																								n
 																						postfix_expression_0_rep_2
 																							NULL
 																				multiplicative_expression_0_opt_2
@@ -31207,7 +31207,7 @@ program
 																			postfix_expression
 																				primary_expression
 																					ID
-																						'i'
+																						i
 																				postfix_expression_0_rep_2
 																					NULL
 																		multiplicative_expression_0_opt_2
@@ -31230,7 +31230,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							NUMBER
-																								'2'
+																								2
 																						postfix_expression_0_rep_2
 																							NULL
 																				multiplicative_expression_0_opt_2
@@ -31262,7 +31262,7 @@ program
 																							postfix_expression
 																								primary_expression
 																									ID
-																										'sum'
+																										sum
 																								postfix_expression_0_rep_2
 																									NULL
 																						multiplicative_expression_0_opt_2
@@ -31285,7 +31285,7 @@ program
 																									postfix_expression
 																										primary_expression
 																											ID
-																												'sig'
+																												sig
 																										postfix_expression_0_rep_2
 																											NULL
 																								multiplicative_expression_0_opt_2
@@ -31314,7 +31314,7 @@ program
 																								postfix_expression
 																									primary_expression
 																										ID
-																											'sig'
+																											sig
 																									postfix_expression_0_rep_2
 																										NULL
 																							multiplicative_expression_0_opt_2
@@ -31337,7 +31337,7 @@ program
 																										postfix_expression
 																											primary_expression
 																												NUMBER
-																													'0'
+																													0
 																											postfix_expression_0_rep_2
 																												NULL
 																									multiplicative_expression_0_opt_2
@@ -31351,7 +31351,7 @@ program
 																												postfix_expression
 																													primary_expression
 																														ID
-																															'sig'
+																															sig
 																													postfix_expression_0_rep_2
 																														NULL
 																											multiplicative_expression_0_opt_2
@@ -31385,7 +31385,7 @@ program
 																				postfix_expression
 																					primary_expression
 																						ID
-																							'sum'
+																							sum
 																					postfix_expression_0_rep_2
 																						NULL
 																			multiplicative_expression_0_opt_2
@@ -31409,17 +31409,17 @@ program
 					struct_specifier
 						'struct'
 						ID
-							'data_t'
+							data_t
 						'{'
 						struct_specifier_0_rep_4
 							declaration
 								type_specifier
 									ID
-										'int'
+										int
 								init_declarator
 									direct_declarator
 										ID
-											'fib_v'
+											fib_v
 										extend_part
 											extend_part_0_rep_1
 												NULL
@@ -31430,11 +31430,11 @@ program
 								declaration
 									type_specifier
 										ID
-											'float'
+											float
 									init_declarator
 										direct_declarator
 											ID
-												'pi_v'
+												pi_v
 											extend_part
 												extend_part_0_rep_1
 													NULL
@@ -31452,10 +31452,10 @@ program
 						function_declaration
 							type_specifier
 								ID
-									'int'
+									int
 							direct_declarator
 								ID
-									'main'
+									main
 								extend_part
 									'('
 									extend_part_1_opt_2
@@ -31467,11 +31467,11 @@ program
 									declaration
 										type_specifier
 											ID
-												'int'
+												int
 										init_declarator
 											direct_declarator
 												ID
-													'iarr'
+													iarr
 												extend_part
 													extend_part_0_rep_1
 														'['
@@ -31495,7 +31495,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							NUMBER
-																								'1'
+																								1
 																						postfix_expression_0_rep_2
 																							NULL
 																				multiplicative_expression_0_opt_2
@@ -31520,7 +31520,7 @@ program
 																						postfix_expression
 																							primary_expression
 																								NUMBER
-																									'3'
+																									3
 																							postfix_expression_0_rep_2
 																								NULL
 																					multiplicative_expression_0_opt_2
@@ -31545,7 +31545,7 @@ program
 																							postfix_expression
 																								primary_expression
 																									NUMBER
-																										'5'
+																										5
 																								postfix_expression_0_rep_2
 																									NULL
 																						multiplicative_expression_0_opt_2
@@ -31570,7 +31570,7 @@ program
 																								postfix_expression
 																									primary_expression
 																										NUMBER
-																											'7'
+																											7
 																									postfix_expression_0_rep_2
 																										NULL
 																							multiplicative_expression_0_opt_2
@@ -31593,11 +31593,11 @@ program
 										declaration
 											type_specifier
 												ID
-													'float'
+													float
 											init_declarator
 												direct_declarator
 													ID
-														'farr'
+														farr
 													extend_part
 														extend_part_0_rep_1
 															'['
@@ -31621,7 +31621,7 @@ program
 																						postfix_expression
 																							primary_expression
 																								NUMBER
-																									'1.1'
+																									1.1
 																							postfix_expression_0_rep_2
 																								NULL
 																					multiplicative_expression_0_opt_2
@@ -31646,7 +31646,7 @@ program
 																							postfix_expression
 																								primary_expression
 																									NUMBER
-																										'2.2'
+																										2.2
 																								postfix_expression_0_rep_2
 																									NULL
 																						multiplicative_expression_0_opt_2
@@ -31671,7 +31671,7 @@ program
 																								postfix_expression
 																									primary_expression
 																										NUMBER
-																											'3.3'
+																											3.3
 																									postfix_expression_0_rep_2
 																										NULL
 																							multiplicative_expression_0_opt_2
@@ -31699,11 +31699,11 @@ program
 														iteration_statement_0_opt_3_0_opt_1
 															type_specifier
 																ID
-																	'int'
+																	int
 														init_declarator
 															direct_declarator
 																ID
-																	'i'
+																	i
 																extend_part
 																	extend_part_0_rep_1
 																		NULL
@@ -31719,7 +31719,7 @@ program
 																							postfix_expression
 																								primary_expression
 																									NUMBER
-																										'0'
+																										0
 																								postfix_expression_0_rep_2
 																									NULL
 																						multiplicative_expression_0_opt_2
@@ -31744,7 +31744,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							ID
-																								'i'
+																								i
 																						postfix_expression_0_rep_2
 																							NULL
 																				multiplicative_expression_0_opt_2
@@ -31761,7 +31761,7 @@ program
 																							postfix_expression
 																								primary_expression
 																									NUMBER
-																										'3'
+																										3
 																								postfix_expression_0_rep_2
 																									NULL
 																						multiplicative_expression_0_opt_2
@@ -31791,7 +31791,7 @@ program
 																						postfix_expression
 																							primary_expression
 																								ID
-																									'i'
+																									i
 																							postfix_expression_0_rep_2
 																								NULL
 																				multiplicative_expression_0_opt_2
@@ -31823,7 +31823,7 @@ program
 																									postfix_expression
 																										primary_expression
 																											ID
-																												'print'
+																												print
 																										postfix_expression_0_rep_2
 																											postfix_extend_part
 																												'('
@@ -31837,7 +31837,7 @@ program
 																																			postfix_expression
 																																				primary_expression
 																																					ID
-																																						'iarr'
+																																						iarr
 																																				postfix_expression_0_rep_2
 																																					postfix_extend_part
 																																						'['
@@ -31851,7 +31851,7 @@ program
 																																													postfix_expression
 																																														primary_expression
 																																															ID
-																																																'i'
+																																																i
 																																														postfix_expression_0_rep_2
 																																															NULL
 																																												multiplicative_expression_0_opt_2
@@ -31910,7 +31910,7 @@ program
 																										postfix_expression
 																											primary_expression
 																												ID
-																													'print'
+																													print
 																											postfix_expression_0_rep_2
 																												postfix_extend_part
 																													'('
@@ -31924,7 +31924,7 @@ program
 																																				postfix_expression
 																																					primary_expression
 																																						ID
-																																							'farr'
+																																							farr
 																																					postfix_expression_0_rep_2
 																																						postfix_extend_part
 																																							'['
@@ -31938,7 +31938,7 @@ program
 																																														postfix_expression
 																																															primary_expression
 																																																ID
-																																																	'i'
+																																																	i
 																																															postfix_expression_0_rep_2
 																																																NULL
 																																													multiplicative_expression_0_opt_2
@@ -32000,7 +32000,7 @@ program
 																					postfix_expression
 																						primary_expression
 																							ID
-																								'print'
+																								print
 																						postfix_expression_0_rep_2
 																							postfix_extend_part
 																								'('
@@ -32014,7 +32014,7 @@ program
 																															postfix_expression
 																																primary_expression
 																																	ID
-																																		'iarr'
+																																		iarr
 																																postfix_expression_0_rep_2
 																																	postfix_extend_part
 																																		'['
@@ -32028,7 +32028,7 @@ program
 																																									postfix_expression
 																																										primary_expression
 																																											NUMBER
-																																												'3'
+																																												3
 																																										postfix_expression_0_rep_2
 																																											NULL
 																																								multiplicative_expression_0_opt_2
@@ -32078,11 +32078,11 @@ program
 													declaration
 														type_specifier
 															ID
-																'data_t'
+																data_t
 														init_declarator
 															direct_declarator
 																ID
-																	'v'
+																	v
 																extend_part
 																	extend_part_0_rep_1
 																		NULL
@@ -32102,12 +32102,12 @@ program
 																							postfix_expression
 																								primary_expression
 																									ID
-																										'v'
+																										v
 																								postfix_expression_0_rep_2
 																									postfix_extend_part
 																										'.'
 																										ID
-																											'fib_v'
+																											fib_v
 																									postfix_expression_0_rep_2
 																										NULL
 																						multiplicative_expression_0_opt_2
@@ -32130,7 +32130,7 @@ program
 																									postfix_expression
 																										primary_expression
 																											ID
-																												'fib'
+																												fib
 																										postfix_expression_0_rep_2
 																											postfix_extend_part
 																												'('
@@ -32144,7 +32144,7 @@ program
 																																			postfix_expression
 																																				primary_expression
 																																					ID
-																																						'input'
+																																						input
 																																				postfix_expression_0_rep_2
 																																					postfix_extend_part
 																																						'('
@@ -32194,12 +32194,12 @@ program
 																								postfix_expression
 																									primary_expression
 																										ID
-																											'v'
+																											v
 																									postfix_expression_0_rep_2
 																										postfix_extend_part
 																											'.'
 																											ID
-																												'pi_v'
+																												pi_v
 																										postfix_expression_0_rep_2
 																											NULL
 																							multiplicative_expression_0_opt_2
@@ -32222,7 +32222,7 @@ program
 																										postfix_expression
 																											primary_expression
 																												ID
-																													'pi'
+																													pi
 																											postfix_expression_0_rep_2
 																												postfix_extend_part
 																													'('
@@ -32236,7 +32236,7 @@ program
 																																				postfix_expression
 																																					primary_expression
 																																						ID
-																																							'input'
+																																							input
 																																					postfix_expression_0_rep_2
 																																						postfix_extend_part
 																																							'('
@@ -32286,7 +32286,7 @@ program
 																									postfix_expression
 																										primary_expression
 																											ID
-																												'print'
+																												print
 																										postfix_expression_0_rep_2
 																											postfix_extend_part
 																												'('
@@ -32300,12 +32300,12 @@ program
 																																			postfix_expression
 																																				primary_expression
 																																					ID
-																																						'v'
+																																						v
 																																				postfix_expression_0_rep_2
 																																					postfix_extend_part
 																																						'.'
 																																						ID
-																																							'fib_v'
+																																							fib_v
 																																					postfix_expression_0_rep_2
 																																						NULL
 																																		multiplicative_expression_0_opt_2
@@ -32349,7 +32349,7 @@ program
 																										postfix_expression
 																											primary_expression
 																												ID
-																													'print'
+																													print
 																											postfix_expression_0_rep_2
 																												postfix_extend_part
 																													'('
@@ -32363,12 +32363,12 @@ program
 																																				postfix_expression
 																																					primary_expression
 																																						ID
-																																							'v'
+																																							v
 																																					postfix_expression_0_rep_2
 																																						postfix_extend_part
 																																							'.'
 																																							ID
-																																								'pi_v'
+																																								pi_v
 																																						postfix_expression_0_rep_2
 																																							NULL
 																																			multiplicative_expression_0_opt_2
@@ -32412,7 +32412,7 @@ program
 																											postfix_expression
 																												primary_expression
 																													ID
-																														'print'
+																														print
 																												postfix_expression_0_rep_2
 																													postfix_extend_part
 																														'('
@@ -32426,12 +32426,12 @@ program
 																																					postfix_expression
 																																						primary_expression
 																																							ID
-																																								'v'
+																																								v
 																																						postfix_expression_0_rep_2
 																																							postfix_extend_part
 																																								'.'
 																																								ID
-																																									'fib_v'
+																																									fib_v
 																																							postfix_expression_0_rep_2
 																																								NULL
 																																				multiplicative_expression_0_opt_2
@@ -32445,12 +32445,12 @@ program
 																																							postfix_expression
 																																								primary_expression
 																																									ID
-																																										'v'
+																																										v
 																																								postfix_expression_0_rep_2
 																																									postfix_extend_part
 																																										'.'
 																																										ID
-																																											'pi_v'
+																																											pi_v
 																																									postfix_expression_0_rep_2
 																																										NULL
 																																						multiplicative_expression_0_opt_2
@@ -32464,7 +32464,7 @@ program
 																																									postfix_expression
 																																										primary_expression
 																																											NUMBER
-																																												'1'
+																																												1
 																																										postfix_expression_0_rep_2
 																																											NULL
 																																								multiplicative_expression_0_opt_2
@@ -32508,7 +32508,7 @@ program
 																												postfix_expression
 																													primary_expression
 																														ID
-																															'print'
+																															print
 																													postfix_expression_0_rep_2
 																														postfix_extend_part
 																															'('
@@ -32522,12 +32522,12 @@ program
 																																						postfix_expression
 																																							primary_expression
 																																								ID
-																																									'v'
+																																									v
 																																							postfix_expression_0_rep_2
 																																								postfix_extend_part
 																																									'.'
 																																									ID
-																																										'pi_v'
+																																										pi_v
 																																								postfix_expression_0_rep_2
 																																									NULL
 																																					multiplicative_expression_0_opt_2
@@ -32541,12 +32541,12 @@ program
 																																								postfix_expression
 																																									primary_expression
 																																										ID
-																																											'v'
+																																											v
 																																									postfix_expression_0_rep_2
 																																										postfix_extend_part
 																																											'.'
 																																											ID
-																																												'fib_v'
+																																												fib_v
 																																										postfix_expression_0_rep_2
 																																											NULL
 																																							multiplicative_expression_0_opt_2
@@ -32560,7 +32560,7 @@ program
 																																										postfix_expression
 																																											primary_expression
 																																												NUMBER
-																																													'1.0'
+																																													1.0
 																																											postfix_expression_0_rep_2
 																																												NULL
 																																									multiplicative_expression_0_opt_2
@@ -32606,7 +32606,7 @@ program
 																														postfix_expression
 																															primary_expression
 																																NUMBER
-																																	'0'
+																																	0
 																															postfix_expression_0_rep_2
 																																NULL
 																													multiplicative_expression_0_opt_2
@@ -32627,3 +32627,27 @@ program
 								'}'
 					program_0_rep_1
 						NULL
+intfib(intn){if(n>1)returnfib(n-1)+fib(n-2);
+elsereturn1;
+}floatpi(intn){floatsum=0;
+floatsig=1.0;
+for(inti=1;i<=n;i+=2){sum+=sig;
+sig=0-sig;
+}returnsum;
+}structdata_t{intfib_v;
+floatpi_v;
+};
+intmain(){intiarr[]={1,3,5,7};
+floatfarr[]={1.1,2.2,3.3};
+for(inti=0;i<3;++i){print(iarr[i]);
+print(farr[i]);
+}print(iarr[3]);
+data_tv;
+v.fib_v=fib(input());
+v.pi_v=pi(input());
+print(v.fib_v);
+print(v.pi_v);
+print(v.fib_v+v.pi_v+1);
+print(v.pi_v+v.fib_v+1.0);
+return0;
+}

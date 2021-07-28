@@ -85,7 +85,7 @@ class slr_parser_type
                 system.out.println("type")
                 tree_node.root = dat.type
                 var data_node = new tree_type
-                data_node.root = dat.data
+                data_node.root = string.substr(dat.data, 1, dat.data.size - 2)
                 tree_node.nodes.push_back(data_node)
             end
 

@@ -319,7 +319,7 @@ class LR_term
         foreach iter in input_res
             system.out.print(iter.root + " ::= ")
             show_node_info(iter)
-            system.out.println("")
+            system.out.println(";")
         end
         # calculate first set and follow set
 
