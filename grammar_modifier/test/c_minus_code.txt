@@ -13,7 +13,7 @@ float pi(int n)
     for (int i = 1; i <=n; i += 2)
     {
         sum += sig;   
-        sig = -sig;
+        sig = 0-sig;
     }  
     return sum;
 }
@@ -22,7 +22,7 @@ struct data_t
 {
     int  fib_v;
     float pi_v;
-}v;
+};
 
 int main()
 {
@@ -34,6 +34,7 @@ int main()
         print(farr[i]);
     }
     print(iarr[3]);
+    data_t v;
     v.fib_v = fib(input());
     v.pi_v = pi(input());
     print(v.fib_v);
