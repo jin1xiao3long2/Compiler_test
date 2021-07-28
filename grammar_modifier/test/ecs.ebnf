@@ -114,7 +114,7 @@ add_expr ::= mul_expr [("+" | "-") add_expr];
 
 mul_expr ::= unary_expr ([("/" | "%" | "^") mul_expr] | ENDL);
 
-unary_expr ::= (unary_op unary_expr | ("new" | "gcnew") unary_expr [array] | prim_expr ([postifx] | ENDL));
+unary_expr ::= (unary_op unary_expr | ("new" | "gcnew") unary_expr [array] | prim_expr ([postfix] | ENDL));
 
 unary_op ::= "typeid" | "++" | "--" | "*" | "&" | "-" | "!";
 

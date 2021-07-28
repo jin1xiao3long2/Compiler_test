@@ -790,33 +790,33 @@ class DFA_type
             end
 
             if deduce_array.size >= 2
-                log_info.push_back(to_string(dfa_term.idx) +  + "  has deduce-deduce conflict")
-                for i = 0, i < shift_array.size, i++
-                    for j = i + 1, j < shift_array.size, j++
+                log_info.push_back(to_string(dfa_term.idx) + "  has deduce-deduce conflict(MAY HAVE CONFILICT)")
+                for i = 0, i < deduce_array.size, i++
+                    for j = i + 1, j < deduce_array.size, j++
                         var wrong = false
-                        if shift_array[i].root == shift_array[j].root
+                        if deduce_array[i].root == deduce_array[j].root && deduce_array[i].origin_nodes != deduce_array[j].origin_nodes
                             wrong = true
                         else
-                            var left_set = follow_map.at(shift_array[i].root)
-                            var right_set = follow_map.at(shift_array[j].root)
+                            var left_set = follow_map.at(deduce_array[i].root)
+                            var right_set = follow_map.at(deduce_array[j].root)
                             #交集为空
-                            if !hash_set.intersect(left_set, right_set).empty
+                            if !hash_set.intersect(left_set, right_set).empty()
                                 wrong = true
                             end
                         end
                         if wrong 
-                            log_info.push_back("\t" + shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
-                            error_info.push_back(shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce conflict")
+                            log_info.push_back("\t" + deduce_array[i].root + "   " + deduce_array[j].root + " deduce-deduce conflict")
+                            error_info.push_back(to_string(dfa_term.idx) + "    " + deduce_array[i].root + "   " + deduce_array[j].root + " deduce-deduce conflict")
                             has_deduce_conflict = true
                         else
-                            log_info.push_back("\t" + shift_array[i].root + "   " + shift_array[j].root + " deduce-deduce (NOT CONFLICT)")
+                            log_info.push_back("\t" + deduce_array[i].root + "   " + deduce_array[j].root + " deduce-deduce (NOT CONFLICT)")
                         end
                     end
                 end
             end
 
             if !deduce_array.empty() && !shift_array.empty()
-                log_info.push_back(to_string(dfa_term.idx) + "  has shift-deduce conflict")
+                log_info.push_back(to_string(dfa_term.idx) + "  has shift-deduce conflict(MAY HAVE CONFILICT)")
 
                 foreach shift_term in shift_array
                     foreach deduce_term in deduce_array

@@ -1,0 +1,203 @@
+###############################
+program ::= { declaration } ;
+
+declaration ::= struct_declaration
+              | variable_declaration
+              ;
+
+struct_declaration ::= 'struct' ID '{' {variable_declaration} '}' ';' ;
+
+variable_declaration ::= type_specifier ID variable_declaration_s ;
+
+variable_declaration_s ::= [assign_part] ';'
+                         | '[' [ NUM ] ']' [assign_part] ';'
+                         | '(' [ params ] ')' compound_stmt
+                         ;
+
+assign_part ::= assignop '{' array_list '}'
+              | assignop expression
+              ;
+
+assignop ::= '+=' 
+           | '='
+           | '-='
+           | '/='
+           | '*='
+           ;
+
+array_list ::= NUMBER {',' NUMBER} ;
+
+type_specifier ::= ID ;
+
+params ::= param {',' param} ;
+
+param ::= type_specifier ID ['[' ']'] ;
+
+compound_stmt ::= '{' {variable_declaration} {statement} '}' ;
+
+statement ::= expression_stmt
+            | compound_stmt
+            | selection_stmt
+            | iteration_stmt
+            | return_stmt
+            ;
+
+expression_stmt ::= expression ';'
+                  | ';'
+                  ;
+
+selection_stmt ::= 'if' '(' expression ')' statement ['else' statement] ;
+
+iteration_stmt ::= 'for' '(' [ [type_specifier] expression ] ';' [ expression ] ';' [expression] ')' statement ;
+
+return_stmt ::= 'return' [ expression ] ';' ;
+
+expression ::= var assign_part
+             | simple_expression
+             ;
+
+var ::= ele [ '[' expression ']'] ;
+
+ele ::= ID {visitop ID} ;
+
+visitop ::= '.'
+          | '->'
+          ;
+
+simple_expression ::= additive_expression [ relop additive_expression ] ;
+
+relop ::= '<=' | '<' | '>' | '>=' | '==' | '!=' ;
+
+additive_expression ::= term { addop term} ;
+
+addop ::= '+' | '-' ;
+
+term ::= factor { mulop factor } ;
+
+mulop ::= '*' | '/' ;
+
+factor ::= '(' expression ')'
+         | var
+         | ele [factor_s]
+         | saddop ele
+         | NUMBER
+         ;
+
+saddop ::= '++'
+         | '--'
+         ;
+
+factor_s ::= '(' [args] ')'
+           | saddop
+           ;
+        
+args ::= expression { ',' expression } ; 
+
+############################
+
+program ::= statements ;
+
+statements ::= { statement } ;
+
+statement ::= compound_stmt
+            | iteration_stmt
+            | var_stmt 
+            | selection_stmt
+            | function_stmt
+            | return_stmt
+            | struct_stmt
+            | expr_stmt
+            ;
+
+var_stmt ::= [ type_specifier ] var_def ';';
+
+type_specifier ::= ID ;
+
+var_def ::= left_value assign_op basic_expr ; 
+
+left_value ::= left_value {visit_op left_value}
+             | left_value {'[' [(left_value | constant)] ']'}
+             | ID
+             ;
+
+compound_stmt ::= '{' statements '}' ;
+
+selection_stmt ::= 'if' '(' basic_expr ')' statements ['else' statements] ;
+
+iteration_stmt ::= 'for' '(' [var_stmt] ';' [basic_expr] ';' [basic_expr] ')' statements ;
+
+function_stmt ::= type_specifier ID '(' [argument_list] ')' compound_stmt ;
+
+argument_list ::= type_specifier argument {',' type_specifier argument} ;
+
+argument ::= argument '[' ']'
+           | ID
+           ;
+
+return_stmt ::= 'return' basic_expr ;
+
+struct_stmt ::= 'struct' ID compound_stmt ';' ;
+
+expr_stmt ::= [basic_expr] ';' ;
+
+basic_expr ::= left_value assign_op relat_expr
+             | relat_expr [assign_op basic_expr]
+             ;
+
+assign_op ::= '='
+            | '*='
+            | '/='
+            | '+='
+            | '-='
+            ;
+
+relat_expr ::= add_expr [relation_op relat_expr] ;
+
+relation_op ::= '>'
+              | '<'
+              | '=='
+              | '!='
+              | '<='
+              | '>='
+              ;
+
+add_expr ::= mul_expr [ add_op add_expr ] ;
+
+add_op ::= '+'
+         | '-'
+         ;
+
+mul_expr ::= unary_expr [ mul_op mul_expr] ;
+
+mul_op ::= '*'
+         | '/'
+         ;
+
+unary_expr ::= unary_op unary_expr
+             | unary_expr [array]
+             | prim_expr [postfix_expr]
+             ;
+
+unary_op ::= '++'
+           | '--'
+           | '-'
+           ;
+
+postfix_expr ::= postfix_op [postfix_expr] ;
+
+postfix_op ::= '++'
+             | '--'
+             ;
+
+prim_expr ::= left_value [fcall]
+            | constant
+            ;
+
+constant ::= NUMBER ;
+
+array ::= '{'constant {',' constant } '}' ;
+
+fcall ::= '(' [basic_expr] ')' ;
+
+index ::= '[' basic_expr ']' ;
+

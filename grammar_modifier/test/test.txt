@@ -1,4 +1,4 @@
-Compile Time: 0.034s
+Compile Time: 0.025s
 begin
   begin -> statement
     statement -> non_terminal_symbol
@@ -430,72 +430,37 @@ State 5 :
 ############
 PARSING CODE
 ############
-res is : 2
-shift res###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 
-Input: 
-	%END% ) ) ( 
-res is : 2
-shift res###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 '(' 2 
-Input: 
-	%END% ) ) 
+#########################
+Begin Lexical Analysis...
+#########################
+  Type = id	Data = s	Pos = (0, 0)
+  Type = sig	Data = ::=	Pos = (1, 0)
+  Type = slit	Data = '('	Pos = (5, 0)
+  Type = id	Data = s	Pos = (9, 0)
+  Type = slit	Data = ')'	Pos = (11, 0)
+  Type = id	Data = s	Pos = (14, 0)
+  Type = sig	Data = |	Pos = (16, 0)
+  Type = token	Data = NULL	Pos = (18, 0)
+  Type = sig	Data = ;	Pos = (22, 0)
 ###################
 SHOW PARSING STACKS
 ###################
 Parsing stack: 
-	0 '(' 2 '(' 2 s 3 
+	0 
 Input: 
-	%END% ) ) 
-res is : 4
-shift res###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 '(' 2 s 3 ')' 4 
-Input: 
-	%END% ) 
+	EOF %END%,sig ;,token NULL,sig |,id s,slit ')',id s,slit '(',sig ::=,id s,
 ###################
 SHOW PARSING STACKS
 ###################
 Parsing stack: 
-	0 '(' 2 '(' 2 s 3 ')' 4 s 5 
+	0 
 Input: 
-	%END% ) 
-###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 s 3 
-Input: 
-	%END% ) 
-res is : 4
-shift res###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 s 3 ')' 4 
-Input: 
-	%END% 
-###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 '(' 2 s 3 ')' 4 s 5 
-Input: 
-	%END% 
-###################
-SHOW PARSING STACKS
-###################
-Parsing stack: 
-	0 s 1 
-Input: 
-	%END% 
-res is : -1
-END OF PARSINGEND PARSING
+	EOF %END%,sig ;,token NULL,sig |,id s,slit ')',id s,slit '(',sig ::=,id s,
+PARSING ERROR
+END PARSING
+
+
+
+#########
+SHOW TREE
+#########

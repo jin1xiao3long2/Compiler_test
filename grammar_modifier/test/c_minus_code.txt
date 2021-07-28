@@ -1,0 +1,44 @@
+int fib(int n)
+{
+    if (n > 1)
+        return fib(n - 1) + fib(n - 2);
+    else
+        return 1;
+}
+
+float pi(int n)
+{
+    float sum = 0;
+    float sig = 1.0;
+    for (int i = 1; i <=n; i += 2)
+    {
+        sum += sig;   
+        sig = -sig;
+    }  
+    return sum;
+}
+
+struct data_t
+{
+    int  fib_v;
+    float pi_v;
+}v;
+
+int main()
+{
+    int iarr[] = {1, 3, 5, 7};
+    float farr[] = {1.1, 2.2, 3.3};
+    for (int i = 0; i < 3; ++i)
+    {
+        print(iarr[i]);
+        print(farr[i]);
+    }
+    print(iarr[3]);
+    v.fib_v = fib(input());
+    v.pi_v = pi(input());
+    print(v.fib_v);
+    print(v.pi_v);
+    print(v.fib_v + v.pi_v + 1);
+    print(v.pi_v + v.fib_v + 1.0);
+    return 0;
+}

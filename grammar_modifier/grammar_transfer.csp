@@ -13,10 +13,12 @@ end
 
 class traversal_old_tree
     var now_name = ""
+    var now_time = 0
     var now_tree = new tree_type
     var root = new tree_type
     var store_tree = new array
     var res = new array
+
 
     function add_suffix_part(nodes)
         #here nodes should be delcaration nodes
@@ -150,26 +152,29 @@ class traversal_old_tree
     end
 
     function visit_declaration(nodes)
+        var old_time = now_time
         var idx = 0
-        
+        var here_time = 0
         # Recursive Visit term
         var s_tree = new array
+        
+        now_time = here_time
         this.visit_term(nodes[idx++].nodes)
         # root.nodes.push_back(now_tree)
         # foreach iter in now_tree.nodes do now_tree.seq = now_tree.seq + "_" + iter.seq
         s_tree.push_back(now_tree)
         
-        
         # Repeat
         while idx < nodes.size && (typeid nodes[idx] == typeid parsergen.token_type && nodes[idx].data == "|")
             # consume term "|"
+            here_time++
             ++idx; 
-
+            now_time = here_time
             # Recursive Visit term
             var tree = new tree_type
             tree.root = now_name
             now_tree = tree
-
+            
             this.visit_term(nodes[idx++].nodes)
             # root.nodes.push_back(now_tree)
             # foreach iter in now_tree.nodes do now_tree.seq = now_tree.seq + "_" + iter.seq
@@ -177,6 +182,7 @@ class traversal_old_tree
         end
 
         foreach it in s_tree do store_tree.push_front(it)
+        now_time = old_time
     end
 
     # 正常遍历
@@ -212,7 +218,7 @@ class traversal_old_tree
                 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_rep_" + (now_tree.nodes.size + 1)
+                var name = now_name + "_" + to_string(now_time)+ "_rep_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
@@ -249,7 +255,7 @@ class traversal_old_tree
 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_decl_" + (now_tree.nodes.size + 1)
+                var name = now_name + "_" + to_string(now_time)+ "_decl_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
@@ -284,7 +290,7 @@ class traversal_old_tree
                 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_opt_" + (now_tree.nodes.size + 1)
+                var name = now_name + "_" + to_string(now_time) + "_opt_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node

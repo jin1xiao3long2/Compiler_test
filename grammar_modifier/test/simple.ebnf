@@ -19,7 +19,8 @@ alternative_part ::= '[' declaration ']' ;
 simple_part ::= non_terminal_symbol 
               | terminal_symbol
               ;
-terminal_symbol ::= LIT
+terminal_symbol ::= SLIT
+                  | DLIT
                   | TOKEN
                   ;
 non_terminal_symbol ::= ID ;
