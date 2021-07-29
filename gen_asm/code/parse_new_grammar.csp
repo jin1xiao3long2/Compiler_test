@@ -1,0 +1,179 @@
+import check_LR_grammar
+import grammar_transfer
+import parsergen
+
+package parse_new_grammar
+
+function print_header(txt)
+    foreach i in range(txt.size) do system.out.print('#')
+    system.out.println("")
+    system.out.println(txt)
+    foreach i in range(txt.size) do system.out.print('#')
+    system.out.println("")
+end
+
+class tree_type
+    var root = ""
+    var nodes = new array
+end
+
+class slr_parser_type
+    var code = ""
+    var predict_table = new array
+    var lex_rule = new hash_map
+
+
+    var parsing_stack = new array
+    var data_stack = new array
+    var tree_stack = new array
+
+    var error_info = new array
+
+
+    function show_stack_state()
+        print_header("SHOW PARSING STACKS")
+        system.out.println("Parsing stack: ")
+        system.out.print("\t")
+        foreach iter in parsing_stack do system.out.print(to_string(iter) + " ")
+        system.out.println("")
+        system.out.println("Input: ")
+        system.out.print("\t")
+        foreach iter in data_stack do system.out.print(iter.type + " " + iter.data + ",")
+        system.out.println("")
+    end
+
+
+    function slr_lex()
+        var lexer = new parsergen.lexer_type
+        # print_header("Begin Lexical Analysis...")
+        
+        var token_buff = lexer.run(lex_rule, code)
+        
+        # foreach it in token_buff do system.out.println("  Type = " + it.type + "\tData = " + it.data + "\tPos = (" + it.pos[0] + ", " + it.pos[1] + ")")
+        
+        if !lexer.error_log.empty()
+            if stop_on_error
+                print_header("Compilation Error")
+            else
+                print_header("Compilation Warning")
+            end
+            print_error(file_path, code_buff, lexer.error_log)
+            if stop_on_error
+                return
+            end
+        end
+
+        foreach dat in token_buff do data_stack.push_front(dat)
+        var eof = new parsergen.token_type
+        eof.type = "EOF"
+        eof.data = "%END%"
+        data_stack.push_front(eof)
+    end
+
+    function slr_parse()
+        
+        while true
+            # show_stack_state()
+            var state = parsing_stack.back
+            var dat = data_stack.back
+            if dat.data != "%END%"
+                dat.data = "\'" + dat.data + "\'"
+            end
+            # system.out.println("state: " + state + ",  data: " + dat.type + "  " + dat.data)
+            var tree_node = new tree_type
+            if predict_table[state].exist(dat.type)
+                # system.out.println("type")
+                tree_node.root = dat.type
+                var data_node = new tree_type
+                data_node.root = string.substr(dat.data, 1, dat.data.size - 2)
+                tree_node.nodes.push_back(data_node)
+            end
+
+            if predict_table[state].exist(dat.data)
+                tree_node = new tree_type
+                # system.out.println("data")
+                tree_node.root = dat.data
+            end
+
+            if tree_node.root == ""
+                # system.out.println("PARSING ERROR")
+                break
+            end
+
+            var res = predict_table[state].at(tree_node.root)
+            
+            # system.out.println("push dat: " + tree_node.root)
+
+            if typeid res != typeid check_LR_grammar.LR_type
+                # system.out.println("res is : " + res)
+                if res == -1
+                    # system.out.print("END OF PARSING")
+                    break
+                end
+                
+                #shift操作
+                parsing_stack.push_back(tree_node.root)
+                parsing_stack.push_back(res)
+                
+                data_stack.pop_back()
+                # system.out.print("shift res")
+
+
+                tree_stack.push_back(tree_node)
+                # system.out.println("tree stack push node " + tree_node.root)
+            else
+                var root_node = new tree_type
+                root_node.root = res.root
+
+                var vec = new array 
+                if res.origin_nodes.size == 1 && res.origin_nodes[0] == "NULL"
+                    var tree_node = new tree_type
+                    tree_node.root = "NULL"
+                    vec.push_back(tree_node)
+                else
+                    var del_time = res.origin_nodes.size
+                    #reduce
+                    
+                    for i = 0, i < del_time, i++
+                        #pop state
+                        parsing_stack.pop_back()
+                        #pop data
+                        parsing_stack.pop_back()
+
+                        var node = tree_stack.pop_back()
+                        vec.push_front(node)
+                    end
+                end
+                foreach node in vec do root_node.nodes.push_back(node)    
+                var now_state = parsing_stack.back
+                if predict_table[now_state].exist(res.root) && typeid predict_table[now_state].at(res.root) != typeid check_LR_grammar.LR_type
+                    parsing_stack.push_back(res.root)
+                    parsing_stack.push_back(predict_table[now_state].at(res.root))
+                    
+                    tree_stack.push_back(root_node)
+                    # system.out.println("tree stack push node " + root_node.root)
+                else
+                    system.out.println("REDUCE ERROR")
+                    break
+                end
+            end 
+        
+        end
+        # system.out.println("END PARSING")
+    end
+
+    function show_trees(node, depth)
+        foreach i in range(depth) do system.out.print("\t")
+        system.out.println(node.root)
+        foreach son in node.nodes do show_trees(son, depth + 1) 
+    end
+
+    #栈改用指针的模式
+    function run(input_code, input_predict_table, input_lex_rule)
+        code = input_code
+        predict_table = input_predict_table
+        lex_rule = input_lex_rule
+        parsing_stack.push_back(0)
+        
+    end
+end

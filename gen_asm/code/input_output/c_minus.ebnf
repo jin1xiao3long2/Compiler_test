@@ -1,0 +1,118 @@
+program ::= {external_declaration} ;
+
+external_declaration ::= function_declaration
+              | declaration
+              | struct_specifier
+              ;
+
+function_declaration ::= type_specifier direct_declarator compound_statement ;
+
+type_specifier ::= ID;
+
+direct_declarator ::= ID extend_part ;
+
+extend_part ::= {'[' [ constant_expression] ']' }
+              |  '(' [ parameter_list ] ')'
+              ;
+
+constant_expression ::= relat_expression ;
+
+parameter_list ::= parameter_declaration {',' parameter_declaration} ;
+
+parameter_declaration ::= declaration_specifier ID ;
+
+declaration_specifier ::= type_specifier ;
+
+compound_statement ::= '{' {declaration | statement} '}' ;
+
+declaration ::= type_specifier init_declarator ';';
+
+init_declarator ::= direct_declarator ['=' initializer] ;
+
+initializer ::= assignment_expression
+              | '{' initializer_list [','] '}'
+              ;
+
+initializer_list ::= initializer {',' initializer} ;
+
+statement ::= compound_statement
+            | expression_statement
+            | selection_statement
+            | iteration_statement
+            | return_statement
+            ;
+
+expression_statement ::= ';'
+                       | expression ';'
+                       ;
+
+selection_statement ::= 'if' '(' expression ')' statement ['else' statement] ;
+
+iteration_statement ::= 'for' '(' [[type_specifier] init_declarator] ';' [expression] ';' [expression] ')' statement ;
+
+return_statement ::= 'return' expression_statement ;
+
+expression ::= assignment_expression {',' assignment_expression} ;
+
+assignment_expression ::=equality_expression [assign_op assignment_expression ]  ;
+
+assign_op ::= '='
+            | '+='
+            | '-='
+            | '*='
+            | '/='
+            ;
+
+equality_expression ::=relat_expression [equal_op equality_expression ]  ;
+
+equal_op ::= '=='
+           | '!='
+           ;
+
+relat_expression ::=additive_expression  [relat_op relat_expression ] ; 
+
+relat_op ::= '>'
+           | '<'
+           | '>='
+           | '<='
+           ;
+
+additive_expression ::= multiplicative_expression [add_op additive_expression  ]  ;
+
+add_op ::= '+'
+         | '-'
+         ;
+
+multiplicative_expression ::=  unary_expression [ mul_op multiplicative_expression] ;
+
+mul_op ::= '*'
+         | '/'
+         ;
+
+unary_expression ::= sadd_op unary_expression
+                   | postfix_expression
+                   ;
+
+sadd_op ::= '++'
+          | '--'
+          | '-'
+          ;
+
+postfix_expression ::= primary_expression {postfix_extend_part} ;
+
+postfix_extend_part ::= '[' expression ']'
+                      | '(' [ assignment_expression {',' assignment_expression } ] ')'
+                      | '.' ID
+                      | post_op
+                      ;
+
+post_op ::= '++'
+          | '--'
+          ;
+
+primary_expression ::= ID
+                     | NUMBER
+                     | '(' expression ')'
+                     ;
+
+struct_specifier ::= 'struct' ID '{' {declaration} '}' [ID] ';' ;
