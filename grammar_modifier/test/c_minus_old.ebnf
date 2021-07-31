@@ -1,203 +1,118 @@
-###############################
-program ::= { declaration } ;
+program ::= {external_declaration} ;
 
-declaration ::= struct_declaration
-              | variable_declaration
+external_declaration ::= function_declaration
+              | declaration
+              | struct_specifier
               ;
 
-struct_declaration ::= 'struct' ID '{' {variable_declaration} '}' ';' ;
+function_declaration ::= type_specifier direct_declarator compound_statement ;
 
-variable_declaration ::= type_specifier ID variable_declaration_s ;
+type_specifier ::= ID;
 
-variable_declaration_s ::= [assign_part] ';'
-                         | '[' [ NUM ] ']' [assign_part] ';'
-                         | '(' [ params ] ')' compound_stmt
-                         ;
+direct_declarator ::= ID extend_part ;
 
-assign_part ::= assignop '{' array_list '}'
-              | assignop expression
+extend_part ::= {'[' [ constant_expression] ']' }
+              |  '(' [ parameter_list ] ')'
               ;
 
-assignop ::= '+=' 
-           | '='
-           | '-='
-           | '/='
-           | '*='
-           ;
+constant_expression ::= relat_expression ;
 
-array_list ::= NUMBER {',' NUMBER} ;
+parameter_list ::= parameter_declaration {',' parameter_declaration} ;
 
-type_specifier ::= ID ;
+parameter_declaration ::= declaration_specifier ID ;
 
-params ::= param {',' param} ;
+declaration_specifier ::= type_specifier ;
 
-param ::= type_specifier ID ['[' ']'] ;
+compound_statement ::= '{' {declaration | statement} '}' ;
 
-compound_stmt ::= '{' {variable_declaration} {statement} '}' ;
+declaration ::= type_specifier init_declarator ';';
 
-statement ::= expression_stmt
-            | compound_stmt
-            | selection_stmt
-            | iteration_stmt
-            | return_stmt
+init_declarator ::= direct_declarator ['=' initializer] ;
+
+initializer ::= assignment_expression
+              | '{' initializer_list [','] '}'
+              ;
+
+initializer_list ::= initializer {',' initializer} ;
+
+statement ::= compound_statement
+            | expression_statement
+            | selection_statement
+            | iteration_statement
+            | return_statement
             ;
 
-expression_stmt ::= expression ';'
-                  | ';'
-                  ;
+expression_statement ::= ';'
+                       | expression ';'
+                       ;
 
-selection_stmt ::= 'if' '(' expression ')' statement ['else' statement] ;
+selection_statement ::= 'if' '(' expression ')' statement ['else' statement] ;
 
-iteration_stmt ::= 'for' '(' [ [type_specifier] expression ] ';' [ expression ] ';' [expression] ')' statement ;
+iteration_statement ::= 'for' '(' [[type_specifier] init_declarator] ';' [expression] ';' [expression] ')' statement ;
 
-return_stmt ::= 'return' [ expression ] ';' ;
+return_statement ::= 'return' expression_statement ;
 
-expression ::= var assign_part
-             | simple_expression
-             ;
+expression ::= assignment_expression {',' assignment_expression} ;
 
-var ::= ele [ '[' expression ']'] ;
-
-ele ::= ID {visitop ID} ;
-
-visitop ::= '.'
-          | '->'
-          ;
-
-simple_expression ::= additive_expression [ relop additive_expression ] ;
-
-relop ::= '<=' | '<' | '>' | '>=' | '==' | '!=' ;
-
-additive_expression ::= term { addop term} ;
-
-addop ::= '+' | '-' ;
-
-term ::= factor { mulop factor } ;
-
-mulop ::= '*' | '/' ;
-
-factor ::= '(' expression ')'
-         | var
-         | ele [factor_s]
-         | saddop ele
-         | NUMBER
-         ;
-
-saddop ::= '++'
-         | '--'
-         ;
-
-factor_s ::= '(' [args] ')'
-           | saddop
-           ;
-        
-args ::= expression { ',' expression } ; 
-
-############################
-
-program ::= statements ;
-
-statements ::= { statement } ;
-
-statement ::= compound_stmt
-            | iteration_stmt
-            | var_stmt 
-            | selection_stmt
-            | function_stmt
-            | return_stmt
-            | struct_stmt
-            | expr_stmt
-            ;
-
-var_stmt ::= [ type_specifier ] var_def ';';
-
-type_specifier ::= ID ;
-
-var_def ::= left_value assign_op basic_expr ; 
-
-left_value ::= left_value {visit_op left_value}
-             | left_value {'[' [(left_value | constant)] ']'}
-             | ID
-             ;
-
-compound_stmt ::= '{' statements '}' ;
-
-selection_stmt ::= 'if' '(' basic_expr ')' statements ['else' statements] ;
-
-iteration_stmt ::= 'for' '(' [var_stmt] ';' [basic_expr] ';' [basic_expr] ')' statements ;
-
-function_stmt ::= type_specifier ID '(' [argument_list] ')' compound_stmt ;
-
-argument_list ::= type_specifier argument {',' type_specifier argument} ;
-
-argument ::= argument '[' ']'
-           | ID
-           ;
-
-return_stmt ::= 'return' basic_expr ;
-
-struct_stmt ::= 'struct' ID compound_stmt ';' ;
-
-expr_stmt ::= [basic_expr] ';' ;
-
-basic_expr ::= left_value assign_op relat_expr
-             | relat_expr [assign_op basic_expr]
-             ;
+assignment_expression ::=equality_expression [assign_op assignment_expression ]  ;
 
 assign_op ::= '='
-            | '*='
-            | '/='
             | '+='
             | '-='
+            | '*='
+            | '/='
             ;
 
-relat_expr ::= add_expr [relation_op relat_expr] ;
+equality_expression ::=relat_expression [equal_op equality_expression ]  ;
 
-relation_op ::= '>'
-              | '<'
-              | '=='
-              | '!='
-              | '<='
-              | '>='
-              ;
+equal_op ::= '=='
+           | '!='
+           ;
 
-add_expr ::= mul_expr [ add_op add_expr ] ;
+relat_expression ::=additive_expression  [relat_op relat_expression ] ; 
+
+relat_op ::= '>'
+           | '<'
+           | '>='
+           | '<='
+           ;
+
+additive_expression ::= multiplicative_expression [add_op additive_expression  ]  ;
 
 add_op ::= '+'
          | '-'
          ;
 
-mul_expr ::= unary_expr [ mul_op mul_expr] ;
+multiplicative_expression ::=  unary_expression [ mul_op multiplicative_expression] ;
 
 mul_op ::= '*'
          | '/'
          ;
 
-unary_expr ::= unary_op unary_expr
-             | unary_expr [array]
-             | prim_expr [postfix_expr]
-             ;
+unary_expression ::= sadd_op unary_expression
+                   | postfix_expression
+                   ;
 
-unary_op ::= '++'
-           | '--'
-           | '-'
-           ;
+sadd_op ::= '++'
+          | '--'
+          | '-'
+          ;
 
-postfix_expr ::= postfix_op [postfix_expr] ;
+postfix_expression ::= primary_expression {postfix_extend_part} ;
 
-postfix_op ::= '++'
-             | '--'
-             ;
+postfix_extend_part ::= '[' expression ']'
+                      | '(' [ assignment_expression {',' assignment_expression } ] ')'
+                      | '.' ID
+                      | post_op
+                      ;
 
-prim_expr ::= left_value [fcall]
-            | constant
-            ;
+post_op ::= '++'
+          | '--'
+          ;
 
-constant ::= NUMBER ;
+primary_expression ::= ID
+                     | NUMBER
+                     | '(' expression ')'
+                     ;
 
-array ::= '{'constant {',' constant } '}' ;
-
-fcall ::= '(' [basic_expr] ')' ;
-
-index ::= '[' basic_expr ']' ;
-
+struct_specifier ::= 'struct' ID '{' {declaration} '}' [ID] ';' ;

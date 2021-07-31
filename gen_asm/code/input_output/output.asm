@@ -20,22 +20,22 @@ fibjmp1:PUSH 00 0    #将参数n压至栈顶
 pijmp1: PUSH 0 0     #将参数n压入栈顶
         SSUB         #计算n-i的值
         CJMP pijmp2  #若大于0,则跳转至pijmp1
-        PUSH 00 1     #将sum压至栈顶
-        PUSH 00 2     #将sig压至栈顶
-        PUSH 00 3     #将i压至栈顶
+        PUSH 00 1    #将sum压至栈顶
+        PUSH 00 2    #将sig压至栈顶
+        PUSH 00 3    #将i压至栈顶
         SDIV         #计算sig/i的值并压栈
         SADD         #计算sum+sig/i的值并压栈
-        COPY 00 1     #将栈顶的值赋值给sum
-        PUSH 00       #将0进行压栈
-        PUSH 00 2     #将sig进行压栈
+        COPY 00 1    #将栈顶的值赋值给sum
+        PUSH 00      #将0进行压栈
+        PUSH 00 2    #将sig进行压栈
         SSUB         #计算0-sig的值并压栈
-        COPY 00 2     #将栈顶值赋值给sig
-        PUSH 00 3     #将i进行压栈
+        COPY 00 2    #将栈顶值赋值给sig
+        PUSH 00 3    #将i进行压栈
         IADD 2       #将栈顶值加2
-        COPY 00 3     #将栈顶赋值给i
+        COPY 00 3    #将栈顶赋值给i
         NJMP pijmp1  #跳转至pijmp1
-pijmp2: SPOP 00 1 3   #弹栈至3位
-        PUSH 00 1     #将sum压至栈顶
+pijmp2: SPOP 00 1 3  #弹栈至3位
+        PUSH 00 1    #将sum压至栈顶
         RETP         #返回值
         SUBP main    #main函数
         DATA 2

@@ -11,30 +11,29 @@ program
 				type_specifier
 					ID
 						int
-				direct_declarator
+				function_declarator
 					ID
 						fib
-					extend_part
-						'('
-						extend_part_1_opt_2
-							parameter_list
-								parameter_declaration
-									declaration_specifier
-										type_specifier
-											ID
-												int
-									ID
-										n
-								parameter_list_0_rep_2
-									NULL
-						')'
+					(
+					function_declarator_0_opt_3
+						parameter_list
+							parameter_declaration
+								declaration_specifier
+									type_specifier
+										ID
+											int
+								ID
+									n
+							parameter_list_0_rep_2
+								NULL
+					)
 				compound_statement
-					'{'
+					{
 					compound_statement_0_rep_2
 						statement
 							selection_statement
-								'if'
-								'('
+								if
+								(
 								expression
 									assignment_expression
 										equality_expression
@@ -54,7 +53,7 @@ program
 														NULL
 												relat_expression_0_opt_2
 													relat_op
-														'>'
+														>
 													relat_expression
 														additive_expression
 															multiplicative_expression
@@ -77,10 +76,10 @@ program
 											NULL
 									expression_0_rep_2
 										NULL
-								')'
+								)
 								statement
 									return_statement
-										'return'
+										return
 										expression_statement
 											expression
 												assignment_expression
@@ -95,7 +94,7 @@ program
 																					fib
 																			postfix_expression_0_rep_2
 																				postfix_extend_part
-																					'('
+																					(
 																					postfix_extend_part_1_opt_2
 																						assignment_expression
 																							equality_expression
@@ -113,7 +112,7 @@ program
 																												NULL
 																										additive_expression_0_opt_2
 																											add_op
-																												'-'
+																												-
 																											additive_expression
 																												multiplicative_expression
 																													unary_expression
@@ -135,14 +134,14 @@ program
 																								NULL
 																						postfix_extend_part_1_opt_2_0_rep_2
 																							NULL
-																					')'
+																					)
 																				postfix_expression_0_rep_2
 																					NULL
 																	multiplicative_expression_0_opt_2
 																		NULL
 																additive_expression_0_opt_2
 																	add_op
-																		'+'
+																		+
 																	additive_expression
 																		multiplicative_expression
 																			unary_expression
@@ -152,7 +151,7 @@ program
 																							fib
 																					postfix_expression_0_rep_2
 																						postfix_extend_part
-																							'('
+																							(
 																							postfix_extend_part_1_opt_2
 																								assignment_expression
 																									equality_expression
@@ -170,7 +169,7 @@ program
 																														NULL
 																												additive_expression_0_opt_2
 																													add_op
-																														'-'
+																														-
 																													additive_expression
 																														multiplicative_expression
 																															unary_expression
@@ -192,7 +191,7 @@ program
 																										NULL
 																								postfix_extend_part_1_opt_2_0_rep_2
 																									NULL
-																							')'
+																							)
 																						postfix_expression_0_rep_2
 																							NULL
 																			multiplicative_expression_0_opt_2
@@ -207,12 +206,12 @@ program
 														NULL
 												expression_0_rep_2
 													NULL
-											';'
+											;
 								selection_statement_0_opt_6
-									'else'
+									else
 									statement
 										return_statement
-											'return'
+											return
 											expression_statement
 												expression
 													assignment_expression
@@ -239,49 +238,46 @@ program
 															NULL
 													expression_0_rep_2
 														NULL
-												';'
+												;
 						compound_statement_0_rep_2
 							NULL
-					'}'
+					}
 		program_0_rep_1
 			external_declaration
 				function_declaration
 					type_specifier
 						ID
 							float
-					direct_declarator
+					function_declarator
 						ID
 							pi
-						extend_part
-							'('
-							extend_part_1_opt_2
-								parameter_list
-									parameter_declaration
-										declaration_specifier
-											type_specifier
-												ID
-													int
-										ID
-											n
-									parameter_list_0_rep_2
-										NULL
-							')'
+						(
+						function_declarator_0_opt_3
+							parameter_list
+								parameter_declaration
+									declaration_specifier
+										type_specifier
+											ID
+												int
+									ID
+										n
+								parameter_list_0_rep_2
+									NULL
+						)
 					compound_statement
-						'{'
+						{
 						compound_statement_0_rep_2
 							declaration
 								type_specifier
 									ID
 										float
 								init_declarator
-									direct_declarator
-										ID
-											sum
-										extend_part
-											extend_part_0_rep_1
-												NULL
-									init_declarator_0_opt_2
-										'='
+									ID
+										sum
+									init_declarator_0_rep_2
+										NULL
+									init_declarator_0_opt_3
+										=
 										initializer
 											assignment_expression
 												equality_expression
@@ -305,21 +301,19 @@ program
 														NULL
 												assignment_expression_0_opt_2
 													NULL
-								';'
+								;
 							compound_statement_0_rep_2
 								declaration
 									type_specifier
 										ID
 											float
 									init_declarator
-										direct_declarator
-											ID
-												sig
-											extend_part
-												extend_part_0_rep_1
-													NULL
-										init_declarator_0_opt_2
-											'='
+										ID
+											sig
+										init_declarator_0_rep_2
+											NULL
+										init_declarator_0_opt_3
+											=
 											initializer
 												assignment_expression
 													equality_expression
@@ -343,26 +337,24 @@ program
 															NULL
 													assignment_expression_0_opt_2
 														NULL
-									';'
+									;
 								compound_statement_0_rep_2
 									statement
 										iteration_statement
-											'for'
-											'('
+											for
+											(
 											iteration_statement_0_opt_3
 												iteration_statement_0_opt_3_0_opt_1
 													type_specifier
 														ID
 															int
 												init_declarator
-													direct_declarator
-														ID
-															i
-														extend_part
-															extend_part_0_rep_1
-																NULL
-													init_declarator_0_opt_2
-														'='
+													ID
+														i
+													init_declarator_0_rep_2
+														NULL
+													init_declarator_0_opt_3
+														=
 														initializer
 															assignment_expression
 																equality_expression
@@ -386,7 +378,7 @@ program
 																		NULL
 																assignment_expression_0_opt_2
 																	NULL
-											';'
+											;
 											iteration_statement_0_opt_5
 												expression
 													assignment_expression
@@ -407,7 +399,7 @@ program
 																		NULL
 																relat_expression_0_opt_2
 																	relat_op
-																		'<='
+																		<=
 																	relat_expression
 																		additive_expression
 																			multiplicative_expression
@@ -430,7 +422,7 @@ program
 															NULL
 													expression_0_rep_2
 														NULL
-											';'
+											;
 											iteration_statement_0_opt_7
 												expression
 													assignment_expression
@@ -455,7 +447,7 @@ program
 																NULL
 														assignment_expression_0_opt_2
 															assign_op
-																'+='
+																+=
 															assignment_expression
 																equality_expression
 																	relat_expression
@@ -480,10 +472,10 @@ program
 																	NULL
 													expression_0_rep_2
 														NULL
-											')'
+											)
 											statement
 												compound_statement
-													'{'
+													{
 													compound_statement_0_rep_2
 														statement
 															expression_statement
@@ -510,7 +502,7 @@ program
 																				NULL
 																		assignment_expression_0_opt_2
 																			assign_op
-																				'+='
+																				+=
 																			assignment_expression
 																				equality_expression
 																					relat_expression
@@ -535,7 +527,7 @@ program
 																					NULL
 																	expression_0_rep_2
 																		NULL
-																';'
+																;
 														compound_statement_0_rep_2
 															statement
 																expression_statement
@@ -562,7 +554,7 @@ program
 																					NULL
 																			assignment_expression_0_opt_2
 																				assign_op
-																					'='
+																					=
 																				assignment_expression
 																					equality_expression
 																						relat_expression
@@ -579,7 +571,7 @@ program
 																										NULL
 																								additive_expression_0_opt_2
 																									add_op
-																										'-'
+																										-
 																									additive_expression
 																										multiplicative_expression
 																											unary_expression
@@ -601,14 +593,14 @@ program
 																						NULL
 																		expression_0_rep_2
 																			NULL
-																	';'
+																	;
 															compound_statement_0_rep_2
 																NULL
-													'}'
+													}
 									compound_statement_0_rep_2
 										statement
 											return_statement
-												'return'
+												return
 												expression_statement
 													expression
 														assignment_expression
@@ -635,47 +627,44 @@ program
 																NULL
 														expression_0_rep_2
 															NULL
-													';'
+													;
 										compound_statement_0_rep_2
 											NULL
-						'}'
+						}
 			program_0_rep_1
 				external_declaration
 					function_declaration
 						type_specifier
 							ID
 								int
-						direct_declarator
+						function_declarator
 							ID
 								main
-							extend_part
-								'('
-								extend_part_1_opt_2
-									NULL
-								')'
+							(
+							function_declarator_0_opt_3
+								NULL
+							)
 						compound_statement
-							'{'
+							{
 							compound_statement_0_rep_2
 								declaration
 									type_specifier
 										ID
 											int
 									init_declarator
-										direct_declarator
-											ID
-												iarr
-											extend_part
-												extend_part_0_rep_1
-													'['
-													extend_part_0_rep_1_0_opt_2
-														NULL
-													']'
-													extend_part_0_rep_1
-														NULL
-										init_declarator_0_opt_2
-											'='
+										ID
+											iarr
+										init_declarator_0_rep_2
+											[
+											init_declarator_0_rep_2_0_opt_2
+												NULL
+											]
+											init_declarator_0_rep_2
+												NULL
+										init_declarator_0_opt_3
+											=
 											initializer
-												'{'
+												{
 												initializer_list
 													initializer
 														assignment_expression
@@ -701,7 +690,7 @@ program
 															assignment_expression_0_opt_2
 																NULL
 													initializer_list_0_rep_2
-														','
+														,
 														initializer
 															assignment_expression
 																equality_expression
@@ -726,7 +715,7 @@ program
 																assignment_expression_0_opt_2
 																	NULL
 														initializer_list_0_rep_2
-															','
+															,
 															initializer
 																assignment_expression
 																	equality_expression
@@ -751,7 +740,7 @@ program
 																	assignment_expression_0_opt_2
 																		NULL
 															initializer_list_0_rep_2
-																','
+																,
 																initializer
 																	assignment_expression
 																		equality_expression
@@ -779,29 +768,27 @@ program
 																	NULL
 												initializer_1_opt_3
 													NULL
-												'}'
-									';'
+												}
+									;
 								compound_statement_0_rep_2
 									declaration
 										type_specifier
 											ID
 												float
 										init_declarator
-											direct_declarator
-												ID
-													farr
-												extend_part
-													extend_part_0_rep_1
-														'['
-														extend_part_0_rep_1_0_opt_2
-															NULL
-														']'
-														extend_part_0_rep_1
-															NULL
-											init_declarator_0_opt_2
-												'='
+											ID
+												farr
+											init_declarator_0_rep_2
+												[
+												init_declarator_0_rep_2_0_opt_2
+													NULL
+												]
+												init_declarator_0_rep_2
+													NULL
+											init_declarator_0_opt_3
+												=
 												initializer
-													'{'
+													{
 													initializer_list
 														initializer
 															assignment_expression
@@ -827,7 +814,7 @@ program
 																assignment_expression_0_opt_2
 																	NULL
 														initializer_list_0_rep_2
-															','
+															,
 															initializer
 																assignment_expression
 																	equality_expression
@@ -852,7 +839,7 @@ program
 																	assignment_expression_0_opt_2
 																		NULL
 															initializer_list_0_rep_2
-																','
+																,
 																initializer
 																	assignment_expression
 																		equality_expression
@@ -880,27 +867,25 @@ program
 																	NULL
 													initializer_1_opt_3
 														NULL
-													'}'
-										';'
+													}
+										;
 									compound_statement_0_rep_2
 										statement
 											iteration_statement
-												'for'
-												'('
+												for
+												(
 												iteration_statement_0_opt_3
 													iteration_statement_0_opt_3_0_opt_1
 														type_specifier
 															ID
 																int
 													init_declarator
-														direct_declarator
-															ID
-																i
-															extend_part
-																extend_part_0_rep_1
-																	NULL
-														init_declarator_0_opt_2
-															'='
+														ID
+															i
+														init_declarator_0_rep_2
+															NULL
+														init_declarator_0_opt_3
+															=
 															initializer
 																assignment_expression
 																	equality_expression
@@ -924,7 +909,7 @@ program
 																			NULL
 																	assignment_expression_0_opt_2
 																		NULL
-												';'
+												;
 												iteration_statement_0_opt_5
 													expression
 														assignment_expression
@@ -945,7 +930,7 @@ program
 																			NULL
 																	relat_expression_0_opt_2
 																		relat_op
-																			'<'
+																			<
 																		relat_expression
 																			additive_expression
 																				multiplicative_expression
@@ -968,7 +953,7 @@ program
 																NULL
 														expression_0_rep_2
 															NULL
-												';'
+												;
 												iteration_statement_0_opt_7
 													expression
 														assignment_expression
@@ -978,7 +963,7 @@ program
 																		multiplicative_expression
 																			unary_expression
 																				sadd_op
-																					'++'
+																					++
 																				unary_expression
 																					postfix_expression
 																						primary_expression
@@ -998,10 +983,10 @@ program
 																NULL
 														expression_0_rep_2
 															NULL
-												')'
+												)
 												statement
 													compound_statement
-														'{'
+														{
 														compound_statement_0_rep_2
 															statement
 																expression_statement
@@ -1018,7 +1003,7 @@ program
 																											print
 																									postfix_expression_0_rep_2
 																										postfix_extend_part
-																											'('
+																											(
 																											postfix_extend_part_1_opt_2
 																												assignment_expression
 																													equality_expression
@@ -1032,7 +1017,7 @@ program
 																																					iarr
 																																			postfix_expression_0_rep_2
 																																				postfix_extend_part
-																																					'['
+																																					[
 																																					expression
 																																						assignment_expression
 																																							equality_expression
@@ -1058,7 +1043,7 @@ program
 																																								NULL
 																																						expression_0_rep_2
 																																							NULL
-																																					']'
+																																					]
 																																				postfix_expression_0_rep_2
 																																					NULL
 																																	multiplicative_expression_0_opt_2
@@ -1073,7 +1058,7 @@ program
 																														NULL
 																												postfix_extend_part_1_opt_2_0_rep_2
 																													NULL
-																											')'
+																											)
 																										postfix_expression_0_rep_2
 																											NULL
 																							multiplicative_expression_0_opt_2
@@ -1088,7 +1073,7 @@ program
 																				NULL
 																		expression_0_rep_2
 																			NULL
-																	';'
+																	;
 															compound_statement_0_rep_2
 																statement
 																	expression_statement
@@ -1105,7 +1090,7 @@ program
 																												print
 																										postfix_expression_0_rep_2
 																											postfix_extend_part
-																												'('
+																												(
 																												postfix_extend_part_1_opt_2
 																													assignment_expression
 																														equality_expression
@@ -1119,7 +1104,7 @@ program
 																																						farr
 																																				postfix_expression_0_rep_2
 																																					postfix_extend_part
-																																						'['
+																																						[
 																																						expression
 																																							assignment_expression
 																																								equality_expression
@@ -1145,7 +1130,7 @@ program
 																																									NULL
 																																							expression_0_rep_2
 																																								NULL
-																																						']'
+																																						]
 																																					postfix_expression_0_rep_2
 																																						NULL
 																																		multiplicative_expression_0_opt_2
@@ -1160,7 +1145,7 @@ program
 																															NULL
 																													postfix_extend_part_1_opt_2_0_rep_2
 																														NULL
-																												')'
+																												)
 																											postfix_expression_0_rep_2
 																												NULL
 																								multiplicative_expression_0_opt_2
@@ -1175,10 +1160,10 @@ program
 																					NULL
 																			expression_0_rep_2
 																				NULL
-																		';'
+																		;
 																compound_statement_0_rep_2
 																	NULL
-														'}'
+														}
 										compound_statement_0_rep_2
 											statement
 												expression_statement
@@ -1195,7 +1180,7 @@ program
 																							print
 																					postfix_expression_0_rep_2
 																						postfix_extend_part
-																							'('
+																							(
 																							postfix_extend_part_1_opt_2
 																								assignment_expression
 																									equality_expression
@@ -1209,7 +1194,7 @@ program
 																																	iarr
 																															postfix_expression_0_rep_2
 																																postfix_extend_part
-																																	'['
+																																	[
 																																	expression
 																																		assignment_expression
 																																			equality_expression
@@ -1235,7 +1220,7 @@ program
 																																				NULL
 																																		expression_0_rep_2
 																																			NULL
-																																	']'
+																																	]
 																																postfix_expression_0_rep_2
 																																	NULL
 																													multiplicative_expression_0_opt_2
@@ -1250,7 +1235,7 @@ program
 																										NULL
 																								postfix_extend_part_1_opt_2_0_rep_2
 																									NULL
-																							')'
+																							)
 																						postfix_expression_0_rep_2
 																							NULL
 																			multiplicative_expression_0_opt_2
@@ -1265,7 +1250,7 @@ program
 																NULL
 														expression_0_rep_2
 															NULL
-													';'
+													;
 											compound_statement_0_rep_2
 												statement
 													expression_statement
@@ -1282,7 +1267,7 @@ program
 																								fib
 																						postfix_expression_0_rep_2
 																							postfix_extend_part
-																								'('
+																								(
 																								postfix_extend_part_1_opt_2
 																									assignment_expression
 																										equality_expression
@@ -1296,7 +1281,7 @@ program
 																																		iarr
 																																postfix_expression_0_rep_2
 																																	postfix_extend_part
-																																		'['
+																																		[
 																																		expression
 																																			assignment_expression
 																																				equality_expression
@@ -1322,7 +1307,7 @@ program
 																																					NULL
 																																			expression_0_rep_2
 																																				NULL
-																																		']'
+																																		]
 																																	postfix_expression_0_rep_2
 																																		NULL
 																														multiplicative_expression_0_opt_2
@@ -1337,7 +1322,7 @@ program
 																											NULL
 																									postfix_extend_part_1_opt_2_0_rep_2
 																										NULL
-																								')'
+																								)
 																							postfix_expression_0_rep_2
 																								NULL
 																				multiplicative_expression_0_opt_2
@@ -1352,7 +1337,7 @@ program
 																	NULL
 															expression_0_rep_2
 																NULL
-														';'
+														;
 												compound_statement_0_rep_2
 													statement
 														expression_statement
@@ -1369,7 +1354,7 @@ program
 																									pi
 																							postfix_expression_0_rep_2
 																								postfix_extend_part
-																									'('
+																									(
 																									postfix_extend_part_1_opt_2
 																										assignment_expression
 																											equality_expression
@@ -1383,7 +1368,7 @@ program
 																																			farr
 																																	postfix_expression_0_rep_2
 																																		postfix_extend_part
-																																			'['
+																																			[
 																																			expression
 																																				assignment_expression
 																																					equality_expression
@@ -1409,7 +1394,7 @@ program
 																																						NULL
 																																				expression_0_rep_2
 																																					NULL
-																																			']'
+																																			]
 																																		postfix_expression_0_rep_2
 																																			NULL
 																															multiplicative_expression_0_opt_2
@@ -1424,7 +1409,7 @@ program
 																												NULL
 																										postfix_extend_part_1_opt_2_0_rep_2
 																											NULL
-																									')'
+																									)
 																								postfix_expression_0_rep_2
 																									NULL
 																					multiplicative_expression_0_opt_2
@@ -1439,11 +1424,11 @@ program
 																		NULL
 																expression_0_rep_2
 																	NULL
-															';'
+															;
 													compound_statement_0_rep_2
 														statement
 															return_statement
-																'return'
+																return
 																expression_statement
 																	expression
 																		assignment_expression
@@ -1470,25 +1455,91 @@ program
 																				NULL
 																		expression_0_rep_2
 																			NULL
-																	';'
+																	;
 														compound_statement_0_rep_2
 															NULL
-							'}'
+							}
 				program_0_rep_1
 					NULL
-intfib(intn){if(n>1)returnfib(n-1)+fib(n-2);
-elsereturn1;
-}floatpi(intn){floatsum=0;
+intfib(intn)
+{
+if( n>1 )
+returnfib(n-1)+fib(n-2);
+else
+return1;
+}
+floatpi(intn)
+{
+floatsum=0;
 floatsig=1.0;
-for(inti=1;i<=n;i+=2){sum+=sig;
+for(inti=1;i<=n;i+=2)
+{
+sum+=sig;
 sig=0-sig;
-}returnsum;
-}intmain(){intiarr[]={1,3,5,7};
+}
+returnsum;
+}
+intmain()
+{
+intiarr[]={1,3,5,7};
 floatfarr[]={1.1,2.2,3.3};
-for(inti=0;i<3;++i){print(iarr[i]);
+for(inti=0;i<3;++i)
+{
+print(iarr[i]);
 print(farr[i]);
-}print(iarr[3]);
+}
+print(iarr[3]);
 fib(iarr[1]);
 pi(farr[2]);
 return0;
 }
+SUBP fib
+expression
+expression
+CJMP fib_select_0_1
+expression
+RETP
+NJMP fib_select_0_2
+FLAG fib_select_0_1
+expression
+RETP
+FLAG fib_select_0_2
+SPOP 0 1 0
+SUBP pi
+FLAG pi_iter_0_1
+expression
+CJMP pi_iter_0_2
+NJMP pi_iter_0_3
+FLAG pi_iter_0_2
+expression
+expression
+SPOP 0 1 0
+expression
+NJMP pi_iter_0_1
+FLAG pi_iter_0_3
+expression
+RETP
+SPOP 0 1 0
+SUBP main
+FLAG main_iter_0_1
+expression
+CJMP main_iter_0_2
+NJMP main_iter_0_3
+FLAG main_iter_0_2
+expression
+expression
+expression
+expression
+SPOP 0 1 0
+expression
+NJMP main_iter_0_1
+FLAG main_iter_0_3
+expression
+expression
+expression
+expression
+expression
+expression
+expression
+RETP
+SPOP 0 1 0

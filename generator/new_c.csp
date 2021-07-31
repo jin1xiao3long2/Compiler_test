@@ -38,36 +38,18 @@ var cminus_syntax = {
 		)
 	},
 	"function_declaration" : {
-		syntax.ref("type_specifier"), syntax.ref("direct_declarator"), syntax.ref("compound_statement")
+		syntax.ref("type_specifier"), syntax.ref("function_declarator"), syntax.ref("compound_statement")
 	},
 	"type_specifier" : {
 		 syntax.token("ID")
 	},
-	"direct_declarator" : {
-		 syntax.token("ID"), syntax.ref("extend_part")
+	"function_declarator" : {
+		syntax.token("ID"), syntax.term("("), syntax.ref("function_declarator_0_opt_3"), syntax.term(")")
 	},
-	"extend_part" : {
-		syntax.cond_or(
-			{ syntax.term("("), syntax.ref("extend_part_1_opt_2"), syntax.term(")") },
-			{ syntax.ref("extend_part_0_rep_1") }
-		)
-	},
-	"extend_part_1_opt_2" : {
+	"function_declarator_0_opt_3" : {
 		syntax.cond_or(
 			{ syntax.token("NULL") },
 			{ syntax.ref("parameter_list") }
-		)
-	},
-	"extend_part_0_rep_1" : {
-		syntax.cond_or(
-			{ syntax.token("NULL") },
-			{ syntax.term("["), syntax.ref("extend_part_0_rep_1_0_opt_2"), syntax.term("]"), syntax.ref("extend_part_0_rep_1") }
-		)
-	},
-	"extend_part_0_rep_1_0_opt_2" : {
-		syntax.cond_or(
-			{ syntax.token("NULL") },
-			{ syntax.ref("constant_expression") }
 		)
 	},
 	"constant_expression" : {
@@ -102,12 +84,24 @@ var cminus_syntax = {
 		 syntax.ref("type_specifier"), syntax.ref("init_declarator"), syntax.term(";")
 	},
 	"init_declarator" : {
-		 syntax.ref("direct_declarator"), syntax.ref("init_declarator_0_opt_2")
+		 syntax.term("ID"), syntax.ref("init_declarator_0_rep_2"), syntax.ref("init_declarator_0_opt_3")
 	},
-	"init_declarator_0_opt_2" : {
+	"init_declarator_0_opt_3" : {
 		syntax.cond_or(
 			{ syntax.token("NULL") },
 			{ syntax.term("="), syntax.ref("initializer") }
+		)
+	},
+	"init_declarator_0_rep_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{ syntax.term("["), syntax.ref("init_declarator_0_rep_2_0_opt_2"), syntax.term("]"), syntax.ref("init_declarator_0_rep_2")}
+		)
+	},
+	"init_declarator_0_rep_2_0_opt_2" : {
+		syntax.cond_or(
+			{ syntax.token("NULL") },
+			{syntax.ref("constant_expression")}
 		)
 	},
 	"initializer" : {

@@ -39,9 +39,9 @@ var header =
 
 @begin
 var tail =
-"    function run(os, ast)\n" +
-"        this.target = os\n" +
-"        this.visit_begin(ast.nodes)\n" +
+"    function runast)\n" +
+"        this.target = system.out\n" +
+"        this.visit_program(ast.nodes)\n" +
 "    end\nend"
 @end
 

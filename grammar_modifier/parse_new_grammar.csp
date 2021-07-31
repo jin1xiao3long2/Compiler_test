@@ -101,7 +101,9 @@ class slr_parser_type
             end
 
             var res = predict_table[state].at(tree_node.root)
-            
+            if tree_node.root[0] == '\''
+                tree_node.root = string.substr(dat.data, 1, dat.data.size-2)
+            end
             system.out.println("push dat: " + tree_node.root)
 
             if typeid res != typeid check_LR_grammar.LR_type

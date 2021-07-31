@@ -5,15 +5,11 @@ external_declaration ::= function_declaration
               | struct_specifier
               ;
 
-function_declaration ::= type_specifier direct_declarator compound_statement ;
+function_declaration ::= type_specifier function_declarator compound_statement ;
 
 type_specifier ::= ID;
 
-direct_declarator ::= ID extend_part ;
-
-extend_part ::= {'[' [ constant_expression] ']' }
-              |  '(' [ parameter_list ] ')'
-              ;
+function_declarator ::=ID '(' [parameter_list] ')' ;
 
 constant_expression ::= relat_expression ;
 
@@ -27,7 +23,7 @@ compound_statement ::= '{' {declaration | statement} '}' ;
 
 declaration ::= type_specifier init_declarator ';';
 
-init_declarator ::= direct_declarator ['=' initializer] ;
+init_declarator ::= ID {'[' [constant_expression] ']'} ['=' initializer] ;
 
 initializer ::= assignment_expression
               | '{' initializer_list [','] '}'
