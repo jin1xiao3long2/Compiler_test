@@ -1,176 +1,118 @@
+%start% ::= program ;
 program ::= program_0_rep_1 ;
-
-program_0_rep_1 ::= NULL 
-                  |external_declaration program_0_rep_1 ;
-
-external_declaration ::= struct_specifier 
-                       | declaration 
-                       | function_declaration ;
-
+program_0_rep_1 ::= NULL ;
+program_0_rep_1 ::= external_declaration program_0_rep_1 ;
+external_declaration ::= struct_specifier ;
+external_declaration ::= declaration ;
+external_declaration ::= function_declaration ;
 function_declaration ::= type_specifier function_declarator compound_statement ;
-
 type_specifier ::= ID ;
-
 function_declarator ::= ID '(' function_declarator_0_opt_3 ')' ;
-
-function_declarator_0_opt_3 ::= NULL 
-                              | parameter_list ;
-
+function_declarator_0_opt_3 ::= NULL ;
+function_declarator_0_opt_3 ::= parameter_list ;
 constant_expression ::= relat_expression ;
- 
 parameter_list ::= parameter_declaration parameter_list_0_rep_2 ;
-
-parameter_list_0_rep_2 ::= NULL 
-                         | ',' parameter_declaration parameter_list_0_rep_2 ; 
-
+parameter_list_0_rep_2 ::= NULL ;
+parameter_list_0_rep_2 ::= ',' parameter_declaration parameter_list_0_rep_2 ;
 parameter_declaration ::= declaration_specifier ID ;
-
 declaration_specifier ::= type_specifier ;
-
 compound_statement ::= '{' compound_statement_0_rep_2 '}' ;
-
-compound_statement_0_rep_2 ::= NULL 
-                             | statement compound_statement_0_rep_2 
-                             | declaration compound_statement_0_rep_2 ;
-
-declaration ::= type_specifier init_declarator ';' ; 
-
+compound_statement_0_rep_2 ::= NULL ;
+compound_statement_0_rep_2 ::= statement compound_statement_0_rep_2 ;
+compound_statement_0_rep_2 ::= declaration compound_statement_0_rep_2 ;
+declaration ::= type_specifier init_declarator ';' ;
 init_declarator ::= ID init_declarator_0_rep_2 init_declarator_0_opt_3 ;
-
-init_declarator_0_opt_3 ::= NULL 
-                          | '=' initializer ;
-
-init_declarator_0_rep_2 ::= NULL 
-                          | '[' init_declarator_0_rep_2_0_opt_2 ']' init_declarator_0_rep_2 ;
-
-init_declarator_0_rep_2_0_opt_2 ::= NULL 
-                                  | constant_expression ;
-
-initializer ::= '{' initializer_list initializer_1_opt_3 '}' 
-              | assignment_expression ;
-
-initializer_1_opt_3 ::= NULL 
-                      | ',' ;
-                       
-initializer_list ::= initializer initializer_list_0_rep_2 
-
-initializer_list_0_rep_2 ::= NULL 
-| ',' initializer initializer_list_0_rep_2 ;
-
-statement ::= return_statement 
-statement ::= iteration_statement 
-statement ::= selection_statement 
-statement ::= expression_statement 
-statement ::= compound_statement 
-
-expression_statement ::= expression ';' 
-expression_statement ::= ';' 
-
-selection_statement ::= 'if' '(' expression ')' statement selection_statement_0_opt_6 
-
-selection_statement_0_opt_6 ::= NULL 
-selection_statement_0_opt_6 ::= 'else' statement 
-
-iteration_statement ::= 'for' '(' iteration_statement_0_opt_3 ';' iteration_statement_0_opt_5 ';' iteration_statement_0_opt_7 ')' statement 
-
-iteration_statement_0_opt_7 ::= NULL 
-iteration_statement_0_opt_7 ::= expression 
-
-iteration_statement_0_opt_5 ::= NULL 
-iteration_statement_0_opt_5 ::= expression 
-
-iteration_statement_0_opt_3 ::= NULL 
-iteration_statement_0_opt_3 ::= iteration_statement_0_opt_3_0_opt_1 init_declarator 
-
-iteration_statement_0_opt_3_0_opt_1 ::= NULL 
-iteration_statement_0_opt_3_0_opt_1 ::= type_specifier 
-
-return_statement ::= 'return' expression_statement 
-
-expression ::= assignment_expression expression_0_rep_2 
-
-expression_0_rep_2 ::= NULL 
-expression_0_rep_2 ::= ',' assignment_expression expression_0_rep_2 
-
-assignment_expression ::= equality_expression assignment_expression_0_opt_2 
-
-assignment_expression_0_opt_2 ::= NULL 
-assignment_expression_0_opt_2 ::= assign_op assignment_expression 
-
-assign_op ::= '/=' 
-assign_op ::= '*=' 
-assign_op ::= '-=' 
-assign_op ::= '+=' 
-assign_op ::= '=' 
-
-equality_expression ::= relat_expression equality_expression_0_opt_2 
-
-equality_expression_0_opt_2 ::= NULL 
-equality_expression_0_opt_2 ::= equal_op equality_expression 
-
-equal_op ::= '!=' 
-equal_op ::= '==' 
-
-relat_expression ::= additive_expression relat_expression_0_opt_2 
-
-relat_expression_0_opt_2 ::= NULL 
-relat_expression_0_opt_2 ::= relat_op relat_expression 
-
-relat_op ::= '<=' 
-relat_op ::= '>=' 
-relat_op ::= '<' 
-relat_op ::= '>' 
-
-additive_expression ::= multiplicative_expression additive_expression_0_opt_2 
-
-additive_expression_0_opt_2 ::= NULL 
-additive_expression_0_opt_2 ::= add_op additive_expression 
-
-add_op ::= '-' 
-add_op ::= '+' 
-
-multiplicative_expression ::= unary_expression multiplicative_expression_0_opt_2 
-
-multiplicative_expression_0_opt_2 ::= NULL 
-multiplicative_expression_0_opt_2 ::= mul_op multiplicative_expression 
-
-mul_op ::= '/' 
-mul_op ::= '*' 
-
-unary_expression ::= postfix_expression 
-unary_expression ::= sadd_op unary_expression 
-
-sadd_op ::= '-' 
-sadd_op ::= '--' 
-sadd_op ::= '++' 
-
-postfix_expression ::= primary_expression postfix_expression_0_rep_2 
-
-postfix_expression_0_rep_2 ::= NULL 
-postfix_expression_0_rep_2 ::= postfix_extend_part postfix_expression_0_rep_2 
-
-postfix_extend_part ::= post_op 
-postfix_extend_part ::= '.' ID 
-postfix_extend_part ::= '(' postfix_extend_part_1_opt_2 ')' 
-postfix_extend_part ::= '[' expression ']' 
-
-postfix_extend_part_1_opt_2 ::= NULL 
-postfix_extend_part_1_opt_2 ::= assignment_expression postfix_extend_part_1_opt_2_0_rep_2 
-
-postfix_extend_part_1_opt_2_0_rep_2 ::= NULL 
-postfix_extend_part_1_opt_2_0_rep_2 ::= ',' assignment_expression postfix_extend_part_1_opt_2_0_rep_2 
-
-post_op ::= '--' 
-post_op ::= '++' 
-
-primary_expression ::= '(' expression ')' 
-primary_expression ::= NUMBER 
-primary_expression ::= ID 
-
-struct_specifier ::= 'struct' ID '{' struct_specifier_0_rep_4 '}' struct_specifier_0_opt_6 ';' 
-
-struct_specifier_0_opt_6 ::= NULL 
-struct_specifier_0_opt_6 ::= ID 
-
-struct_specifier_0_rep_4 ::= NULL 
-struct_specifier_0_rep_4 ::= declaration struct_specifier_0_rep_4 
+init_declarator_0_opt_3 ::= NULL ;
+init_declarator_0_opt_3 ::= '=' initializer ;
+init_declarator_0_rep_2 ::= NULL ;
+init_declarator_0_rep_2 ::= '[' init_declarator_0_rep_2_0_opt_2 ']' init_declarator_0_rep_2 ;
+init_declarator_0_rep_2_0_opt_2 ::= NULL ;
+init_declarator_0_rep_2_0_opt_2 ::= constant_expression ;
+initializer ::= '{' initializer_list initializer_1_opt_3 '}' ;
+initializer ::= assignment_expression ;
+initializer_1_opt_3 ::= NULL ;
+initializer_1_opt_3 ::= ',' ;
+initializer_list ::= initializer initializer_list_0_rep_2 ;
+initializer_list_0_rep_2 ::= NULL ;
+initializer_list_0_rep_2 ::= ',' initializer initializer_list_0_rep_2 ;
+statement ::= return_statement ;
+statement ::= iteration_statement ;
+statement ::= selection_statement ;
+statement ::= expression_statement ;
+statement ::= compound_statement ;
+expression_statement ::= expression ';' ;
+expression_statement ::= ';' ;
+selection_statement ::= 'if' '(' expression ')' statement selection_statement_0_opt_6 ;
+selection_statement_0_opt_6 ::= NULL ;
+selection_statement_0_opt_6 ::= 'else' statement ;
+iteration_statement ::= 'for' '(' iteration_statement_0_opt_3 ';' iteration_statement_0_opt_5 ';' iteration_statement_0_opt_7 ')' statement ;
+iteration_statement_0_opt_7 ::= NULL ;
+iteration_statement_0_opt_7 ::= expression ;
+iteration_statement_0_opt_5 ::= NULL ;
+iteration_statement_0_opt_5 ::= expression ;
+iteration_statement_0_opt_3 ::= NULL ;
+iteration_statement_0_opt_3 ::= iteration_statement_0_opt_3_0_opt_1 init_declarator ;
+iteration_statement_0_opt_3_0_opt_1 ::= NULL ;
+iteration_statement_0_opt_3_0_opt_1 ::= type_specifier ;
+return_statement ::= 'return' return_statement_0_opt_2 ';' ;
+return_statement_0_opt_2 ::= NULL ;
+return_statement_0_opt_2 ::= expression ;
+expression ::= assignment_expression expression_0_rep_2 ;
+expression_0_rep_2 ::= NULL ;
+expression_0_rep_2 ::= ',' assignment_expression expression_0_rep_2 ;
+assignment_expression ::= equality_expression assignment_expression_0_opt_2 ;
+assignment_expression_0_opt_2 ::= NULL ;
+assignment_expression_0_opt_2 ::= assign_op assignment_expression ;
+assign_op ::= '/=' ;
+assign_op ::= '*=' ;
+assign_op ::= '-=' ;
+assign_op ::= '+=' ;
+assign_op ::= '=' ;
+equality_expression ::= relat_expression equality_expression_0_opt_2 ;
+equality_expression_0_opt_2 ::= NULL ;
+equality_expression_0_opt_2 ::= equal_op equality_expression ;
+equal_op ::= '!=' ;
+equal_op ::= '==' ;
+relat_expression ::= additive_expression relat_expression_0_opt_2 ;
+relat_expression_0_opt_2 ::= NULL ;
+relat_expression_0_opt_2 ::= relat_op relat_expression ;
+relat_op ::= '<=' ;
+relat_op ::= '>=' ;
+relat_op ::= '<' ;
+relat_op ::= '>' ;
+additive_expression ::= multiplicative_expression additive_expression_0_opt_2 ;
+additive_expression_0_opt_2 ::= NULL ;
+additive_expression_0_opt_2 ::= add_op additive_expression ;
+add_op ::= '-' ;
+add_op ::= '+' ;
+multiplicative_expression ::= unary_expression multiplicative_expression_0_opt_2 ;
+multiplicative_expression_0_opt_2 ::= NULL ;
+multiplicative_expression_0_opt_2 ::= mul_op multiplicative_expression ;
+mul_op ::= '/' ;
+mul_op ::= '*' ;
+unary_expression ::= postfix_expression ;
+unary_expression ::= sadd_op unary_expression ;
+sadd_op ::= '-' ;
+sadd_op ::= '--' ;
+sadd_op ::= '++' ;
+postfix_expression ::= primary_expression postfix_expression_0_rep_2 ;
+postfix_expression_0_rep_2 ::= NULL ;
+postfix_expression_0_rep_2 ::= postfix_extend_part postfix_expression_0_rep_2 ;
+postfix_extend_part ::= post_op ;
+postfix_extend_part ::= '.' ID ;
+postfix_extend_part ::= '(' postfix_extend_part_1_opt_2 ')' ;
+postfix_extend_part ::= '[' expression ']' ;
+postfix_extend_part_1_opt_2 ::= NULL ;
+postfix_extend_part_1_opt_2 ::= assignment_expression postfix_extend_part_1_opt_2_0_rep_2 ;
+postfix_extend_part_1_opt_2_0_rep_2 ::= NULL ;
+postfix_extend_part_1_opt_2_0_rep_2 ::= ',' assignment_expression postfix_extend_part_1_opt_2_0_rep_2 ;
+post_op ::= '--' ;
+post_op ::= '++' ;
+primary_expression ::= '(' expression ')' ;
+primary_expression ::= NUMBER ;
+primary_expression ::= ID ;
+struct_specifier ::= 'struct' ID '{' struct_specifier_0_rep_4 '}' struct_specifier_0_opt_6 ';' ;
+struct_specifier_0_opt_6 ::= NULL ;
+struct_specifier_0_opt_6 ::= ID ;
+struct_specifier_0_rep_4 ::= NULL ;
+struct_specifier_0_rep_4 ::= declaration struct_specifier_0_rep_4 ;

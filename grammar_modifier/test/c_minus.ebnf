@@ -46,7 +46,7 @@ selection_statement ::= 'if' '(' expression ')' statement ['else' statement] ;
 
 iteration_statement ::= 'for' '(' [[type_specifier] init_declarator] ';' [expression] ';' [expression] ')' statement ;
 
-return_statement ::= 'return' expression_statement ;
+return_statement ::= 'return' [ expression ] ';' ;
 
 expression ::= assignment_expression {',' assignment_expression} ;
 

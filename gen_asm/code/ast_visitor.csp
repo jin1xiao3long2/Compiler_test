@@ -14,6 +14,21 @@ class main
     var now_var_offset = 0
     var now_domain = ""
     var now_domain_idx = 0
+    var now_var_idx = -1
+    var now_count = 0
+    var now_var_name = "WRONG NAME"
+    var now_fun_name = "WRONG FUN NAME"
+    var now_var_type = "WRONG TYPE"
+
+    
+    function show_var_table()
+        if now_var_table.empty()
+            system.out.println("EMPTY")
+            return 
+        end
+        foreach iter in now_var_table do system.out. println("var : " + iter.first + " , offset " + iter.second)
+    end
+
 
     function visit_program(nodes)
         var idx = 0
@@ -88,7 +103,9 @@ class main
     function visit_type_specifier(nodes)
         var idx = 0
         # Visit ID token
-        target.print(nodes[idx++].nodes[0].root)
+        var typename = nodes[idx++].nodes[0].root
+        now_var_type = typename
+        target.print(typename)
     end
 
     function visit_function_declarator(nodes)
@@ -197,6 +214,7 @@ class main
         var before_var_table = now_var_table
         var before_var_offset = now_var_offset
 
+        show_var_table()
 
         # Visit term "{"
         ++idx; target.println("{")
@@ -206,8 +224,10 @@ class main
         ++idx; target.println("}")
 
         #弹栈
-        output.push_back("SPOP 0 1 " + to_string(now_var_table.size - before_var_table.size))
-
+        #小于零则不弹
+        if now_var_table.size != before_var_table.size
+            output.push_back("SPOP " + to_string(now_var_table.size - before_var_table.size))
+        end
         #恢复数据
         now_domain = before_domain
         now_domain_idx = before_domain_idx
@@ -261,10 +281,17 @@ class main
         # Visit term "ID"
         var ID = nodes[idx++].nodes[0].root
         target.print(ID)
+        if !now_var_table.exist(ID)
+            now_var_table.insert(ID, now_var_offset++)
+        else
+            now_var_table.at(ID) = now_var_offset++
+        end
         # Recursive Visit init_declarator_0_rep_2
         this.visit_init_declarator_0_rep_2(nodes[idx++].nodes)
         # Recursive Visit init_declarator_0_opt_3
         this.visit_init_declarator_0_opt_3(nodes[idx++].nodes)
+        now_var_offset--
+
     end
 
     function visit_init_declarator_0_opt_3(nodes)
@@ -361,6 +388,7 @@ class main
                 matched = true
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[idx++].nodes)
+                now_var_offset++
             end
             if !matched
             	# Error
@@ -485,6 +513,7 @@ class main
                 matched = true
                 # Recursive Visit expression
                 this.visit_expression(nodes[idx++].nodes)
+                output.push_back("SPOP 1")
                 # Visit term ";"
                 ++idx; target.println(";")
             end
@@ -516,7 +545,7 @@ class main
         ++idx; target.print("( ")
         # Recursive Visit expression
         var store_nodes = nodes[idx++]
-        output.push_back(store_nodes)
+        #output.push_back(store_nodes)
         #处理store_nodes,需要标记为select_nodes
         this.visit_expression(store_nodes.nodes)
         # Visit term ")"
@@ -570,6 +599,17 @@ class main
         end
     end
 
+
+    #for(init; cond; expr) stmt
+    #       init
+    #COND   cond
+    #       CJMP STMT
+    #       NJMP ENDFOR
+    #STMT   stmt
+    #       expr
+    #       NJMP COND
+    #ENDFOR SPOP
+
     function visit_iteration_statement(nodes)
         #是否需要push?
         var idx = 0
@@ -578,7 +618,13 @@ class main
         # Visit term "("
         ++idx; target.print("(")
         # Recursive Visit iteration_statement_0_opt_3
+        
+        var before_domain = now_domain
+        var before_domain_idx = now_domain_idx
+        var before_var_table = now_var_table
+        var before_var_offset = now_var_offset
 
+        #stmt1
         this.visit_iteration_statement_0_opt_3(nodes[idx++].nodes)
         # Visit term ";"
         
@@ -589,15 +635,18 @@ class main
         this.visit_iteration_statement_0_opt_5(nodes[idx++].nodes)
         # Visit term ";"
         ++idx; target.print(";")
+
         var stmt_flag = now_domain + "_" + to_string(now_domain_idx++)
         output.push_back("CJMP " + stmt_flag)
         var end_flag = now_domain  + "_" + to_string(now_domain_idx++)
         output.push_back("NJMP " + end_flag)
+
         # Recursive Visit iteration_statement_0_opt_7
         output.push_back("FLAG " + stmt_flag)
         var old_output = output
         output.clear()
         this.visit_iteration_statement_0_opt_7(nodes[idx++].nodes)
+        output.push_back("SPOP 1")
         # Visit term ")"
         ++idx; target.println(")")
         # Recursive Visit statement
@@ -609,6 +658,15 @@ class main
 
         output.push_back("NJMP " + for_judge_flag)
         output.push_back("FLAG " + end_flag)
+
+        #弹栈
+        output.push_back("SPOP " + to_string(now_var_table.size - before_var_table.size))
+
+        #恢复数据
+        now_domain = before_domain
+        now_domain_idx = before_domain_idx
+        now_var_table = before_var_table
+        now_var_offset = before_var_offset
     end
 
     function visit_iteration_statement_0_opt_7(nodes)
@@ -633,7 +691,6 @@ class main
         end
     end
 
-
     function visit_iteration_statement_0_opt_5(nodes)
         var idx = 0
         # Condition
@@ -642,6 +699,7 @@ class main
             if !matched && (nodes[idx].root == "NULL")
                 matched = true
                 # Visit NULL token
+                output.push_back("PUSH 1")
                 # target.print(nodes[idx++].root)
             end
             if !matched && (nodes[idx].root == "expression")
@@ -669,9 +727,18 @@ class main
             if !matched && (nodes[idx].root == "iteration_statement_0_opt_3_0_opt_1")
                 matched = true
                 # Recursive Visit iteration_statement_0_opt_3_0_opt_1
-                this.visit_iteration_statement_0_opt_3_0_opt_1(nodes[idx++].nodes)
                 # Recursive Visit init_declarator
-                this.visit_init_declarator(nodes[idx++].nodes)
+                var old_var_table = now_var_table
+                var old_var_offset = now_var_offset
+
+                this.visit_init_declarator(nodes[1].nodes)
+
+                this.visit_iteration_statement_0_opt_3_0_opt_1(nodes[0].nodes)
+                if nodes[0].nodes[0].root == "NULL"
+                    now_var_table = old_var_table
+                    now_var_offset = old_var_offset
+                end
+                
             end
             if !matched
             	# Error
@@ -707,16 +774,40 @@ class main
         # Visit term "return"
         ++idx; target.print("return")
         # Recursive Visit expression_statement
-        this.visit_expression_statement(nodes[idx++].nodes)
 
+        this.visit_return_statement_0_opt_2(nodes[idx++].nodes)
+        target.print(";")
         output.push_back("RETP")
     end
+
+    function visit_return_statement_0_opt_2(nodes)
+        var idx = 0
+        # Condition
+        block
+            var matched = false
+            if !matched && (nodes[idx].root == "NULL")
+                matched = true
+                # Visit NULL token
+                # target.print(nodes[idx++].root)
+            end
+            if !matched && (nodes[idx].root == "expression")
+                matched = true
+                # Recursive Visit type_specifier
+                this.visit_expression(nodes[idx++].nodes)
+            end
+            if !matched
+            	# Error
+            	return
+            end
+        end
+    end
+
 
     function visit_expression(nodes)
         var root_node = new parse_new_grammar.tree_type
         root_node.nodes = nodes
         root_node.root = "expression"
-        output.push_back(root_node)
+        # output.push_back(root_node)
         var idx = 0
         # Recursive Visit assignment_expression
         this.visit_assignment_expression(nodes[idx++].nodes)
@@ -738,6 +829,7 @@ class main
                 matched = true
                 # Visit term ","
                 ++idx; target.print(",")
+                output.push_back("SPOP 1")
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[idx++].nodes)
                 # Recursive Visit expression_0_rep_2
@@ -770,10 +862,18 @@ class main
             end
             if !matched && (nodes[idx].root == "assign_op")
                 matched = true
-                # Recursive Visit assign_op
-                this.visit_assign_op(nodes[idx++].nodes)
+
+                #暂不确定是否合理,这里主要是获得赋值元素的偏移量
+                if nodes[0].nodes[0].root == "="
+                    output.pop_back()
+                end
+
                 # Recursive Visit assignment_expression
-                this.visit_assignment_expression(nodes[idx++].nodes)
+                this.visit_assignment_expression(nodes[1].nodes)
+
+                # Recursive Visit assign_op
+                this.visit_assign_op(nodes[0].nodes)
+                
             end
             if !matched
             	# Error
@@ -791,26 +891,35 @@ class main
                 matched = true
                 # Visit term "/="
                 ++idx; target.print("/=")
+                output.push_back("SDIV")
+                output.push_back("COPY 0f " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "*=")
                 matched = true
                 # Visit term "*="
                 ++idx; target.print("*=")
+                output.push_back("SMUL")
+                output.push_back("COPY 0f " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "-=")
                 matched = true
                 # Visit term "-="
                 ++idx; target.print("-=")
+                output.push_back("SSUB")
+                output.push_back("COPY 0f " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "+=")
                 matched = true
                 # Visit term "+="
                 ++idx; target.print("+=")
+                output.push_back("SADD")
+                output.push_back("COPY 0f " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "=")
                 matched = true
                 # Visit term "="
                 ++idx; target.print("=")
+                output.push_back("COPY 0f " + now_var_idx)
             end
             if !matched
             	# Error
@@ -875,10 +984,30 @@ class main
     
     function visit_relat_expression(nodes)
         var idx = 0
-        # Recursive Visit additive_expression
-        this.visit_additive_expression(nodes[idx++].nodes)
-        # Recursive Visit relat_expression_0_opt_2
-        this.visit_relat_expression_0_opt_2(nodes[idx++].nodes)
+
+        var relat_expr_0_opt2 = nodes[1]
+        var sign = ""
+
+        if !relat_expr_0_opt2.nodes[0].root == "NULL"
+            sign = relat_expr_0_opt2.nodes[0].nodes[0].root
+        end
+
+        if sign == ""
+            this.visit_additive_expression(nodes[0].nodes)
+            return
+        else
+            if sign == ">=" || sign == ">"
+                this.visit_additive_expression(nodes[0].nodes)
+                this.visit_relat_expression(nodes[1].nodes[1].nodes)
+                this.visit_relat_op(nodes[1].nodes[0].nodes)
+                return
+            else
+                this.visit_relat_expression(nodes[1].nodes[1].nodes)
+                this.visit_additive_expression(nodes[0].nodes)
+                this.visit_relat_op(nodes[1].nodes[0].nodes)
+                return 
+            end
+        end
     end
 
     function visit_relat_expression_0_opt_2(nodes)
@@ -914,21 +1043,27 @@ class main
                 matched = true
                 # Visit term "<="
                 ++idx; target.print("<=")
+                output.push_back("ISUB 1")
+                output.push_back("SSUB")
             end
             if !matched && (nodes[idx].root == ">=")
                 matched = true
                 # Visit term ">="
                 ++idx; target.print(">=")
+                output.push_back("ISUB 1")
+                output.push_back("SSUB")
             end
             if !matched && (nodes[idx].root == "<")
                 matched = true
                 # Visit term "<"
                 ++idx; target.print("<")
+                output.push_back("SSUB")
             end
             if !matched && (nodes[idx].root == ">")
                 matched = true
                 # Visit term ">"
                 ++idx; target.print(">")
+                output.push_back("SSUB")
             end
             if !matched
             	# Error
@@ -960,10 +1095,13 @@ class main
             end
             if !matched && (nodes[idx].root == "add_op")
                 matched = true
-                # Recursive Visit add_op
-                this.visit_add_op(nodes[idx++].nodes)
+                
                 # Recursive Visit additive_expression
-                this.visit_additive_expression(nodes[idx++].nodes)
+                this.visit_additive_expression(nodes[1].nodes)
+
+                # Recursive Visit add_op
+                
+                this.visit_add_op(nodes[0].nodes)
             end
             if !matched
             	# Error
@@ -981,11 +1119,13 @@ class main
                 matched = true
                 # Visit term "-"
                 ++idx; target.print("-")
+                output.push_back("SSUB")
             end
             if !matched && (nodes[idx].root == "+")
                 matched = true
                 # Visit term "+"
                 ++idx; target.print("+")
+                output.push_back("SADD")
             end
             if !matched
             	# Error
@@ -994,7 +1134,6 @@ class main
         end
     end
 
-
     function visit_multiplicative_expression(nodes)
         var idx = 0
         # Recursive Visit unary_expression
@@ -1002,7 +1141,6 @@ class main
         # Recursive Visit multiplicative_expression_0_opt_2
         this.visit_multiplicative_expression_0_opt_2(nodes[idx++].nodes)
     end
-
 
     function visit_multiplicative_expression_0_opt_2(nodes)
         var idx = 0
@@ -1016,10 +1154,12 @@ class main
             end
             if !matched && (nodes[idx].root == "mul_op")
                 matched = true
-                # Recursive Visit mul_op
-                this.visit_mul_op(nodes[idx++].nodes)
+                
                 # Recursive Visit multiplicative_expression
-                this.visit_multiplicative_expression(nodes[idx++].nodes)
+                this.visit_multiplicative_expression(nodes[1].nodes)
+
+                # Recursive Visit mul_op
+                this.visit_mul_op(nodes[0].nodes)
             end
             if !matched
             	# Error
@@ -1037,11 +1177,13 @@ class main
                 matched = true
                 # Visit term "/"
                 ++idx; target.print("/")
+                output.push_back("SDIV")
             end
             if !matched && (nodes[idx].root == "*")
                 matched = true
                 # Visit term "*"
                 ++idx; target.print("*")
+                output.push_back("SMUL")
             end
             if !matched
             	# Error
@@ -1063,9 +1205,17 @@ class main
             if !matched && (nodes[idx].root == "sadd_op")
                 matched = true
                 # Recursive Visit sadd_op
+                if nodes[idx].nodes[0].root == "-"
+                    output.push_back("PUSH 0")
+                end
+                var old_output = output
+                output.clear()
                 this.visit_sadd_op(nodes[idx++].nodes)
                 # Recursive Visit unary_expression
+                var sadd_output = output
+                output = old_output
                 this.visit_unary_expression(nodes[idx++].nodes)
+                foreach iter in sadd_output do output.push_back(iter)
             end
             if !matched
             	# Error
@@ -1083,16 +1233,21 @@ class main
                 matched = true
                 # Visit term "-"
                 ++idx; target.print("-")
+                output.push_back("SSUB")
             end
             if !matched && (nodes[idx].root == "--")
                 matched = true
                 # Visit term "--"
                 ++idx; target.print("--")
+                output.push_back("ISUB 1")
+                output.push_back("COPY 01 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "++")
                 matched = true
                 # Visit term "++"
                 ++idx; target.print("++")
+                output.push_back("IADD 1")
+                output.push_back("COPY 01 " + now_var_idx)
             end
             if !matched
             	# Error
@@ -1153,11 +1308,14 @@ class main
             if !matched && (nodes[idx].root == "(")
                 matched = true
                 # Visit term "("
+                var old_fun_name = now_fun_name
+                now_fun_name = now_var_name
                 ++idx; target.print("(")
                 # Recursive Visit postfix_extend_part_1_opt_2
                 this.visit_postfix_extend_part_1_opt_2(nodes[idx++].nodes)
                 # Visit term ")"
                 ++idx; target.print(")")
+                now_fun_name = old_fun_name
             end
             if !matched && (nodes[idx].root == "[")
                 matched = true
@@ -1165,6 +1323,7 @@ class main
                 ++idx; target.print("[")
                 # Recursive Visit expression
                 this.visit_expression(nodes[idx++].nodes)
+                output.push_back("PDAT ffff")
                 # Visit term "]"
                 ++idx; target.print("]")
             end
@@ -1189,6 +1348,7 @@ class main
                 matched = true
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[idx++].nodes)
+                now_count = 1
                 # Recursive Visit postfix_extend_part_1_opt_2_0_rep_2
                 this.visit_postfix_extend_part_1_opt_2_0_rep_2(nodes[idx++].nodes)
             end
@@ -1208,6 +1368,9 @@ class main
                 matched = true
                 # Visit NULL token
                 # target.print(nodes[idx++].root)
+                output.push_back("CALL " + now_count + " " +now_fun_name)
+                now_count = 0
+                now_var_name = "WRONG NAME"
             end
             if !matched && (nodes[idx].root == ",")
                 matched = true
@@ -1215,6 +1378,7 @@ class main
                 ++idx; target.print(",")
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[idx++].nodes)
+                now_count++
                 # Recursive Visit postfix_extend_part_1_opt_2_0_rep_2
                 this.visit_postfix_extend_part_1_opt_2_0_rep_2(nodes[idx++].nodes)
             end
@@ -1234,11 +1398,17 @@ class main
                 matched = true
                 # Visit term "--"
                 ++idx; target.print("--")
+                output.push_back("ISUB 1")
+                output.push_back("COPY f0" + now_var_idx)
+                output.push_back("IADD 1")
             end
             if !matched && (nodes[idx].root == "++")
                 matched = true
                 # Visit term "++"
                 ++idx; target.print("++")
+                output.push_back("IADD 1")
+                output.push_back("COPY f0" + now_var_idx)
+                output.push_back("ISUB 1")
             end
             if !matched
             	# Error
@@ -1255,21 +1425,33 @@ class main
             if !matched && (nodes[idx].root == "(")
                 matched = true
                 # Visit term "("
-                ++idx; target.print("(")
+                ++idx; target.print("( ")
                 # Recursive Visit expression
                 this.visit_expression(nodes[idx++].nodes)
                 # Visit term ")"
-                ++idx; target.print(")")
+                ++idx; target.print(" )")
             end
             if !matched && (nodes[idx].root == "NUMBER")
                 matched = true
                 # Visit NUMBER token
-                target.print(nodes[idx++].nodes[0].root)
+                var number = nodes[idx++].nodes[0].root
+                target.print(number)
+                output.push_back("PUSH " + number)
+                now_var_idx = -1
             end
             if !matched && (nodes[idx].root == "ID")
                 matched = true
                 # Visit ID token
-                target.print(nodes[idx++].nodes[0].root)
+                var ID = nodes[idx++].nodes[0].root
+                target.print(ID)
+                if !now_var_table.exist(ID)
+                    now_var_name = ID
+                    return 
+                end
+                var offset = now_var_table.at(ID)
+                output.push_back("PUSH 00 " + offset)
+                now_var_idx = offset
+                now_var_name = ID
             end
             if !matched
             	# Error
@@ -1359,10 +1541,45 @@ class main
         end
     end
 
+    function ADD_REMOVE_MARK()
+        var funcend = 0
+        var funcbegin = 0
+        var idx = 0
+        foreach iter in output
+            if iter.find("RETP", 0) >= 0
+                funcend = idx
+            end
+            
+            if iter.find("SUBP", 0) >= 0
+                funcbegin = idx
+                
+                for i = funcend + 1, i < funcbegin, i++
+                    output[i] += "    REMOVE"
+                end 
+            end
 
+            idx++
+        end
+
+        for i = funcend + 1, i != idx, i++
+            output[i] += "    REMOVE"
+        end
+    end
+
+    function REMOVE_INST()
+        var new_output = new array
+        foreach iter in output 
+          if !iter.find("REMOVE", 0) >= 0
+            new_output.push_back(iter)
+            end  
+        end
+        output = new_output
+    end
     function run(ast)
         this.target = system.out
         this.visit_program(ast.nodes)
+        ADD_REMOVE_MARK()
+        REMOVE_INST()
         show_output()
     end
 end

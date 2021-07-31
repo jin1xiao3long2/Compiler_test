@@ -12,7 +12,7 @@ float pi(int n)
     float sig = 1.0;
     for (int i = 1; i <=n; i += 2)
     {
-        sum += sig;   
+        sum += sig/i;   
         sig = 0-sig;
     }  
     return sum;

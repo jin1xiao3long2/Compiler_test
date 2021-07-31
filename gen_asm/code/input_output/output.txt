@@ -80,7 +80,7 @@ program
 								statement
 									return_statement
 										return
-										expression_statement
+										return_statement_0_opt_2
 											expression
 												assignment_expression
 													equality_expression
@@ -206,13 +206,13 @@ program
 														NULL
 												expression_0_rep_2
 													NULL
-											;
+										;
 								selection_statement_0_opt_6
 									else
 									statement
 										return_statement
 											return
-											expression_statement
+											return_statement_0_opt_2
 												expression
 													assignment_expression
 														equality_expression
@@ -238,7 +238,7 @@ program
 															NULL
 													expression_0_rep_2
 														NULL
-												;
+											;
 						compound_statement_0_rep_2
 							NULL
 					}
@@ -516,7 +516,18 @@ program
 																										postfix_expression_0_rep_2
 																											NULL
 																								multiplicative_expression_0_opt_2
-																									NULL
+																									mul_op
+																										/
+																									multiplicative_expression
+																										unary_expression
+																											postfix_expression
+																												primary_expression
+																													ID
+																														i
+																												postfix_expression_0_rep_2
+																													NULL
+																										multiplicative_expression_0_opt_2
+																											NULL
 																							additive_expression_0_opt_2
 																								NULL
 																						relat_expression_0_opt_2
@@ -601,7 +612,7 @@ program
 										statement
 											return_statement
 												return
-												expression_statement
+												return_statement_0_opt_2
 													expression
 														assignment_expression
 															equality_expression
@@ -627,7 +638,7 @@ program
 																NULL
 														expression_0_rep_2
 															NULL
-													;
+												;
 										compound_statement_0_rep_2
 											NULL
 						}
@@ -1429,7 +1440,7 @@ program
 														statement
 															return_statement
 																return
-																expression_statement
+																return_statement_0_opt_2
 																	expression
 																		assignment_expression
 																			equality_expression
@@ -1455,35 +1466,42 @@ program
 																				NULL
 																		expression_0_rep_2
 																			NULL
-																	;
+																;
 														compound_statement_0_rep_2
 															NULL
 							}
 				program_0_rep_1
 					NULL
 intfib(intn)
+var : n , offset 0
 {
-if( n>1 )
-returnfib(n-1)+fib(n-2);
-else
-return1;
-}
+if( n1> )
+returnfib(n1-)fib(n2-)+;else
+return1;}
 floatpi(intn)
+var : n , offset 0
 {
 floatsum=0;
 floatsig=1.0;
-for(inti=1;i<=n;i+=2)
+for(i=1int;ni<=;i2+=)
+var : n , offset 0
+var : i , offset 3
+var : sig , offset 2
+var : sum , offset 1
 {
-sum+=sig;
-sig=0-sig;
+sumsigi/+=;
+sig0sig-=;
 }
-returnsum;
-}
+returnsum;}
 intmain()
+EMPTY
 {
 intiarr[]={1,3,5,7};
 floatfarr[]={1.1,2.2,3.3};
-for(inti=0;i<3;++i)
+for(i=0int;3i<;++i)
+var : iarr , offset 0
+var : i , offset 7
+var : farr , offset 4
 {
 print(iarr[i]);
 print(farr[i]);
@@ -1491,55 +1509,107 @@ print(farr[i]);
 print(iarr[3]);
 fib(iarr[1]);
 pi(farr[2]);
-return0;
-}
+return0;}
 SUBP fib
-expression
-expression
+PUSH 00 0
+PUSH 1
+SSUB
 CJMP fib_select_0_1
-expression
+PUSH 1
 RETP
 NJMP fib_select_0_2
 FLAG fib_select_0_1
-expression
+PUSH 00 0
+PUSH 1
+SSUB
+CALL 1 fib
+PUSH 00 0
+PUSH 2
+SSUB
+CALL 1 fib
+SADD
 RETP
-FLAG fib_select_0_2
-SPOP 0 1 0
 SUBP pi
+PUSH 0
+PUSH 1.0
+PUSH 1
 FLAG pi_iter_0_1
-expression
+PUSH 00 0
+PUSH 00 3
+ISUB 1
+SSUB
 CJMP pi_iter_0_2
 NJMP pi_iter_0_3
 FLAG pi_iter_0_2
-expression
-expression
-SPOP 0 1 0
-expression
+PUSH 00 1
+PUSH 00 2
+PUSH 00 3
+SDIV
+SADD
+COPY 0f 3
+SPOP 1
+PUSH 0
+PUSH 00 2
+SSUB
+COPY 0f 2
+SPOP 1
+PUSH 00 3
+PUSH 2
+SADD
+COPY 0f -1
+SPOP 1
 NJMP pi_iter_0_1
 FLAG pi_iter_0_3
-expression
+SPOP 1
+PUSH 00 1
 RETP
-SPOP 0 1 0
 SUBP main
+PUSH 1
+PUSH 3
+PUSH 5
+PUSH 7
+PUSH 1.1
+PUSH 2.2
+PUSH 3.3
+PUSH 0
 FLAG main_iter_0_1
-expression
+PUSH 3
+PUSH 00 7
+SSUB
 CJMP main_iter_0_2
 NJMP main_iter_0_3
 FLAG main_iter_0_2
-expression
-expression
-expression
-expression
-SPOP 0 1 0
-expression
+PUSH 00 0
+PUSH 00 7
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 4
+PUSH 00 7
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 7
+IADD 1
+COPY 01 7
+SPOP 1
 NJMP main_iter_0_1
 FLAG main_iter_0_3
-expression
-expression
-expression
-expression
-expression
-expression
-expression
+SPOP 1
+PUSH 00 0
+PUSH 3
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+PUSH 1
+PDAT ffff
+CALL 1 fib
+SPOP 1
+PUSH 00 4
+PUSH 2
+PDAT ffff
+CALL 1 pi
+SPOP 1
+PUSH 0
 RETP
-SPOP 0 1 0
