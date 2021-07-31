@@ -44,7 +44,7 @@ VM 采用32位定长指令
 | IDIV | 1A | 1 Byte Alignment, 2 Byte Data | 计算栈顶数与16位整数的商 |
 | DDIV | 1B | 1 Byte Alignment, 2 Byte Addr | 计算栈顶数与数据段数据的商 |
 | NJMP | 20 | 1 Byte Alignment, 2 Byte Target PC | 无条件跳转 |
-| CJMP | 21 | 1 Byte Alignment, 2 Byte Target PC | 当栈顶数 > 0 时条件跳转 |
+| CJMP | 21 | 1 Byte Method, 2 Byte Target PC | 条件跳转，Method: 0x00 > 0, 0x0F == 0 |
 | CALL | 22 | 1 Byte Argument Count, 2 Byte Subprogram ID | 长跳转，开始子程序调用 |
 | RETP | 23 | 3 Byte Alignment | 长跳转，返回子程序调用 |
 | FEOF | FF | 3 Byte Alignment | 文件结尾 |
