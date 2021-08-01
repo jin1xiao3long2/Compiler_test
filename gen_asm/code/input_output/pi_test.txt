@@ -1,0 +1,98 @@
+float pi(int n)
+{
+    float sum = 0;
+    float sig = 1.0;
+    for (int i = 1; i <=n; i += 2)
+    {
+        sum += sig/i;   
+        sig = 0-sig;
+    }  
+    return sum;
+}
+
+int main()
+{
+    int iarr[] = {1, 3, 5, 7};
+    float farr[] = {1.1, 2.2, 3.3}; 
+    for(int i = 0; i < 3; i++)
+    {
+       print(iarr[i]);
+       print(farr[i]);
+    }
+    print(iarr[3]);
+    pi(iarr[2]);
+    return 0;
+}
+
+SUBP pi
+PUSH 0
+PUSH 1.0
+PUSH 1
+FLAG pi_iter_0_1
+PUSH 00 0
+PUSH 00 5
+ISUB 1
+SSUB
+CJMP pi_iter_0_2
+NJMP pi_iter_0_3
+FLAG pi_iter_0_2
+PUSH 00 1
+PUSH 00 3
+PUSH 00 5
+SDIV
+SADD
+COPY 0f 5
+SPOP 1
+PUSH 0
+PUSH 00 3
+SSUB
+COPY 0f 3
+SPOP 1
+PUSH 00 5
+PUSH 2
+SADD
+COPY 0f -1
+SPOP 1
+NJMP pi_iter_0_1
+FLAG pi_iter_0_3
+SPOP 1
+PUSH 00 1
+RETP
+SUBP main
+DATA int 4 1 3 5 7
+DATA float 3 1.1 2.2 3.3
+PUSH 0
+FLAG main_iter_0_1
+PUSH 3
+PUSH 00 0
+SSUB
+CJMP main_iter_0_2
+NJMP main_iter_0_3
+FLAG main_iter_0_2
+PUSH 00 0
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 4
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 1
+COPY f00
+ISUB 1
+SPOP 1
+NJMP main_iter_0_1
+FLAG main_iter_0_3
+SPOP 1
+PUSH 3
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 2
+PDAT ffff
+CALL 1 pi
+SPOP 1
+PUSH 0
+RETP

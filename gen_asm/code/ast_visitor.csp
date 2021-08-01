@@ -11,6 +11,9 @@ class main
 
     var output = new array
     var now_var_table = new hash_map
+    var now_var_seg = new hash_map
+    var now_var_seg_offset = 0
+    var now_in_seg = false
     var now_var_offset = 0
     var now_domain = ""
     var now_domain_idx = 0
@@ -19,6 +22,7 @@ class main
     var now_var_name = "WRONG NAME"
     var now_fun_name = "WRONG FUN NAME"
     var now_var_type = "WRONG TYPE"
+    var now_var_instore = new array
 
     
     function show_var_table()
@@ -91,6 +95,8 @@ class main
         var idx = 0
         # Recursive Visit type_specifier
         now_var_offset = 0
+        now_var_seg.clear()
+        now_var_seg_offset = 0
         now_var_table.clear()
         this.visit_type_specifier(nodes[idx++].nodes)
         # Recursive Visit function_declarator
@@ -213,6 +219,8 @@ class main
         var before_domain_idx = now_domain_idx
         var before_var_table = now_var_table
         var before_var_offset = now_var_offset
+        var before_var_seg_offset = now_var_seg_offset
+        var before_var_seg = now_var_seg
 
         show_var_table()
 
@@ -233,6 +241,8 @@ class main
         now_domain_idx = before_domain_idx
         now_var_table = before_var_table
         now_var_offset = before_var_offset
+        now_var_seg = before_var_seg
+        now_var_seg_offset = before_var_seg_offset
     end
 
     function visit_compound_statement_0_rep_2(nodes)
@@ -279,19 +289,51 @@ class main
     function visit_init_declarator(nodes)
         var idx = 0
         # Visit term "ID"
+        var is_seg_data = false
         var ID = nodes[idx++].nodes[0].root
         target.print(ID)
-        if !now_var_table.exist(ID)
-            now_var_table.insert(ID, now_var_offset++)
-        else
-            now_var_table.at(ID) = now_var_offset++
+
+        if nodes[1].nodes[0].root == "["
+            now_in_seg = true
+            is_seg_data = true
         end
+        if !now_in_seg
+            if !now_var_table.exist(ID)
+                now_var_table.insert(ID, now_var_offset++)
+            else
+                now_var_table.at(ID) = now_var_offset++
+            end
+        else
+            if !now_var_seg.exist(ID)
+                now_var_seg.insert(ID, now_var_seg_offset++)
+            else
+                now_var_seg.at(ID) = now_var_seg_offset++
+            end
+        end
+        now_in_seg = false
         # Recursive Visit init_declarator_0_rep_2
         this.visit_init_declarator_0_rep_2(nodes[idx++].nodes)
         # Recursive Visit init_declarator_0_opt_3
         this.visit_init_declarator_0_opt_3(nodes[idx++].nodes)
-        now_var_offset--
 
+        if is_seg_data
+            now_var_seg_offset--
+            var inst = "DATA "
+            inst = inst + now_var_type + " "
+            inst += to_string(now_var_instore.size)
+            foreach iter in now_var_instore
+                var add_iter = to_string(iter)
+                if now_var_type == "float"
+                    if add_iter.find(".", 0 ) < 0
+                        add_iter += ".0"
+                    end
+                end
+                inst = inst + " " + add_iter
+            end
+            output.push_back(inst)
+            now_var_instore.clear()
+        end
+        
     end
 
     function visit_init_declarator_0_opt_3(nodes)
@@ -377,18 +419,22 @@ class main
                 matched = true
                 # Visit term "{"
                 ++idx; target.print("{")
+                now_in_seg = true
                 # Recursive Visit initializer_list
                 this.visit_initializer_list(nodes[idx++].nodes)
                 # Recursive Visit initializer_1_opt_3
                 this.visit_initializer_1_opt_3(nodes[idx++].nodes)
                 # Visit term "}"
                 ++idx; target.print("}")
+                now_in_seg = false
             end
             if !matched && (nodes[idx].root == "assignment_expression")
                 matched = true
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[idx++].nodes)
-                now_var_offset++
+                if now_in_seg
+                    now_var_seg_offset++
+                end
             end
             if !matched
             	# Error
@@ -868,9 +914,11 @@ class main
                     output.pop_back()
                 end
 
+                var old_var_idx = now_var_idx
                 # Recursive Visit assignment_expression
                 this.visit_assignment_expression(nodes[1].nodes)
 
+                now_var_idx = old_var_idx
                 # Recursive Visit assign_op
                 this.visit_assign_op(nodes[0].nodes)
                 
@@ -892,34 +940,34 @@ class main
                 # Visit term "/="
                 ++idx; target.print("/=")
                 output.push_back("SDIV")
-                output.push_back("COPY 0f " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "*=")
                 matched = true
                 # Visit term "*="
                 ++idx; target.print("*=")
                 output.push_back("SMUL")
-                output.push_back("COPY 0f " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "-=")
                 matched = true
                 # Visit term "-="
                 ++idx; target.print("-=")
                 output.push_back("SSUB")
-                output.push_back("COPY 0f " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "+=")
                 matched = true
                 # Visit term "+="
                 ++idx; target.print("+=")
                 output.push_back("SADD")
-                output.push_back("COPY 0f " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "=")
                 matched = true
                 # Visit term "="
                 ++idx; target.print("=")
-                output.push_back("COPY 0f " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched
             	# Error
@@ -1240,14 +1288,14 @@ class main
                 # Visit term "--"
                 ++idx; target.print("--")
                 output.push_back("ISUB 1")
-                output.push_back("COPY 01 " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched && (nodes[idx].root == "++")
                 matched = true
                 # Visit term "++"
                 ++idx; target.print("++")
                 output.push_back("IADD 1")
-                output.push_back("COPY 01 " + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
             end
             if !matched
             	# Error
@@ -1322,7 +1370,11 @@ class main
                 # Visit term "["
                 ++idx; target.print("[")
                 # Recursive Visit expression
+                var mID = now_var_name
                 this.visit_expression(nodes[idx++].nodes)
+                if now_var_seg.at(mID) != 0
+                    output.push_back("IADD " + now_var_seg.at(mID))
+                end
                 output.push_back("PDAT ffff")
                 # Visit term "]"
                 ++idx; target.print("]")
@@ -1399,7 +1451,7 @@ class main
                 # Visit term "--"
                 ++idx; target.print("--")
                 output.push_back("ISUB 1")
-                output.push_back("COPY f0" + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
                 output.push_back("IADD 1")
             end
             if !matched && (nodes[idx].root == "++")
@@ -1407,7 +1459,7 @@ class main
                 # Visit term "++"
                 ++idx; target.print("++")
                 output.push_back("IADD 1")
-                output.push_back("COPY f0" + now_var_idx)
+                output.push_back("COPY f0 " + now_var_idx)
                 output.push_back("ISUB 1")
             end
             if !matched
@@ -1436,14 +1488,30 @@ class main
                 # Visit NUMBER token
                 var number = nodes[idx++].nodes[0].root
                 target.print(number)
-                output.push_back("PUSH " + number)
-                now_var_idx = -1
+                if !now_in_seg
+                    if now_var_type == "float"
+                        var num = to_string(number)
+                        if num.find(".", 0) < 0
+                            num += ".0"
+                        end
+                        output.push_back("PUSH " + num)
+                    else
+                        output.push_back("PUSH " + number)
+                    end
+                else
+                    # output.push_back("PUSH " + number)
+                    now_var_instore.push_back(number)
+                end
             end
             if !matched && (nodes[idx].root == "ID")
                 matched = true
                 # Visit ID token
                 var ID = nodes[idx++].nodes[0].root
                 target.print(ID)
+                if now_var_seg.exist(ID)
+                    now_var_name = ID
+                    return
+                end
                 if !now_var_table.exist(ID)
                     now_var_name = ID
                     return 
@@ -1554,6 +1622,7 @@ class main
                 funcbegin = idx
                 
                 for i = funcend + 1, i < funcbegin, i++
+
                     output[i] += "    REMOVE"
                 end 
             end
@@ -1562,7 +1631,8 @@ class main
         end
 
         for i = funcend + 1, i != idx, i++
-            output[i] += "    REMOVE"
+            system.out.println(to_string(typeid output[i]) + "  " + to_string(output[i]))
+            output[i] = to_string(output[i]) +  "    REMOVE"
         end
     end
 

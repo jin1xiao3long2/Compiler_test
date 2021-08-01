@@ -1,0 +1,77 @@
+int fib(int n)
+{
+    if (n > 1)
+        return fib(n - 1) + fib(n - 2);
+    else
+        return 1;
+}
+
+int main()
+{
+    int iarr[] = {1, 3, 5, 7};
+    float farr[] = {1.1, 2.2, 3.3};
+    for (int i = 0; i < 3; ++i)
+    {
+        print(iarr[i]);
+        print(farr[i]);
+    }
+    print(iarr[3]);
+    fib(4);
+    return 0;
+}
+
+SUBP fib
+PUSH 00 0
+PUSH 1
+SSUB
+CJMP fib_select_0_1
+PUSH 1
+RETP
+NJMP fib_select_0_2
+FLAG fib_select_0_1
+PUSH 00 0
+PUSH 1
+SSUB
+CALL 1 fib
+PUSH 00 0
+PUSH 2
+SSUB
+CALL 1 fib
+SADD
+RETP
+SUBP main
+DATA int 4 1 3 5 7
+DATA float 3 1.1 2.2 3.3
+PUSH 0
+FLAG main_iter_0_1
+PUSH 3
+PUSH 00 0
+SSUB
+CJMP main_iter_0_2
+NJMP main_iter_0_3
+FLAG main_iter_0_2
+PUSH 00 0
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 4
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 1
+COPY 0f 0
+SPOP 1
+NJMP main_iter_0_1
+FLAG main_iter_0_3
+SPOP 1
+PUSH 3
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 4
+CALL 1 fib
+SPOP 1
+PUSH 0
+RETP

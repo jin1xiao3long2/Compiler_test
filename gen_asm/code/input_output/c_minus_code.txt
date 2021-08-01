@@ -28,7 +28,7 @@ int main()
         print(farr[i]);
     }
     print(iarr[3]);
-    fib(iarr[1]);
-    pi(farr[2]);
+    print(fib(iarr[1]));
+    print(pi(3));
     return 0;
 }
