@@ -61,9 +61,11 @@ class LR_term
 
     function add_start_term(res)
         #first_node
+
         var begin_node = res.begin.data
         var root = begin_node.root
-         
+
+        #%该标识可以避免重名
         var start_node = new grammar_transfer.tree_type
         start_node.root = "%start%"
         
@@ -96,7 +98,6 @@ class LR_term
             set.insert(value)
             map.insert(key,set)
         end
-
         # return new_key
     end
 
@@ -257,7 +258,6 @@ class LR_term
     
     # 修改为LR0项, 将同一个statement不同位添加%MARK%标记
     function add_mark_term(node, source_index)
-
         #若仅有一个NULL(ε), 则修改为%MARK%
         if node.nodes.size == 1 && node.nodes[0].root == "NULL"
             var new_term = new LR_type
