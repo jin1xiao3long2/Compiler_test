@@ -54,59 +54,61 @@ var cminus_lexical = {
 
 parser.add_grammar("ebnf-lang", ebnf_parser.grammar)
 
+var time_start = runtime.time()
 parser.enable_log = false
 parser.from_file(context.cmd_args.at(1))
+system.out.println("Compile Time: " + (runtime.time() - time_start)/1000 + "s")
 
 if !parser.ast == null
-    #parsergen.print_ast(parser.ast)
+    parsergen.print_ast(parser.ast)
     new_tree.run(parser.ast)
     #foreach it in new_tree.store_name do system.out.println(it)
-    #system.out.println("\n\n")
-    #parsergen.print_header("show list")
+    system.out.println("\n\n")
+    parsergen.print_header("show list")
     LR_term_list.run(new_tree.res)
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("show FIRST SET")
-    # LR_term_list.show_first_follow_map(LR_term_list.first_map)
+    system.out.println("\n\n")
+    parsergen.print_header("show FIRST SET")
+    LR_term_list.show_first_follow_map(LR_term_list.first_map)
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("show FOLLOW SET")
-    # LR_term_list.show_first_follow_map(LR_term_list.follow_map)
+    system.out.println("\n\n")
+    parsergen.print_header("show FOLLOW SET")
+    LR_term_list.show_first_follow_map(LR_term_list.follow_map)
 
-    # parsergen.print_header("show_mark_info")
-    # LR_term_list.show_result()
+    parsergen.print_header("show_mark_info")
+    LR_term_list.show_result()
    
     NFA.run(LR_term_list.result)
     DFA.run(NFA.result_list,LR_term_list.first_map, LR_term_list.follow_map)
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("LOG INFO")
-    # foreach mes in DFA.log_info do system.out.println(mes)
+    system.out.println("\n\n")
+    parsergen.print_header("LOG INFO")
+    foreach mes in DFA.log_info do system.out.println(mes)
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("ERROR INFO")
-    # foreach mes in DFA.error_info do system.out.println(mes)
+    system.out.println("\n\n")
+    parsergen.print_header("ERROR INFO")
+    foreach mes in DFA.error_info do system.out.println(mes)
 
     #需要分析
-    # system.out.println("\n\n")
-    # parsergen.print_header("CREATE PREDICT TABLE")
+    system.out.println("\n\n")
+    parsergen.print_header("CREATE PREDICT TABLE")
     DFA.create_predict_table()
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("SHOW PREDICT TABLE")
-    # DFA.show_predict_table()
+    system.out.println("\n\n")
+    parsergen.print_header("SHOW PREDICT TABLE")
+    DFA.show_predict_table()
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("PARSING CODE")
+    system.out.println("\n\n")
+    parsergen.print_header("PARSING CODE")
     
     var code = from_file(context.cmd_args.at(2))
     slr_parser.run(code, DFA.predict_table, cminus_lexical)
     slr_parser.slr_lex()
     slr_parser.slr_parse()
 
-    # system.out.println("\n\n")
-    # parsergen.print_header("SHOW TREE")
-    # slr_parser.show_trees(slr_parser.tree_stack.back, 0)
+    system.out.println("\n\n")
+    parsergen.print_header("SHOW TREE")
+    slr_parser.show_trees(slr_parser.tree_stack.back, 0)
 
     visitor.run(slr_parser.tree_stack.back)
 end

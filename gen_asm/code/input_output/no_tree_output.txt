@@ -1,0 +1,117 @@
+SUBP fib
+PUSH 00 0
+PUSH 1
+SSUB
+CJMP fib_select_0_0
+PUSH 1
+RETP
+NJMP fib_select_0_1
+FLAG fib_select_0_0
+PUSH 00 0
+PUSH 1
+SSUB
+CALL 1 fib
+PUSH 00 0
+PUSH 2
+SSUB
+CALL 1 fib
+SADD
+RETP
+SUBP pi
+PUSH 0.0
+PUSH 1.0
+PUSH 1
+FLAG pi_iter_0_0
+PUSH 00 0
+PUSH 00 3
+ISUB 1
+SSUB
+CJMP pi_iter_0_1
+NJMP pi_iter_0_2
+FLAG pi_iter_0_1
+PUSH 00 1
+PUSH 00 2
+PUSH 00 3
+SDIV
+SADD
+COPY f0 1
+SPOP 1
+PUSH 0
+PUSH 00 2
+SSUB
+COPY f0 2
+SPOP 1
+PUSH 00 3
+PUSH 2
+SADD
+COPY f0 3
+SPOP 1
+NJMP pi_iter_0_0
+FLAG pi_iter_0_2
+SPOP 1
+PUSH 00 1
+RETP
+SUBP main
+DATA int 4 1 3 5 7
+DATA float 3 1.1 2.2 3.3
+PUSH 0
+FLAG main_iter_0_0
+PUSH 3
+PUSH 00 0
+SSUB
+CJMP main_iter_0_1
+NJMP main_iter_0_2
+FLAG main_iter_0_1
+PUSH 00 0
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 4
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 00 0
+IADD 1
+COPY f0 0
+SPOP 1
+NJMP main_iter_0_0
+FLAG main_iter_0_2
+SPOP 1
+PUSH 0
+FLAG main_iter_1_0
+PUSH 3
+PUSH 00 0
+SSUB
+CJMP main_iter_1_1
+NJMP main_iter_1_2
+FLAG main_iter_1_1
+PUSH 00 0
+PUSH 1
+SSUB
+CJMP main_iter_1_select_3_0
+NJMP main_iter_1_select_3_1
+FLAG main_iter_1_select_3_0
+FLAG main_iter_1_select_3_1
+PUSH 00 0
+IADD 1
+COPY f0 0
+SPOP 1
+NJMP main_iter_1_0
+FLAG main_iter_1_2
+SPOP 1
+PUSH 3
+PDAT ffff
+CALL 1 print
+SPOP 1
+PUSH 1
+PDAT ffff
+CALL 1 fib
+CALL 1 print
+SPOP 1
+PUSH 3
+CALL 1 pi
+CALL 1 print
+SPOP 1
+PUSH 0
+RETP

@@ -27,6 +27,12 @@ int main()
         print(iarr[i]);
         print(farr[i]);
     }
+
+    for(int i = 0; i < 3; ++i)
+    {
+        if(i > 1)
+            ;
+    }
     print(iarr[3]);
     print(fib(iarr[1]));
     print(pi(3));
