@@ -22,13 +22,19 @@ class slr_parser_type
     var predict_table = new array
     var lex_rule = new hash_map
 
-
     var parsing_stack = new array
+    
     var data_stack = new array
+    
     var tree_stack = new array
-
+    
     var error_info = new array
 
+    var error_stage = 2
+
+    var error_cache = new array
+
+    var 
 
     function show_stack_state()
         print_header("SHOW PARSING STACKS")
@@ -95,9 +101,22 @@ class slr_parser_type
                 tree_node.root = dat.data
             end
 
+            #find error
             if tree_node.root == ""
-                system.out.println("PARSING ERROR")
-                break
+                if error_stage == 0
+                    system.out.println("Parsing error")
+                    foreach err in error_log do system.out.println(err)
+                end
+
+                #搜寻错误信息
+                error_stage--
+                
+                #添加报错信息
+                add_error()
+
+                foreach ele in predict_table[state] do error_cache.push_back(ele)
+
+                
             end
 
             var res = predict_table[state].at(tree_node.root)
