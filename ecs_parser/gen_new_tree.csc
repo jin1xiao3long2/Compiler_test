@@ -4,7 +4,7 @@ import ebnf_parser
 import parsergen
 import parse_new_grammar
 import regex
-import ast_visitor
+#import ast_visitor
 
 function from_file(path)
     var ifs = iostream.ifstream(path)
@@ -35,20 +35,20 @@ var DFA = new check_LR_grammar.DFA_type
 
 var slr_parser = new parse_new_grammar.slr_parser_type
 
-var visitor = new ast_visitor.main
+#var visitor = new ast_visitor.main
 
 @begin
 var cminus_lexical = {
+    "ENDL" : regex.build("^\\n+$"),
     "ID" : regex.build("^[A-Za-z_]\\w*$"),
-    "NUMBER" : regex.build("^[0-9]+\\.?([0-9]+)?$"),
+    "NUM" : regex.build("^[0-9]+\\.?([0-9]+)?$"),
     "STR" : regex.build("^(\"|\"([^\"]|\\\\\")*\"?)$"),
     "CHAR" : regex.build("^(\'|\'([^\']|\\\\(0|\\\\|\'|\"|\\w))\'?)$"),
     "BSIG" : regex.build("^(;|:=?|\\?|\\.\\.?|\\.\\.\\.)$"),
     "MSIG" : regex.build("^(\\+(\\+|=)?|-(-|=|>)?|\\*=?|/=?|%=?|\\^=?)$"),
     "LSIG" : regex.build("^(>|<|&|(\\|)|&&|(\\|\\|)|!|==?|!=?|>=?|<=?)$"),
     "BRAC" : regex.build("^(\\(|\\)|\\[|\\]|\\{|\\}|,)$"),
-    "ign" : regex.build("^([ \\f\\r\\t\\v\n]+|#.*)$"),
-    "err" : regex.build("^(\"|\'|(\\|)|\\.\\.)$")
+    "PREP" : regex.build("^@.*$")
 }.to_hash_map()
 @end
 
@@ -110,5 +110,5 @@ if !parser.ast == null
     parsergen.print_header("SHOW TREE")
     slr_parser.show_trees(slr_parser.tree_stack.back, 0)
 
-    visitor.run(slr_parser.tree_stack.back)
+   # visitor.run(slr_parser.tree_stack.back)
 end

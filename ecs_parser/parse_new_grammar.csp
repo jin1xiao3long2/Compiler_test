@@ -34,7 +34,6 @@ class slr_parser_type
 
     var error_cache = new array
 
-    var 
 
     function show_stack_state()
         print_header("SHOW PARSING STACKS")
@@ -48,6 +47,16 @@ class slr_parser_type
         system.out.println("")
     end
 
+    function print_error(file, code, err)
+        foreach it in err
+            system.out.print("File \"" + file + "\", line " + (it.pos[1] + 1) + ": ")
+            system.out.println(it.text)
+            system.out.println("> " + code[it.pos[1]])
+            foreach i in range(it.pos[0] + 2) do system.out.print(' ')
+            system.out.print("^")
+            system.out.println("\n")
+        end
+    end
 
     function slr_lex()
         var lexer = new parsergen.lexer_type
@@ -58,15 +67,10 @@ class slr_parser_type
         foreach it in token_buff do system.out.println("  Type = " + it.type + "\tData = " + it.data + "\tPos = (" + it.pos[0] + ", " + it.pos[1] + ")")
         
         if !lexer.error_log.empty()
-            if stop_on_error
-                print_header("Compilation Error")
-            else
-                print_header("Compilation Warning")
-            end
-            print_error(file_path, code_buff, lexer.error_log)
-            if stop_on_error
-                return
-            end
+            
+            print_header("Compilation Error")
+           
+            print_error("file_path", code, lexer.error_log)
         end
 
         foreach dat in token_buff do data_stack.push_front(dat)
@@ -103,19 +107,19 @@ class slr_parser_type
 
             #find error
             if tree_node.root == ""
-                if error_stage == 0
-                    system.out.println("Parsing error")
-                    foreach err in error_log do system.out.println(err)
-                end
+                #if error_stage == 0
+                system.out.println("Parsing error")
+                    #foreach err in error_log do system.out.println(err)
+                #end
 
                 #搜寻错误信息
                 error_stage--
                 
                 #添加报错信息
-                add_error()
+                #add_error()
 
-                foreach ele in predict_table[state] do error_cache.push_back(ele)
-
+                #foreach ele in predict_table[state] do error_cache.push_back(ele)
+                break
                 
             end
 

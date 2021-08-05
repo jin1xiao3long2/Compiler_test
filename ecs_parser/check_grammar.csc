@@ -17,16 +17,20 @@ var slr_parser = new parse_new_grammar.slr_parser_type
 
 @begin
 var ebnf_lexical = {
-    "ID" : regex.build("^[a-z_]*$"),
-    "TOKEN" : regex.build("^[A-Z]*$"),
-    "BRAC" : regex.build("^(\\(|\\)|\\[|\\]|\\{|\\})$"),
-    "SIG" : regex.build("^(:|::|(::)?=||\\||;)$"),
-    "SLIT" : regex.build("^(\'|\'([^\']|\\\\\')*\'?)$"),
-    "DLIT" : regex.build("^(\"|\"([^\"]|\\\\\")*\"?)$"),
-    "ign" : regex.build("^([ \\f\\r\\t\\v\\n]+)$"),
-    "err" : regex.build("^(\"|\'|\\.\\.)$")
+    "ENDL" : regex.build("^\\n+$"),
+    "ID" : regex.build("^[A-Za-z_]\\w*$"),
+    "NUM" : regex.build("^[0-9]+\\.?([0-9]+)?$"),
+    "STR" : regex.build("^(\"|\"([^\"]|\\\\\")*\"?)$"),
+    "CHAR" : regex.build("^(\'|\'([^\']|\\\\(0|\\\\|\'|\"|\\w))\'?)$"),
+    "BSIG" : regex.build("^(;|:=?|\\?|\\.\\.?|\\.\\.\\.)$"),
+    "MSIG" : regex.build("^(\\+(\\+|=)?|-(-|=|>)?|\\*=?|/=?|%=?|\\^=?)$"),
+    "LSIG" : regex.build("^(>|<|&|(\\|)|&&|(\\|\\|)|!|==?|!=?|>=?|<=?)$"),
+    "BRAC" : regex.build("^(\\(|\\)|\\[|\\]|\\{|\\}|,)$"),
+    "PREP" : regex.build("^@.*$")
 }.to_hash_map()
 @end
+
+
 
 
 parser.add_grammar("ebnf-lang", ebnf_parser.grammar)
