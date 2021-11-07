@@ -106,9 +106,9 @@ cond_expr ::= logic_or_expr [cond_postfix];
 
 cond_postfix ::= '?' logic_or_expr ':' cond_expr | ':' logic_or_expr;
 
-logic_or_expr ::= logic_and_expr ['||' | 'or'] logic_or_expr;
+logic_or_expr ::= logic_and_expr [('||' | 'or') logic_or_expr];
 
-logic_and_expr ::= equal_expr ['&&' | 'and'] logic_and_expr;
+logic_and_expr ::= equal_expr [('&&' | 'and') logic_and_expr];
 
 equal_expr ::= relat_expr [('==' | '!=') equal_expr];
 
@@ -116,7 +116,7 @@ relat_expr ::= add_expr [('>' | '<' | '>=' | '<=') relat_expr];
 
 add_expr ::= mul_expr [('+' | '-') add_expr];
 
-mul_expr ::= unary_expr ([('/' | '%' | '^') mul_expr] | ENDL);
+mul_expr ::= unary_expr [('*' | '/' | '%' | '^') mul_expr];
 
 unary_expr ::= unary_op unary_expr | ('new' | 'gcnew') unary_expr [array] | prim_expr [postfix_expr];
 

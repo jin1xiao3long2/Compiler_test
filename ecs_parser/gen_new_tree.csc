@@ -6,6 +6,7 @@ import parse_new_grammar
 import regex
 #import ast_visitor
 
+#返回包括换行符的源代码                  
 function from_file(path)
     var ifs = iostream.ifstream(path)
     if !ifs.good()
@@ -25,7 +26,14 @@ function from_file(path)
     return input
 end
 
+
+#初始化对象(后用)
+
+#输入(from_file),ecs源代码,输出,ecs的分析树(parser.tree)
 var parser = new parsergen.generator
+
+
+
 var new_tree = new grammar_transfer.traversal_old_tree
 #var res = new grammar_transfer.traversal_new_tree
 var LR_term_list = new check_LR_grammar.LR_term
@@ -37,6 +45,7 @@ var slr_parser = new parse_new_grammar.slr_parser_type
 
 #var visitor = new ast_visitor.main
 
+#提供ecs的token正则表达式
 @begin
 var cminus_lexical = {
     "ENDL" : regex.build("^\\n+$"),
@@ -48,7 +57,9 @@ var cminus_lexical = {
     "MSIG" : regex.build("^(\\+(\\+|=)?|-(-|=|>)?|\\*=?|/=?|%=?|\\^=?)$"),
     "LSIG" : regex.build("^(>|<|&|(\\|)|&&|(\\|\\|)|!|==?|!=?|>=?|<=?)$"),
     "BRAC" : regex.build("^(\\(|\\)|\\[|\\]|\\{|\\}|,)$"),
-    "PREP" : regex.build("^@.*$")
+    "PREP" : regex.build("^@.*$"),
+    "ign" : regex.build("^([ \\f\\r\\t\\v]+|#.*)$"),
+    "err" : regex.build("^(\"|\'|(\\|)|\\.\\.)$")
 }.to_hash_map()
 @end
 
@@ -56,10 +67,13 @@ parser.add_grammar("ebnf-lang", ebnf_parser.grammar)
 
 var time_start = runtime.time()
 parser.enable_log = false
+
+#分析得到ecs的ast
 parser.from_file(context.cmd_args.at(1))
 system.out.println("Compile Time: " + (runtime.time() - time_start)/1000 + "s")
 
 if !parser.ast == null
+    
     parsergen.print_ast(parser.ast)
     new_tree.run(parser.ast)
     #foreach it in new_tree.store_name do system.out.println(it)
@@ -110,5 +124,8 @@ if !parser.ast == null
     parsergen.print_header("SHOW TREE")
     slr_parser.show_trees(slr_parser.tree_stack.back, 0)
 
-   # visitor.run(slr_parser.tree_stack.back)
+    system.out.println("\n\n")
+    parsergen.print_header("SHOW ERROR")
+    slr_parser.show_error()
+#    visitor.run(slr_parser.tree_stack.back)
 end

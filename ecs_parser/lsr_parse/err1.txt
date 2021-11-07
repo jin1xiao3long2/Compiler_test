@@ -1,0 +1,298 @@
+function slr_parse()
+
+        # foreach i in range(error_level) do error_state.push_back(false)
+
+        while true
+            show_stack_state()
+            var state = parsing_stack.back
+            var dat = data_stack.back
+            if dat.data != "%END%"
+                dat.data = "\'" + dat.data + "\'"
+            end
+            system.out.println("state: " + state + ",  data: " + dat.type + "  " + dat.data)
+            var tree_node = new tree_type
+            if predict_table[state].exist(dat.type)
+                system.out.println("type")
+                tree_node.root = dat.type
+                var data_node = new tree_type
+                data_node.root = string.substr(dat.data, 1, dat.data.size - 2)
+                tree_node.nodes.push_back(data_node)
+            end
+
+            if predict_table[state].exist(dat.data)
+                tree_node = new tree_type
+                system.out.println("data")
+                tree_node.root = dat.data
+            end
+
+            # #若失败
+            # if tree_node.root = ""
+
+            #     if error_max_level == 0
+            #         #add_error
+            #         system.out.println("PARSING ERROR NUMBER")
+            #         break
+            #     end
+            #     #判断是否是失败情况
+
+            #     var error_pos = -1
+
+            #     foreach iter in error_state
+            #         if iter == true
+            #             #判断第几个错误
+            #             error_pos++
+            #         end
+            #     end
+
+            #     #分析error_level和error_max_level
+            #     #error_level决定栈到第几层. error_max_level决定是否终止
+            #     #分析状态
+            #     var res = check_error_state(error_pos, error_level)
+
+            #     block
+                
+                    
+
+
+            #     end
+
+
+            #     if res == true
+            #         continue
+            #     else
+            #         error_level++
+            #         #清空数据
+
+
+            #         if error_level == error_max_level
+            #             #error
+            #         end
+
+            #         foreach iter in error_state do iter = false
+
+            #         foreach iter in error_cache do iter.clear()
+
+            #         foreach iter in error_parsing_stack_cache do iter.clear()
+
+            #         foreach iter in error_data_stack_cache do iter.clear()
+
+            #     end
+
+            # end
+
+
+            # if tree_node.root == ""
+                
+            #     #无法找寻一定是进入错误状态
+
+            #     #判断处于的状态: 第n个错误
+            #     var error_pos = 0
+            #     foreach iter in error_state
+            #         if iter == true
+            #             error_pos++
+            #         end
+            #     end
+
+            #     #如果是第一次错误
+            #     if error_pos == 0
+            #         #设置为第一次错误
+            #         error_state[0] = true
+            #         #add_error()
+            #         #暂需要考虑是否需要加入规约方式
+            #         #目前是:仅加入跳转 如 ID : 233
+            #         foreach expr in predict_table[state]
+            #             if typeid expr.second != typeid check_LR_grammar.LR_type
+            #                 if expr.first[0] == '\'' || expr.first[0].isupper()
+            #                     error_cache.push_back(expr.first)
+            #                 end
+            #             end
+            #         end
+            #         #储存栈缓存
+            #         error_parsing_stack_cache[0] = parsing_stack
+            #         error_data_stack_cache[0] = data_stack
+            #     end
+
+            #     #进行栈环境分析
+            #     block
+                    
+            #     end
+
+
+
+            #     #恢复环境并进行下一次尝试
+            #     block
+            #         #恢复栈环境
+            #         parsing_stack = error_parsing_stack_cache[error_pos-1]
+
+            #         data_stack = error_data_stack_cache[error_pos-1]
+
+            #         #数据栈解退
+            #         data_stack.pop_back()
+
+            #         #进行若干次迭代
+            #         var error_dat = error_cache[error_pos-1].pop_back()
+
+            #         var error_node = new parsergen.token_type
+
+            #         if error_dat.find("\'", 0) >= 0
+            #             error_node.type = "ERROR"
+            #             error_node.data = error_dat
+            #         else
+            #             error_node.type = error_dat
+            #             error_node.data = "ERROR"
+            #         end
+
+            #         #数据栈压栈
+            #         data_stack.push_back(error_node)
+
+            #         continue
+            #     end
+
+
+
+            #     #如果为空恢复
+                
+
+            #     #判断n次失败结果
+            #     #若n>max_level, 则终止parse
+
+
+
+            # end
+
+
+
+
+            #find error
+            # if tree_node.root == ""
+            #     in_error = true
+                
+            #     error_state++
+
+            #     # system.out.println("Parsing error")
+            #     #     #foreach err in error_log do system.out.println(err)
+            #     # #end
+            #     # break
+
+            #     if error_state == 1
+            #         #记录错误
+            #         #add_error()
+            #         add_error("Unexpected input \"" + dat.data + "\"", dat.pos)
+            #         system.out.println("ADD ERROR " + dat.data)
+            #         #error_state = 2
+            #         error_state++
+            #         #储存错误缓存
+            #         #暂需要考虑是否需要加入递归方式
+            #         foreach expr in predict_table[state]
+            #             if typeid expr.second != typeid check_LR_grammar.LR_type
+            #                 if expr.first[0] == '\'' || expr.first[0].isupper()
+            #                     error_cache.push_back(expr.first)
+            #                 end
+            #             end
+            #         end
+            #         #储存栈缓存
+            #         error_parsing_stack_cache = parsing_stack
+            #     end
+
+            #     #若干次出错
+            #     if !error_cache.empty() && error_state == 2
+            #         parsing_stack = error_parsing_stack_cache
+
+            #         data_stack.pop_back()
+
+            #         var error_dat = error_cache.pop_back()
+
+            #         var error_node = new parsergen.token_type
+
+            #         if error_dat.find("\'", 0) >= 0
+            #             error_node.type = "ERROR"
+            #             error_node.data = error_dat
+            #         else
+            #             error_node.type = error_dat
+            #             error_node.data = "ERROR"
+            #         end
+
+            #         data_stack.push_back(error_node)
+
+            #         continue
+            #     end
+
+            #     #全部判断错误
+            #     if error_state == 2 && error_cache.empty()
+            #         system.out.println("PARSING ERROR NUMBER " + error_level)
+            #         break
+            #     end
+               
+            
+            # end
+
+            var res = predict_table[state].at(tree_node.root)
+            if tree_node.root[0] == '\''
+                tree_node.root = string.substr(dat.data, 1, dat.data.size-2)
+            end
+            system.out.println("push dat: " + tree_node.root)
+
+            if typeid res != typeid check_LR_grammar.LR_type
+                system.out.println("res is : " + res)
+                if res == -1
+                    system.out.print("END OF PARSING")
+                    break
+                end
+                
+                # #error_state 2->1
+                # if in_error
+                #     error_state--
+                #     system.out.println("ERROR STATE SUB")
+                #     if error_state == 0
+                #         in_error = false
+                #     end
+                # end
+                #shift操作
+                parsing_stack.push_back(tree_node.root)
+                parsing_stack.push_back(res)
+                
+                data_stack.pop_back()
+                system.out.print("shift res ")
+
+                tree_stack.push_back(tree_node)
+                system.out.println("tree stack push node " + tree_node.root)
+            else
+                var root_node = new tree_type
+                root_node.root = res.root
+
+                var vec = new array 
+                if res.origin_nodes.size == 1 && res.origin_nodes[0] == "NULL"
+                    var tree_node = new tree_type
+                    tree_node.root = "NULL"
+                    vec.push_back(tree_node)
+                else
+                    var del_time = res.origin_nodes.size
+                    #reduce
+                    
+                    for i = 0, i < del_time, i++
+                        #pop state
+                        parsing_stack.pop_back()
+                        #pop data
+                        parsing_stack.pop_back()
+
+                        var node = tree_stack.pop_back()
+                        vec.push_front(node)
+                    end
+                end
+                foreach node in vec do root_node.nodes.push_back(node)    
+                var now_state = parsing_stack.back
+                if predict_table[now_state].exist(res.root) && typeid predict_table[now_state].at(res.root) != typeid check_LR_grammar.LR_type
+                    parsing_stack.push_back(res.root)
+                    parsing_stack.push_back(predict_table[now_state].at(res.root))
+                    
+                    tree_stack.push_back(root_node)
+                    system.out.println("tree stack push node " + root_node.root)
+                else
+                    system.out.println("REDUCE ERROR")
+                    break
+                end
+            end 
+        
+        end
+        system.out.println("END PARSING")
+    end
