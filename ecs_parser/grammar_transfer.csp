@@ -218,7 +218,7 @@ class traversal_old_tree
                 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_" + to_string(now_time)+ "_rep_" + (now_tree.nodes.size + 1)
+                var name = now_name + "@" + to_string(now_time)+ "_rep_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
@@ -255,7 +255,7 @@ class traversal_old_tree
 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_" + to_string(now_time)+ "_decl_" + (now_tree.nodes.size + 1)
+                var name = now_name + "@" + to_string(now_time)+ "_decl_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node
@@ -290,7 +290,7 @@ class traversal_old_tree
                 
                 # new parsergen.syntax_tree
                 var tree = new tree_type
-                var name = now_name + "_" + to_string(now_time) + "_opt_" + (now_tree.nodes.size + 1)
+                var name = now_name + "@" + to_string(now_time) + "_opt_" + (now_tree.nodes.size + 1)
                 tree.root = name
                 
                 # add node

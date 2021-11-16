@@ -59,6 +59,8 @@ class LR_term
     #Follow集
     var follow_map = new hash_map
 
+    var enable_log = true
+
     function add_start_term(res)
         #first_node
 
@@ -297,29 +299,34 @@ class LR_term
         foreach iter in node.nodes do system.out.print(iter.root + " ")
     end
 
-    function run(res)
+    function run(res, log_priv)
 
         # recieve statement list
         input_res = res
 
+        #log privileges
+        enable_log = log_priv
+
         # show now info
-        system.out.println("\n\n")
-        print_header("show origin terms info")
-        foreach iter in input_res
-            system.out.print(iter.root + " ::= ")
-            show_node_info(iter)
-            system.out.println("")
+        if enable_log
+            system.out.println("\n\n")
+            print_header("show origin terms info")
+            foreach iter in input_res
+                system.out.print(iter.root + " ::= ")
+                show_node_info(iter)
+                system.out.println("")
+            end
         end
-        
         # add unique entrance
         add_start_term(input_res)
-
-        system.out.println("\n\n")
-        print_header("show info after add start node")
-        foreach iter in input_res
-            system.out.print(iter.root + " ::= ")
-            show_node_info(iter)
-            system.out.println(";")
+        if enable_log
+            system.out.println("\n\n")
+            print_header("show info after add start node")
+            foreach iter in input_res
+                system.out.print(iter.root + " ::= ")
+                show_node_info(iter)
+                system.out.println(";")
+            end
         end
         # calculate first set and follow set
 
@@ -348,6 +355,8 @@ class NFA_type
     var flat_list = new array
 
     var result_list = new array
+
+    var enable_log = true
     
 
 
@@ -466,20 +475,26 @@ class NFA_type
         end
     end
 
-    function run(statement_list)
+    function run(statement_list, log_priv)
+
         input_list = statement_list
         flat_trees()
 
-        system.out.println("\n\n")
-        print_header("DNF TERM")
+        enable_log = log_priv
         
-        show_flat_result()
+        if enable_log
+            system.out.println("\n\n")
+            print_header("DFA TERM")
+            show_flat_result()
+        end
 
         create_NFA()
 
-        system.out.println("\n\n")
-        print_header("ADD TARGETS")
-        foreach iter in flat_list do print_LR_type(iter)
+        if enable_log
+            system.out.println("\n\n")
+            print_header("ADD TARGETS")
+            foreach iter in flat_list do print_LR_type(iter)
+        end
         
         result_list = flat_list
     end
@@ -546,6 +561,8 @@ end
 
 class DFA_type
     var input_list = new array
+
+    var enable_log = true
 
     var subset_list = new array
 
@@ -888,12 +905,16 @@ class DFA_type
         end
     end
     
-    function run(input, first_m, follow_m)
+    function run(input, first_m, follow_m, log_priv)
         input_list = input
         first_map = first_m
         follow_map = follow_m
+        enable_log = log_priv
 
-        print_header("#DFA#")
+        if enable_log
+            print_header("#DFA#")
+        end
+        
         var terms = new array
         terms.push_back(input_list[0])
         minimal_subset(terms)
@@ -902,7 +923,9 @@ class DFA_type
 
         add_target()
 
-        print_table()
+        if enable_log
+            print_table()
+        end
 
         # print_simple_table()
 

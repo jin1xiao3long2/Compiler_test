@@ -24,6 +24,7 @@ end
 
 class slr_parser_type
     var code = ""
+    var enable_log = true
     var code_buff = new array
     var predict_table = new array
     var lex_rule = new hash_map
@@ -96,11 +97,13 @@ class slr_parser_type
 
     function slr_lex()
         var lexer = new parsergen.lexer_type
-        print_header("Begin Lexical Analysis...")
+        if enable_log
+            print_header("Begin Lexical Analysis...")
+        end
         
         var token_buff = lexer.run(lex_rule, code)
         
-        foreach it in token_buff do system.out.println("  Type = " + it.type + "\tData = " + it.data + "\tPos = (" + it.pos[0] + ", " + it.pos[1] + ")")
+        # foreach it in token_buff do system.out.println("  Type = " + it.type + "\tData = " + it.data + "\tPos = (" + it.pos[0] + ", " + it.pos[1] + ")")
         
         if !lexer.error_log.empty()
             
@@ -132,8 +135,9 @@ class slr_parser_type
     function slr_parse()
 
         while true
-
-            show_stack_state()
+            if enable_log
+                show_stack_state()
+            end
             #展示stack state
             
             var state = parsing_stack.back
@@ -147,7 +151,7 @@ class slr_parser_type
             end
              
 
-            system.out.println("state: " + state + ",  data: " + dat.type + "  " + dat.data)
+            # system.out.println("state: " + state + ",  data: " + dat.type + "  " + dat.data)
             #展示state信息
             
             var tree_node = new tree_type
@@ -155,7 +159,7 @@ class slr_parser_type
             
             #软关键字
             if predict_table[state].exist(dat.type)
-                system.out.println("type")
+                # system.out.println("type")
                 tree_node.root = dat.type
                 var data_node = new tree_type
                 data_node.root = string.substr(dat.data, 1, dat.data.size - 2)
@@ -164,7 +168,7 @@ class slr_parser_type
 
             if predict_table[state].exist(dat.data)
                 tree_node = new tree_type
-                system.out.println("data")
+                # system.out.println("data")
                 tree_node.root = dat.data
             end
 
@@ -172,7 +176,7 @@ class slr_parser_type
                 #恢复现场
                 parsing_stack = store_parsing_stack
                 data_stack = store_data_stack
-                system.out.println("recover from shift")
+                # system.out.println("recover from shift")
 
                 #add_error
                 error_log.push_back("new error at : " + dat.pos[0] + "  " + dat.pos[1] + "  " + dat.type + "  " + dat.data)
@@ -203,13 +207,13 @@ class slr_parser_type
                 tree_node.root = string.substr(dat.data, 1, dat.data.size-2)
             end
 
-            system.out.println("push dat: " + tree_node.root)
+            # system.out.println("push dat: " + tree_node.root)
 
 
 
             #移项
             if typeid res != typeid check_LR_grammar.LR_type
-                system.out.println("res is : " + res)
+                # system.out.println("res is : " + res)
                 if res == -1
                     system.out.print("END OF PARSING")
                     break
@@ -225,10 +229,10 @@ class slr_parser_type
                 store_data_stack = data_stack
                 error_level = 0
                 #储存现场
-                system.out.print("shift res ")
+                # system.out.print("shift res ")
 
                 tree_stack.push_back(tree_node)
-                system.out.println("tree stack push node " + tree_node.root)
+                # system.out.println("tree stack push node " + tree_node.root)
             else
             #规约
                 var root_node = new tree_type
@@ -263,12 +267,12 @@ class slr_parser_type
                     parsing_stack.push_back(predict_table[now_state].at(res.root))
                     
                     tree_stack.push_back(root_node)
-                    system.out.println("tree stack push node " + root_node.root)
+                    #system.out.println("tree stack push node " + root_node.root)
                 else
                 #恢复现场
                 parsing_stack = store_parsing_stack
                 data_stack = store_data_stack
-                system.out.println("recover from shift")
+                # system.out.println("recover from shift")
 
                 #add_error
                 error_log.push_back("new state error at : " + dat.pos[0] + "  " + dat.pos[1] + "  " + dat.type + "  " + dat.data)
@@ -294,7 +298,7 @@ class slr_parser_type
                 end
             end
         end
-        system.out.println("END PARSING")
+        # system.out.println("END PARSING")
     end
 
     function show_trees(node, depth)
@@ -308,8 +312,9 @@ class slr_parser_type
     end
 
     #栈改用指针的模式
-    function run(input_code, input_predict_table, input_lex_rule)
+    function run(input_code, input_predict_table, input_lex_rule, log_priv)
         code = input_code
+        enable_log = log_priv
         predict_table = input_predict_table
         lex_rule = input_lex_rule
         parsing_stack.push_back(0)
